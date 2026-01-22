@@ -1,0 +1,44 @@
+# BrandGenie Backend Requirements
+# OMEGA-compatible Python backend for autonomous brand campaign generation
+
+# Core Framework
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+
+# HTTP Client for OMEGA Integration
+aiohttp==3.9.1
+httpx==0.25.2
+
+# Data Processing & Utilities
+python-json-logger==2.0.7
+python-multipart==0.0.6
+python-dateutil==2.8.2
+
+# Environment Management
+python-dotenv==1.0.0
+
+# UUID and Async Utilities
+uuid6==2023.5.2
+
+# Optional: Enhanced logging and structured logging
+structlog==23.2.0
+
+# Development Dependencies
+pytest==7.4.3
+pytest-asyncio==0.21.1
+black==23.11.0
+flake8==6.1.0
+
+# Production Dependencies
+gunicorn==21.2.0
+
+# Optional: If you want to use the real OMEGA classes when available
+# Note: These will only be used if OMEGA is available in the environment
+# omega-framework==1.0.0  # Uncomment if OMEGA package is available as a pip package
+
+# Dependencies that might be needed for full OMEGA integration
+# redis==5.0.1  # For OMEGA Redis integration
+# motor==3.3.2  # For OMEGA MongoDB integration
+# tenacity==8.2.3  # For retry logic in OMEGA agents

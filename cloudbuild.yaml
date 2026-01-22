@@ -1,0 +1,53 @@
+steps:
+  # Install dependencies
+  - name: 'node:18'
+    entrypoint: 'npm'
+    args: ['ci']
+    
+  # Build the application
+  - name: 'node:18'
+    entrypoint: 'npm'
+    args: ['run', 'build']
+    
+  # Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'gcr.io/$PROJECT_ID/brandgenie-ai:$COMMIT_SHA',
+      '-t', 'gcr.io/$PROJECT_ID/brandgenie-ai:latest',
+      '.'
+    ]
+    
+  # Push Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '--all-tags', 'gcr.io/$PROJECT_ID/brandgenie-ai']
+    
+  # Deploy to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [
+      'run', 'deploy', 'brandgenie-api',
+      '--image', 'gcr.io/$PROJECT_ID/brandgenie-ai:$COMMIT_SHA',
+      '--region', 'us-central1',
+      '--platform', 'managed',
+      '--allow-unauthenticated',
+      '--memory', '512Mi',
+      '--cpu', '1',
+      '--max-instances', '10',
+      '--min-instances', '0',
+      '--concurrency', '100',
+      '--timeout', '300'
+    ]
+    
+  # Upload static assets to bucket (optional - for CDN)
+  - name: 'gcr.io/cloud-builders/gsutil'
+    args: [
+      '-m', 'rsync', '-r', '-d',
+      '.next/static/',
+      'gs://$PROJECT_ID-static-assets/static/'
+    ]
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8'
+
+timeout: '1200s'

@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # ForgePilot Orchestrator - The main API service
+  forgepilot-orchestrator:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8010:8010"  # Expose ForgePilot API
+    environment:
+      - OMEGA_FEDERATION_URL=http://federation-core:8001
+      - PYTHONPATH=/app/src:/app
+      - LOG_LEVEL=INFO
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    networks:
+      - omega-net
+    restart: unless-stopped
+    depends_on:
+      - federation-core
+      - context-server
+    labels:
+      - "omega.service.type=forgepilot_orchestrator" 
+      - "omega.swarm=forgepilot"
+      - "omega.api.port=8010"
+      - "omega.version=1.0.0"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8010/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    volumes:
+      # Optional: Mount source for development
+      # - ./backend/src:/app/src
+
+  # Placeholder for future individual agent containers
+  # These would be deployed when we want to containerize agents separately
+  
+  # brand-strategist:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile.agent
+  #     args:
+  #       AGENT_NAME: brand_strategist
+  #   environment:
+  #     - OMEGA_AGENT_NAME=brand_strategist
+  #     - FEDERATION_CORE_URL=http://federation-core:8001
+  #     - CONTEXT_SERVER_URL=http://context-server:8002
+  #   networks:
+  #     - omega-net
+  #   depends_on:
+  #     - federation-core
+  #     - context-server
+  #   restart: unless-stopped
+  #   labels:
+  #     - "omega.agent.type=brand_strategist"
+  #     - "omega.swarm=forgepilot"
+
+networks:
+  # Connect to existing OMEGA network
+  omega-net:
+    external: true
+
+# Deployment Instructions:
+# 
+# 1. Ensure OMEGA core services are running first:
+#    cd /path/to/omega && ./scripts/deploy.sh
+# 
+# 2. Deploy ForgePilot:
+#    docker-compose up -d
+# 
+# 3. Verify deployment:
+#    curl http://localhost:8010/health
+# 
+# 4. Test campaign generation:
+#    curl -X POST http://localhost:8010/campaign \
+#      -H "Content-Type: application/json" \
+#      -d '{"description":"AI fitness app for millennials"}'
+# 
+# 5. Monitor logs:
+#    docker-compose logs -f forgepilot-orchestrator
+# 
+# Service URLs:
+# - ForgePilot API: http://localhost:8010
+# - Health Check: http://localhost:8010/health  
+# - API Documentation: http://localhost:8010/docs
+# - Metrics: http://localhost:8010/metrics

@@ -1,0 +1,10 @@
+project_id = "brandgenie-ai-prod"
+region     = "us-central1"
+environment = "prod"
+
+# GitHub repo for CI/CD
+github_owner = "your-username"
+github_repo  = "brand-genie-ai"
+
+# Azure OpenAI (cheaper than GCP AI)
+azure_openai_endpoint = "https://your-openai.openai.azure.com/"
