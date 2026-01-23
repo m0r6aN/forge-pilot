@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { PropertySearchService } from '@/lib/real-estate/property-search'
 import { verifyJWT } from '@/lib/auth/jwt'
+import { FirestoreService } from '@/lib/db/firestore'
 
 export async function POST(request: NextRequest) {
   try {

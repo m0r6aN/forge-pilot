@@ -317,7 +317,7 @@ export class FirestoreService {
     }
   }
 
-  static async getUserUsage(userId: string, period?: string): Promise<UsageRecord[]> {
+  static async getUserUsageRecords(userId: string, period?: string): Promise<UsageRecord[]> {
     const targetPeriod = period || new Date().toISOString().slice(0, 7)
     const snapshot = await db.instance
       .collection(collections.usage)
@@ -346,7 +346,7 @@ export class FirestoreService {
       return { allowed: true, remaining: -1, limit: -1, currentUsage: 0 }
     }
     
-    const usageRecords = await this.getUserUsage(userId)
+    const usageRecords = await this.getUserUsageRecords(userId)
     const typeMap: Record<string, UsageRecord['type']> = {
       brands: 'brand_generation',
       generations: 'brand_generation',
@@ -508,5 +508,53 @@ export class FirestoreService {
         doc => doc.data().status === 'completed'
       ).length,
     }
+  }
+
+  // Additional methods for subscription and 3D rendering
+  static async getUserById(userId: string): Promise<User | null> {
+    return this.getUser(userId)
+  }
+
+  static async getUserUsage(userId: string): Promise<{ generationsThisMonth?: number; storageUsed?: number } | null> {
+    const usageRecords = await this.getUserUsageRecords(userId)
+    const generationsThisMonth = usageRecords
+      .filter(r => r.type === 'brand_generation' || r.type === 'logo_generation')
+      .reduce((sum, r) => sum + r.count, 0)
+    
+    return {
+      generationsThisMonth,
+      storageUsed: 0, // TODO: Calculate actual storage usage
+    }
+  }
+
+  static async save3DRender(renderData: any): Promise<void> {
+    const renderRef = db.instance.collection('renders').doc()
+    await renderRef.set({
+      ...renderData,
+      id: renderRef.id,
+      createdAt: new Date(),
+    })
+  }
+
+  static async get3DRenders(userId: string, brandId?: string | null): Promise<any[]> {
+    let query = db.instance.collection('renders').where('userId', '==', userId)
+    
+    if (brandId) {
+      query = query.where('brandId', '==', brandId)
+    }
+    
+    const snapshot = await query.orderBy('createdAt', 'desc').get()
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+  }
+
+  static async recordActivity(userId: string, activityType: string, data: any): Promise<void> {
+    const activityRef = db.instance.collection('activities').doc()
+    await activityRef.set({
+      id: activityRef.id,
+      userId,
+      activityType,
+      data,
+      createdAt: new Date(),
+    })
   }
 }
