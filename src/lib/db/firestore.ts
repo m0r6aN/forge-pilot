@@ -68,9 +68,9 @@ export interface Brand {
   userId: string
   brandName: string
   tagline: string
-  colorPalette: string[]
-  brandVoice: string
-  typography: string
+  colorPalette: string[] | { primary: string; secondary: string; accent: string; neutral: string[] } | any
+  brandVoice: string | { tone: string; personality: string[]; messaging: string[] } | any
+  typography: string | { primary: string; secondary: string; headings: string } | any
   logoUrl?: string
   logoVariations?: Array<{
     url: string
@@ -89,7 +89,7 @@ export interface Generation {
   id: string
   userId: string
   brandId: string
-  type: 'brand' | 'logo' | 'variation'
+  type: 'brand' | 'logo' | 'variation' | '3d-render' | 'video' | 'social-media' | 'marketing'
   prompt: string
   result?: any
   status: 'pending' | 'completed' | 'failed'
@@ -126,7 +126,7 @@ export interface UserSettings {
 export interface UsageRecord {
   id: string
   userId: string
-  type: 'brand_generation' | 'logo_generation' | 'video_generation' | 'api_call'
+  type: 'brand_generation' | 'logo_generation' | 'video_generation' | 'api_call' | '3d-render' | 'site-hosting' | 'domain-registration'
   count: number
   period: string
   createdAt: Date

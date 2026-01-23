@@ -10,7 +10,20 @@ const nextConfig: NextConfig = {
   
   // Image optimization
   images: {
-    domains: ['storage.googleapis.com', 'oaidalleapiprodscus.blob.core.windows.net'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'storage.googleapis.com',
+        port: '',
+        pathname: '/brandgenie-static-assets/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'oaidalleapiprodscus.blob.core.windows.net',
+        port: '',
+        pathname: '/**'
+      }
+    ],
     formats: ['image/webp', 'image/avif'],
   },
   
