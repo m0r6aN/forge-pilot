@@ -229,12 +229,51 @@ const video = await generateAvatarVideo({
 ## 🚀 **Getting Started**
 
 ### **For Developers**
+
+#### **Quick Start (Local Development)**
 ```bash
+# Clone repository
 git clone https://github.com/forgepilot/forgepilot-ai.git
 cd forgepilot-ai
+
+# Install frontend dependencies
 npm install
 npm run dev
+
+# Start backend API (requires OMEGA Federation Core)
+cd forgepilot-api
+pip install -e ".[dev]"
+export FEDERATION_URL=http://localhost:3000
+uvicorn app.main:app --reload --port 8000
 ```
+
+#### **Docker Deployment**
+```bash
+# Start all services
+docker-compose up -d forgepilot-api
+
+# Verify health
+curl http://localhost:8000/health
+
+# Create a campaign
+curl -X POST http://localhost:8000/api/v1/campaigns \
+  -H "Content-Type: application/json" \
+  -d '{
+    "business_idea": "AI-powered meal planning app",
+    "target_audience": "Busy professionals aged 25-40",
+    "tenant_id": "550e8400-e29b-41d4-a716-446655440000",
+    "actor_id": "user@example.com"
+  }'
+```
+
+#### **Architecture**
+ForgePilot uses an OMEGA-native architecture:
+- **Frontend**: Next.js 14 (UI/UX)
+- **forgepilot-api**: Thin API layer (HTTP ↔ Federation Core)
+- **Federation Core**: OMEGA orchestration and agent coordination
+- **OMEGA Pantheon**: MCP-based agent swarm
+
+See `/docs/backend/` for detailed specifications.
 
 ### **For Business Leaders**
 1. **Demo**: [Schedule executive demo](mailto:demo@forgepilot.ai)
