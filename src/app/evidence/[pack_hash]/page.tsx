@@ -16,7 +16,7 @@ export default function EvidencePackPage({ params }: EvidencePageProps) {
         <div className="space-y-2">
           <div className="flex flex-wrap items-center gap-3">
             <Badge variant="secondary">MOCK</Badge>
-            <Badge variant="outline">Trust shell</Badge>
+            <Badge variant="outline">Evidence shell</Badge>
           </div>
           <h1 className="text-3xl font-semibold">Evidence Pack</h1>
           <p className="text-sm text-muted-foreground">
@@ -76,12 +76,13 @@ export default function EvidencePackPage({ params }: EvidencePageProps) {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Why this is safe</CardTitle>
+              <CardTitle>Verification status</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm text-muted-foreground">
               <p>
-                Placeholder for the Keon trust narrative. No reasoning or policy claims
-                are applied yet.
+                Placeholder for Keon verification output. This section will display
+                only verifiable fields (verdict, key id, verification method,
+                timestamps). No interpretations.
               </p>
               <div className="rounded-lg border border-dashed p-4 text-center">
                 <p className="font-medium text-foreground">Trust narrative pending</p>
@@ -90,7 +91,7 @@ export default function EvidencePackPage({ params }: EvidencePageProps) {
                 </p>
               </div>
               <p className="text-xs uppercase tracking-wide text-muted-foreground">
-                TODO(keon): Inject safety rationale and trust signals.
+                TODO(keon): Render verdict + kid + verification method + verified_at from Keon outputs.
               </p>
             </CardContent>
           </Card>
@@ -103,7 +104,7 @@ export default function EvidencePackPage({ params }: EvidencePageProps) {
               <ul className="list-disc space-y-2 pl-5">
                 <li>Wire pack lookup via Keon SDK.</li>
                 <li>Render evidence artifacts and sources.</li>
-                <li>Expose trust outputs from Keon verdicts.</li>
+                <li>Render verification verdict + provenance (kid, method).</li>
               </ul>
               <p className="text-xs uppercase tracking-wide text-muted-foreground">
                 TODO(keon): Replace checklist with real integration status.
