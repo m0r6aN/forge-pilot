@@ -3,7 +3,7 @@ import Stripe from 'stripe'
 import { FirestoreService } from '@/lib/db/firestore'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-06-20',
+  apiVersion: '2025-12-15.clover',
 })
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
@@ -132,9 +132,9 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
     plan,
     status: mapStripeStatus(subscription.status),
     stripeSubscriptionId: subscription.id,
-    currentPeriodStart: new Date(subscription.current_period_start * 1000),
-    currentPeriodEnd: new Date(subscription.current_period_end * 1000),
-    cancelAtPeriodEnd: subscription.cancel_at_period_end,
+    currentPeriodStart: new Date((subscription as any).current_period_start * 1000),
+    currentPeriodEnd: new Date((subscription as any).current_period_end * 1000),
+    cancelAtPeriodEnd: (subscription as any).cancel_at_period_end || false,
   }
 
   if (existingSub) {
