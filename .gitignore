@@ -40,3 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .vs/
+
+# Windows weirdness / accidental device-named file
+nul
+/nul
