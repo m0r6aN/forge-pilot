@@ -160,6 +160,30 @@ export class BrandGenieClient {
       timeline,
     });
   }
+
+  /**
+   * 🔍 Fetch a verified evidence pack by hash
+   */
+  async getEvidencePack(packHash: string): Promise<any> {
+    try {
+      console.log(`🔍 Retrieving evidence pack: ${packHash}`);
+      
+      const response = await fetch(`${this.baseUrl}/evidence/${packHash}`);
+      
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error(`Evidence pack not found: ${packHash}`);
+        }
+        const errorText = await response.text();
+        throw new Error(`BrandGenie API error: ${response.status} - ${errorText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('💥 Evidence retrieval failed:', error);
+      throw error;
+    }
+  }
 }
 
 // Export singleton instance
@@ -173,6 +197,7 @@ export const useBrandGenie = () => {
     getCapabilities: brandGenieClient.getCapabilities.bind(brandGenieClient),
     quickGenerate: brandGenieClient.quickGenerate.bind(brandGenieClient),
     advancedGenerate: brandGenieClient.advancedGenerate.bind(brandGenieClient),
+    getEvidencePack: brandGenieClient.getEvidencePack.bind(brandGenieClient),
   };
 };
 
