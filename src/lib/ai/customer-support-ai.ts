@@ -118,7 +118,7 @@ export class AICustomerSupport {
     const context = await this.getCustomerContext(customerId)
     
     const prompt = `
-      You are BrandGenie AI's customer support specialist. Be helpful, friendly, and solution-oriented.
+      You are ForgePilot AI's customer support specialist. Be helpful, friendly, and solution-oriented.
       
       Customer: ${customer.name} (${customer.tier} plan, ${customer.daysSinceSignup} days)
       Recent activity: ${context.recentActivity}
@@ -130,7 +130,7 @@ export class AICustomerSupport {
       1. Acknowledges their concern
       2. Provides a clear solution or next steps
       3. Offers additional help
-      4. Maintains BrandGenie's friendly, innovative tone
+      4. Maintains ForgePilot's friendly, innovative tone
       
       If technical issue, provide step-by-step instructions.
       If billing issue, be empathetic and solution-focused.

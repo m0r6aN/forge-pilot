@@ -1,4 +1,4 @@
-# BrandGenie Backend Requirements
+# ForgePilot Backend Requirements
 # OMEGA-compatible Python backend for autonomous brand campaign generation
 
 # Core Framework

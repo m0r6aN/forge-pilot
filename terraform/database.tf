@@ -7,7 +7,7 @@ resource "google_project_service" "firestore_api" {
 }
 
 # Firestore database
-resource "google_firestore_database" "brandgenie_db" {
+resource "google_firestore_database" "forgepilot_db" {
   project     = var.project_id
   name        = "(default)"
   location_id = var.firestore_region
@@ -19,7 +19,7 @@ resource "google_firestore_database" "brandgenie_db" {
 # Firestore indexes for performance
 resource "google_firestore_index" "user_brands_index" {
   project    = var.project_id
-  database   = google_firestore_database.brandgenie_db.name
+  database   = google_firestore_database.forgepilot_db.name
   collection = "brands"
   
   fields {
@@ -35,7 +35,7 @@ resource "google_firestore_index" "user_brands_index" {
 
 resource "google_firestore_index" "brand_status_index" {
   project    = var.project_id
-  database   = google_firestore_database.brandgenie_db.name
+  database   = google_firestore_database.forgepilot_db.name
   collection = "brands"
   
   fields {
@@ -51,8 +51,8 @@ resource "google_firestore_index" "brand_status_index" {
 
 # Service account for Firestore access
 resource "google_service_account" "firestore_sa" {
-  account_id   = "brandgenie-firestore"
-  display_name = "BrandGenie Firestore Service Account"
+  account_id   = "forgepilot-firestore"
+  display_name = "ForgePilot Firestore Service Account"
   description  = "Service account for Firestore database access"
 }
 

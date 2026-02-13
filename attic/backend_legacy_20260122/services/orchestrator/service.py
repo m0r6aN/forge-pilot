@@ -383,7 +383,7 @@ async def root():
 async def startup_event():
     """Service startup initialization"""
     print("🧬" * 20)
-    print("🚀 BRANDGENIE SERVICE STARTING")
+    print("🚀 FORGEPILOT SERVICE STARTING")
     print("🧬" * 20)
     print(f"   Service: ForgePilot Orchestrator API")
     print(f"   Version: 1.0.0")

@@ -1,7 +1,7 @@
 # Budget alert to keep costs under control
-resource "google_billing_budget" "brandgenie_budget" {
+resource "google_billing_budget" "forgepilot_budget" {
   billing_account = var.billing_account_id
-  display_name    = "BrandGenie AI Budget"
+  display_name    = "ForgePilot AI Budget"
   
   budget_filter {
     projects = ["projects/${var.project_id}"]

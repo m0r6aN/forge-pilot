@@ -146,7 +146,7 @@ export class EcommerceBuilder extends SiteBuilder {
     const siteFiles = await this.buildEcommerceTemplate(brand, config, products)
     
     // Deploy with e-commerce functionality
-    const bucketName = `${subdomain}.brandgenie.app`
+    const bucketName = `${subdomain}.forgepilot.app`
     await this.createSiteBucket(bucketName)
     await this.uploadSiteFiles(bucketName, siteFiles)
     
@@ -162,7 +162,7 @@ export class EcommerceBuilder extends SiteBuilder {
       brandId,
       subdomain,
       type: 'ecommerce',
-      url: `https://${subdomain}.brandgenie.app`,
+      url: `https://${subdomain}.forgepilot.app`,
       paymentProviders: config.paymentProviders,
       products: products.length,
       status: 'deployed'

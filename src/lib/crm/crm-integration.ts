@@ -90,10 +90,10 @@ export class CRMIntegrationManager {
       lastName: customer.lastName,
       company: brand.brandName,
       phone: customer.phone,
-      source: 'BrandGenie AI',
+      source: 'ForgePilot AI',
       customFields: {
-        brandgenie_customer_id: customer.id,
-        brandgenie_plan: customer.plan,
+        forgepilot_customer_id: customer.id,
+        forgepilot_plan: customer.plan,
         brand_industry: brand.industry,
         brand_target_audience: brand.targetAudience,
         brand_estimated_value: brand.estimatedValue,
@@ -124,7 +124,7 @@ export class CRMIntegrationManager {
         brand_name: brand.brandName,
         brand_industry: brand.industry,
         services_interested: this.getServicesInterested(customer),
-        brandgenie_customer_id: customer.id
+        forgepilot_customer_id: customer.id
       }
     }
     
@@ -156,7 +156,7 @@ export class CRMIntegrationManager {
       firstName: customerData.firstName,
       lastName: customerData.lastName,
       company: brandData.brandName,
-      source: 'BrandGenie AI - Free Brand Generation',
+      source: 'ForgePilot AI - Free Brand Generation',
       leadScore: this.calculateLeadScore(customerData, brandData),
       interests: [brandData.industry, 'branding', 'business development'],
       customFields: {

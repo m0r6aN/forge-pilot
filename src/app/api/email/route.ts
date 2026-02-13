@@ -27,10 +27,10 @@ export async function POST(req: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'BrandGenie AI <noreply@brandgenie.ai>',
+      from: 'ForgePilot AI <noreply@forgepilot.ai>',
       to: [email],
-      subject: emailSubject || 'Welcome to BrandGenie AI',
-      html: emailContent || `<p>Hello ${name || 'there'},</p><p>Thank you for using BrandGenie AI!</p>`,
+      subject: emailSubject || 'Welcome to ForgePilot AI',
+      html: emailContent || `<p>Hello ${name || 'there'},</p><p>Thank you for using ForgePilot AI!</p>`,
       tags: [
         {
           name: 'template_id',

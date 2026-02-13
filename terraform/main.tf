@@ -7,7 +7,7 @@ terraform {
     }
   }
   backend "gcs" {
-    bucket = "brandgenie-terraform-state"
+    bucket = "forgepilot-terraform-state"
     prefix = "terraform/state"
   }
 }
@@ -80,14 +80,14 @@ resource "google_storage_bucket_iam_member" "public_read" {
 }
 
 # Cloud Run service for API
-resource "google_cloud_run_service" "brandgenie_api" {
-  name     = "brandgenie-api"
+resource "google_cloud_run_service" "forgepilot_api" {
+  name     = "forgepilot-api"
   location = var.region
   
   template {
     spec {
       containers {
-        image = "gcr.io/${var.project_id}/brandgenie-ai:latest"
+        image = "gcr.io/${var.project_id}/forgepilot-ai:latest"
         
         ports {
           container_port = 3000
@@ -196,14 +196,14 @@ resource "google_cloud_run_service" "brandgenie_api" {
   
   depends_on = [
     google_project_service.required_apis,
-    google_firestore_database.brandgenie_db
+    google_firestore_database.forgepilot_db
   ]
 }
 
 # Allow unauthenticated access to Cloud Run
 resource "google_cloud_run_service_iam_member" "public_access" {
-  service  = google_cloud_run_service.brandgenie_api.name
-  location = google_cloud_run_service.brandgenie_api.location
+  service  = google_cloud_run_service.forgepilot_api.name
+  location = google_cloud_run_service.forgepilot_api.location
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
@@ -243,8 +243,8 @@ resource "google_secret_manager_secret" "azure_openai_key" {
 
 # Cloud Build trigger for CI/CD
 resource "google_cloudbuild_trigger" "deploy_trigger" {
-  name        = "brandgenie-deploy"
-  description = "Deploy BrandGenie AI on push to main"
+  name        = "forgepilot-deploy"
+  description = "Deploy ForgePilot AI on push to main"
   
   github {
     owner = var.github_owner
@@ -261,7 +261,7 @@ resource "google_cloudbuild_trigger" "deploy_trigger" {
 
 # Outputs
 output "cloud_run_url" {
-  value = google_cloud_run_service.brandgenie_api.status[0].url
+  value = google_cloud_run_service.forgepilot_api.status[0].url
 }
 
 output "static_bucket_url" {

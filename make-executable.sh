@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🧬 MAKING BRANDGENIE x OMEGA SCRIPTS EXECUTABLE"
+echo "🧬 MAKING FORGEPILOT x OMEGA SCRIPTS EXECUTABLE"
 echo "=============================================="
 
 # Make all shell scripts executable

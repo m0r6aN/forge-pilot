@@ -12,7 +12,7 @@ type ThemeProviderProps = {
 export function ThemeProvider({ 
   children, 
   defaultTheme = 'dark',
-  storageKey = 'brandgenie-theme',
+  storageKey = 'forgepilot-theme',
   ...props 
 }: ThemeProviderProps) {
   return (

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🧬 BRANDGENIE x OMEGA QUICK START"
+echo "🧬 FORGEPILOT x OMEGA QUICK START"
 echo "================================="
 echo ""
 
@@ -153,7 +153,7 @@ if [[ $HEALTH_CHECK == *"healthy"* ]]; then
     OMEGA_CONNECTED=$(echo $HEALTH_CHECK | grep -o '"omega_connected":[^,}]*' | cut -d':' -f2)
     
     echo ""
-    echo -e "${PURPLE}🧬 BRANDGENIE STATUS${NC}"
+    echo -e "${PURPLE}🧬 FORGEPILOT STATUS${NC}"
     echo "================================="
     echo -e "Service Version: ${GREEN}${SERVICE_VERSION}${NC}"
     echo -e "OMEGA Connected: ${GREEN}${OMEGA_CONNECTED}${NC}"
@@ -224,7 +224,7 @@ fi
 
 # Final status
 echo ""
-echo -e "${PURPLE}🎉 BRANDGENIE DEPLOYMENT COMPLETE!${NC}"
+echo -e "${PURPLE}🎉 FORGEPILOT DEPLOYMENT COMPLETE!${NC}"
 echo "=================================="
 echo ""
 echo -e "${GREEN}✅ Services Running:${NC}"

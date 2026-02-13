@@ -326,7 +326,7 @@ export class DomainManager {
             
             <div class="cta">
                 <h3>Interested in purchasing this domain?</h3>
-                <a href="mailto:domains@brandgenie.ai?subject=Interest in ${config.domain}" class="buy-button">
+                <a href="mailto:domains@forgepilot.ai?subject=Interest in ${config.domain}" class="buy-button">
                     Make an Offer
                 </a>
                 <p class="price-info">Serious inquiries only. Financing available.</p>

@@ -67,7 +67,7 @@ class ForgePilotIntegrationTest:
     async def run_complete_test_suite(self):
         """Run the complete integration test suite"""
         print("🧬" * 25)
-        print("🚀 BRANDGENIE x OMEGA INTEGRATION TEST SUITE")
+        print("🚀 FORGEPILOT x OMEGA INTEGRATION TEST SUITE")
         print("🧬" * 25)
         print()
 
@@ -583,15 +583,15 @@ class ForgePilotIntegrationTest:
         # Final verdict
         print(f"\n🎯 INTEGRATION VERDICT:")
         if success_rate >= 90:
-            print("   🚀 BRANDGENIE x OMEGA INTEGRATION: FULLY OPERATIONAL!")
+            print("   🚀 FORGEPILOT x OMEGA INTEGRATION: FULLY OPERATIONAL!")
             print("   🧬 The digital organism is ALIVE and ready for production!")
             print("   ✅ Ready to generate autonomous brand campaigns!")
         elif success_rate >= 70:
-            print("   ⚡ BRANDGENIE x OMEGA INTEGRATION: MOSTLY FUNCTIONAL")
+            print("   ⚡ FORGEPILOT x OMEGA INTEGRATION: MOSTLY FUNCTIONAL")
             print("   🔧 Some components need attention, but core functionality works")
             print("   🎯 Ready for development and testing")
         else:
-            print("   💥 BRANDGENIE x OMEGA INTEGRATION: NEEDS WORK")
+            print("   💥 FORGEPILOT x OMEGA INTEGRATION: NEEDS WORK")
             print("   🔧 Multiple critical issues detected")
             print("   ⚠️  Review failed tests and fix infrastructure issues")
 
@@ -610,7 +610,7 @@ class ForgePilotIntegrationTest:
 
 async def main():
     """Run the ForgePilot x OMEGA integration test suite"""
-    print("🧬 BRANDGENIE x OMEGA INTEGRATION TEST SUITE")
+    print("🧬 FORGEPILOT x OMEGA INTEGRATION TEST SUITE")
     print("🚀 Testing autonomous brand generation organism...")
     print()
 

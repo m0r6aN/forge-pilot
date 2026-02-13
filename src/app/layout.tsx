@@ -8,7 +8,7 @@ import { MainLayout } from '@/components/layout/main-layout'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'BrandGenie AI - Autonomous Branding Platform',
+  title: 'ForgePilot AI - Autonomous Branding Platform',
   description: 'Generate complete brand identities for entrepreneurs, side-hustlers, and small businesses in minutes - not months.',
 }
 

@@ -162,9 +162,9 @@ export default function BusinessIdeasPage() {
                         <h5 className="text-white font-semibold">{service.service}</h5>
                         <p className="text-gray-300 text-sm">{service.description}</p>
                         <div className="flex items-center mt-2">
-                          {service.brandgenieOffering && (
+                          {service.forgepilotOffering && (
                             <span className="bg-purple-600 text-white px-2 py-1 rounded text-xs mr-2">
-                              BrandGenie
+                              ForgePilot
                             </span>
                           )}
                           <span className={`px-2 py-1 rounded text-xs ${
@@ -194,7 +194,7 @@ export default function BusinessIdeasPage() {
                   Total Setup Cost: ${totalCost.toLocaleString()}
                 </div>
                 <div className="text-gray-300">
-                  + ${149}/month BrandGenie Growth Plan
+                  + ${149}/month ForgePilot Growth Plan
                 </div>
               </div>
               

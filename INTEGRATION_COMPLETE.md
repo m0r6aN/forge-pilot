@@ -233,7 +233,7 @@ const campaign = await generateCampaign({
 
 ### **Documentation**
 - `backend/README.md` - **500+ lines** - Complete technical documentation
-- `BRANDGENIE_README.md` - Integration overview and usage guide
+- `FORGEPILOT_README.md` - Integration overview and usage guide
 
 ---
 

@@ -272,7 +272,7 @@ export default function BrandGenerator() {
 ```typescript
 // pages/api/generate-brand.ts
 import { NextApiRequest, NextApiResponse } from 'next';
-import { brandGenieClient } from '@/lib/forgepilot-client';
+import { forgePilotClient } from '@/lib/forgepilot-client';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
@@ -280,7 +280,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const campaign = await brandGenieClient.generateBrandCampaign(req.body);
+    const campaign = await forgePilotClient.generateBrandCampaign(req.body);
     res.status(200).json(campaign);
   } catch (error) {
     res.status(500).json({ error: 'Campaign generation failed' });

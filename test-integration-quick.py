@@ -154,7 +154,7 @@ async def test_fastapi_service():
 async def main():
     """Run all integration tests"""
     print("🧬" * 25)
-    print("🚀 BRANDGENIE INTEGRATION TEST")
+    print("🚀 FORGEPILOT INTEGRATION TEST")
     print("🧬" * 25)
     print()
 

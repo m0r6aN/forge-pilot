@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'storage.googleapis.com',
         port: '',
-        pathname: '/brandgenie-static-assets/**'
+        pathname: '/forgepilot-static-assets/**'
       },
       {
         protocol: 'https',

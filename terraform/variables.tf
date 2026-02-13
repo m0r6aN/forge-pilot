@@ -22,7 +22,7 @@ variable "environment" {
 }
 
 variable "domain_name" {
-  description = "Custom domain name (e.g., brandgenie.ai)"
+  description = "Custom domain name (e.g., forgepilot.ai)"
   type        = string
 }
 

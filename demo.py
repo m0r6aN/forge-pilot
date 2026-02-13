@@ -42,7 +42,7 @@ class ForgePilotLiveDemo:
     def print_header(self):
         """Print demo header"""
         print("🧬" * 30)
-        print("🎯 BRANDGENIE LIVE DEMO")
+        print("🎯 FORGEPILOT LIVE DEMO")
         print("🧬" * 30)
         print()
         print("WITNESS DIGITAL EVOLUTION IN ACTION:")
@@ -127,7 +127,7 @@ class ForgePilotLiveDemo:
         print(f"   Target: {scenario['target_audience']}")
         print()
 
-        print("🧬 ACTIVATING BRANDGENIE SWARM...")
+        print("🧬 ACTIVATING FORGEPILOT SWARM...")
 
         # Show agent activation simulation
         agents = [

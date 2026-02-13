@@ -1,5 +1,5 @@
 # Additional storage buckets for 3D assets and site hosting
-resource "google_storage_bucket" "brandgenie_3d_models" {
+resource "google_storage_bucket" "forgepilot_3d_models" {
   name     = "${var.project_id}-3d-models"
   location = var.region
   
@@ -22,7 +22,7 @@ resource "google_storage_bucket" "brandgenie_3d_models" {
   }
 }
 
-resource "google_storage_bucket" "brandgenie_3d_animations" {
+resource "google_storage_bucket" "forgepilot_3d_animations" {
   name     = "${var.project_id}-3d-animations"
   location = var.region
   
@@ -45,7 +45,7 @@ resource "google_storage_bucket" "brandgenie_3d_animations" {
   }
 }
 
-resource "google_storage_bucket" "brandgenie_site_templates" {
+resource "google_storage_bucket" "forgepilot_site_templates" {
   name     = "${var.project_id}-site-templates"
   location = var.region
   
@@ -61,32 +61,32 @@ resource "google_storage_bucket" "brandgenie_site_templates" {
 
 # Make 3D assets publicly readable
 resource "google_storage_bucket_iam_member" "public_read_3d_models" {
-  bucket = google_storage_bucket.brandgenie_3d_models.name
+  bucket = google_storage_bucket.forgepilot_3d_models.name
   role   = "roles/storage.objectViewer"
   member = "allUsers"
 }
 
 resource "google_storage_bucket_iam_member" "public_read_3d_animations" {
-  bucket = google_storage_bucket.brandgenie_3d_animations.name
+  bucket = google_storage_bucket.forgepilot_3d_animations.name
   role   = "roles/storage.objectViewer"
   member = "allUsers"
 }
 
 resource "google_storage_bucket_iam_member" "public_read_templates" {
-  bucket = google_storage_bucket.brandgenie_site_templates.name
+  bucket = google_storage_bucket.forgepilot_site_templates.name
   role   = "roles/storage.objectViewer"
   member = "allUsers"
 }
 
 # Output bucket URLs
 output "3d_models_bucket_url" {
-  value = "https://storage.googleapis.com/${google_storage_bucket.brandgenie_3d_models.name}"
+  value = "https://storage.googleapis.com/${google_storage_bucket.forgepilot_3d_models.name}"
 }
 
 output "3d_animations_bucket_url" {
-  value = "https://storage.googleapis.com/${google_storage_bucket.brandgenie_3d_animations.name}"
+  value = "https://storage.googleapis.com/${google_storage_bucket.forgepilot_3d_animations.name}"
 }
 
 output "site_templates_bucket_url" {
-  value = "https://storage.googleapis.com/${google_storage_bucket.brandgenie_site_templates.name}"
+  value = "https://storage.googleapis.com/${google_storage_bucket.forgepilot_site_templates.name}"
 }

@@ -1,5 +1,5 @@
-// BrandGenie OMEGA Integration Client
-// Connects Next.js frontend to the OMEGA-powered BrandGenie backend
+// ForgePilot OMEGA Integration Client
+// Connects Next.js frontend to the OMEGA-powered ForgePilot backend
 
 export interface BrandCampaignRequest {
   description: string;
@@ -56,7 +56,7 @@ export interface BrandCampaignResponse {
   next_actions: string[];
 }
 
-export class BrandGenieClient {
+export class ForgePilotClient {
   private baseUrl: string;
 
   constructor(baseUrl: string = 'http://localhost:8010') {
@@ -68,7 +68,7 @@ export class BrandGenieClient {
    */
   async generateBrandCampaign(request: BrandCampaignRequest): Promise<BrandCampaignResponse> {
     try {
-      console.log('🧬 Activating BrandGenie swarm...');
+      console.log('🧬 Activating ForgePilot swarm...');
       console.log('📋 Business description:', request.description);
 
       const response = await fetch(`${this.baseUrl}/campaign`, {
@@ -81,7 +81,7 @@ export class BrandGenieClient {
 
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(`BrandGenie API error: ${response.status} - ${errorText}`);
+        throw new Error(`ForgePilot API error: ${response.status} - ${errorText}`);
       }
 
       const result = await response.json();
@@ -92,13 +92,13 @@ export class BrandGenieClient {
 
       return result;
     } catch (error) {
-      console.error('💥 BrandGenie campaign failed:', error);
+      console.error('💥 ForgePilot campaign failed:', error);
       throw error;
     }
   }
 
   /**
-   * 🏥 Check BrandGenie service health
+   * 🏥 Check ForgePilot service health
    */
   async checkHealth(): Promise<any> {
     try {
@@ -175,7 +175,7 @@ export class BrandGenieClient {
           throw new Error(`Evidence pack not found: ${packHash}`);
         }
         const errorText = await response.text();
-        throw new Error(`BrandGenie API error: ${response.status} - ${errorText}`);
+        throw new Error(`ForgePilot API error: ${response.status} - ${errorText}`);
       }
 
       return await response.json();
@@ -187,26 +187,26 @@ export class BrandGenieClient {
 }
 
 // Export singleton instance
-export const brandGenieClient = new BrandGenieClient();
+export const forgePilotClient = new ForgePilotClient();
 
 // Export for React hooks
-export const useBrandGenie = () => {
+export const useForgePilot = () => {
   return {
-    generateCampaign: brandGenieClient.generateBrandCampaign.bind(brandGenieClient),
-    checkHealth: brandGenieClient.checkHealth.bind(brandGenieClient),
-    getCapabilities: brandGenieClient.getCapabilities.bind(brandGenieClient),
-    quickGenerate: brandGenieClient.quickGenerate.bind(brandGenieClient),
-    advancedGenerate: brandGenieClient.advancedGenerate.bind(brandGenieClient),
-    getEvidencePack: brandGenieClient.getEvidencePack.bind(brandGenieClient),
+    generateCampaign: forgePilotClient.generateBrandCampaign.bind(forgePilotClient),
+    checkHealth: forgePilotClient.checkHealth.bind(forgePilotClient),
+    getCapabilities: forgePilotClient.getCapabilities.bind(forgePilotClient),
+    quickGenerate: forgePilotClient.quickGenerate.bind(forgePilotClient),
+    advancedGenerate: forgePilotClient.advancedGenerate.bind(forgePilotClient),
+    getEvidencePack: forgePilotClient.getEvidencePack.bind(forgePilotClient),
   };
 };
 
 // Example usage in React components:
 /*
-import { useBrandGenie } from '@/lib/brandgenie-client';
+import { useForgePilot } from '@/lib/forgepilot-client';
 
 export default function BrandGenerator() {
-  const { generateCampaign } = useBrandGenie();
+  const { generateCampaign } = useForgePilot();
   
   const handleGenerate = async () => {
     try {

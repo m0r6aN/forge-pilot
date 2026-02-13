@@ -15,7 +15,7 @@ export interface CMSConfig {
 export class CMSAdminPortal {
   async createAdminInterface(websiteId: string, config: CMSConfig): Promise<string> {
     // Generate dynamic admin panel based on business type
-    const adminUrl = `https://admin.brandgenie.app/${websiteId}`
+    const adminUrl = `https://admin.forgepilot.app/${websiteId}`
     
     // Setup storage bucket with limits
     await this.setupStorageBucket(websiteId, config.storageLimit)

@@ -52,7 +52,7 @@ class ForgePilotLiveDemo:
     def print_demo_header(self):
         """Print dramatic demo header"""
         print("🧬" * 25)
-        print("🚀 BRANDGENIE LIVE DEMO - DIGITAL SPECIES IN ACTION")
+        print("🚀 FORGEPILOT LIVE DEMO - DIGITAL SPECIES IN ACTION")
         print("🧬" * 25)
         print()
         print("WHAT YOU'RE ABOUT TO WITNESS:")
@@ -87,7 +87,7 @@ class ForgePilotLiveDemo:
         """Demonstrate autonomous brand generation"""
         print(f"📋 INPUT: {scenario['input']}")
         print()
-        print("🧬 ACTIVATING BRANDGENIE SWARM...")
+        print("🧬 ACTIVATING FORGEPILOT SWARM...")
 
         # Simulate swarm activation
         agents = [
@@ -219,7 +219,7 @@ class ForgePilotLiveDemo:
 
 def print_integration_status():
     """Print current integration status"""
-    print("🔧 BRANDGENIE INTEGRATION STATUS")
+    print("🔧 FORGEPILOT INTEGRATION STATUS")
     print("-" * 40)
     print("✅ Integration guide created")
     print("✅ Docker configuration ready")
@@ -240,7 +240,7 @@ async def main():
     """Run the ForgePilot live demo"""
     demo = ForgePilotLiveDemo()
 
-    print("🎬 BRANDGENIE LIVE DEMO STARTING...")
+    print("🎬 FORGEPILOT LIVE DEMO STARTING...")
     print()
 
     # Show integration status first

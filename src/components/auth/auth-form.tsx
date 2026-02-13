@@ -51,7 +51,7 @@ export function AuthForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-center">Welcome to BrandGenie AI</CardTitle>
+        <CardTitle className="text-center">Welcome to ForgePilot AI</CardTitle>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="login" className="w-full">

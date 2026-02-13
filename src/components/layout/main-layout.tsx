@@ -24,7 +24,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="font-bold text-xl">BrandGenie AI</span>
+              <span className="font-bold text-xl">ForgePilot AI</span>
             </Link>
             <nav className="hidden md:flex items-center gap-6">
               {navItems.map((item) => (
@@ -67,7 +67,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       <footer className="border-t py-6 md:py-8">
         <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-sm text-muted-foreground">
-            © 2024 BrandGenie AI. All rights reserved.
+            © 2024 ForgePilot AI. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link href="/terms" className="text-sm text-muted-foreground hover:text-foreground">

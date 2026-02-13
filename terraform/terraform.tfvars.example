@@ -1,4 +1,4 @@
-project_id = "brandgenie-ai-prod"
+project_id = "forgepilot-ai-prod"
 region     = "us-central1"
 environment = "prod"
 

@@ -50,7 +50,7 @@ export interface BusinessIdea {
     description: string
     cost: number
     priority: 'essential' | 'recommended' | 'optional'
-    brandgenieOffering: boolean
+    forgepilotOffering: boolean
   }>
   riskAssessment: {
     level: 'low' | 'medium' | 'high'
@@ -207,7 +207,7 @@ export class BusinessIdeaGenerator {
       - Why it's needed
       - Estimated cost
       - Priority level
-      - Whether BrandGenie offers it
+      - Whether ForgePilot offers it
       
       5. RISK ASSESSMENT
       - Key risks and challenges
@@ -225,8 +225,8 @@ export class BusinessIdeaGenerator {
     
     const businessPlan = JSON.parse(response.choices[0].message.content || '{}')
     
-    // Add BrandGenie service mappings
-    const enhancedPlan = await this.mapToBrandGenieServices(businessPlan)
+    // Add ForgePilot service mappings
+    const enhancedPlan = await this.mapToForgePilotServices(businessPlan)
     
     return {
       id: `business_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
@@ -234,54 +234,54 @@ export class BusinessIdeaGenerator {
     }
   }
   
-  private async mapToBrandGenieServices(businessPlan: any): Promise<any> {
+  private async mapToForgePilotServices(businessPlan: any): Promise<any> {
     const serviceMapping = {
       'Brand identity and design': {
         service: 'AI Brand Generation',
         cost: 0, // Included in subscription
-        brandgenieOffering: true,
+        forgepilotOffering: true,
         priority: 'essential'
       },
       'Website and e-commerce': {
         service: 'Website Builder + E-commerce',
         cost: 0, // Included in subscription
-        brandgenieOffering: true,
+        forgepilotOffering: true,
         priority: 'essential'
       },
       'Domain registration': {
         service: 'Domain Registration',
         cost: 12.99,
-        brandgenieOffering: true,
+        forgepilotOffering: true,
         priority: 'essential'
       },
       'Marketing and advertising': {
         service: 'AI Marketing Automation',
         cost: 0, // Included in subscription
-        brandgenieOffering: true,
+        forgepilotOffering: true,
         priority: 'essential'
       },
       'Legal entity formation': {
         service: 'Business Entity Registration',
         cost: 299,
-        brandgenieOffering: true,
+        forgepilotOffering: true,
         priority: 'essential'
       },
       'Social media management': {
         service: 'AI Social Media Manager',
         cost: 0, // Included in subscription
-        brandgenieOffering: true,
+        forgepilotOffering: true,
         priority: 'recommended'
       },
       'AI avatar creation': {
         service: 'AI Avatar & Video Suite',
         cost: 197,
-        brandgenieOffering: true,
+        forgepilotOffering: true,
         priority: 'recommended'
       },
       'Customer support systems': {
         service: 'AI Customer Support',
         cost: 0, // Included in subscription
-        brandgenieOffering: true,
+        forgepilotOffering: true,
         priority: 'recommended'
       }
     }
@@ -289,7 +289,7 @@ export class BusinessIdeaGenerator {
     // Map services to our offerings
     businessPlan.requiredServices = businessPlan.requiredServices?.map((service: any) => ({
       ...service,
-      ...serviceMapping[service.service] || { brandgenieOffering: false }
+      ...serviceMapping[service.service] || { forgepilotOffering: false }
     }))
     
     return businessPlan

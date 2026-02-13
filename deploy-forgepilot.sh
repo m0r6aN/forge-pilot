@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🧬 DEPLOYING BRANDGENIE x OMEGA INTEGRATION"
+echo "🧬 DEPLOYING FORGEPILOT x OMEGA INTEGRATION"
 echo "================================================"
 
 # Colors for output
@@ -183,7 +183,7 @@ if [[ $HEALTH_CHECK == *"healthy"* ]]; then
     OMEGA_CONNECTED=$(echo $HEALTH_CHECK | grep -o '"omega_connected":[^,}]*' | cut -d':' -f2 2>/dev/null || echo "false")
     
     echo ""
-    echo -e "${PURPLE}🧬 BRANDGENIE STATUS${NC}"
+    echo -e "${PURPLE}🧬 FORGEPILOT STATUS${NC}"
     echo "================================="
     echo -e "Service Version: ${GREEN}${SERVICE_VERSION}${NC}"
     echo -e "OMEGA Integration: ${GREEN}${OMEGA_CONNECTED}${NC}"
@@ -269,7 +269,7 @@ fi
 
 # Final status and instructions
 echo ""
-echo -e "${PURPLE}🎉 BRANDGENIE DEPLOYMENT COMPLETE!${NC}"
+echo -e "${PURPLE}🎉 FORGEPILOT DEPLOYMENT COMPLETE!${NC}"
 echo "======================================"
 echo ""
 echo -e "${GREEN}✅ Services Running:${NC}"

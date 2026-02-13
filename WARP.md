@@ -22,7 +22,7 @@ npm run lint         # Run ESLint
 ```bash
 cd backend
 pip install -r requirements.txt    # Install dependencies
-python -m uvicorn src.brandgenie.services.orchestrator.service:app --host 0.0.0.0 --port 8010  # Start service
+python -m uvicorn src.forgepilot.services.orchestrator.service:app --host 0.0.0.0 --port 8010  # Start service
 ```
 
 ### Docker Deployment
@@ -50,7 +50,7 @@ Next.js Frontend (3000) → ForgePilot Orchestrator (8010) → OMEGA Federation 
 - `app/` - Next.js App Router pages and API routes
 - `components/` - React components (auth, dashboard, generator, pricing)
 - `lib/ai/` - AI service integrations (brand-generator, avatar-generator, video-generator)
-- `lib/forgepilot-client.ts` - Backend API client with `useBrandGenie()` hook
+- `lib/forgepilot-client.ts` - Backend API client with `useForgePilot()` hook
 
 Uses path alias `@/*` → `./src/*`
 
@@ -104,8 +104,8 @@ Required in `.env`:
 4. Register in orchestrator's `agent_registry`
 
 ### Frontend-Backend Integration
-Use `BrandGenieClient` or `useBrandGenie()` hook from `@/lib/forgepilot-client`:
+Use `ForgePilotClient` or `useForgePilot()` hook from `@/lib/forgepilot-client`:
 ```typescript
-const { generateCampaign } = useBrandGenie();
+const { generateCampaign } = useForgePilot();
 const campaign = await generateCampaign({ description: "..." });
 ```

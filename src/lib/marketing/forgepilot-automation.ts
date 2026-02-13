@@ -47,12 +47,12 @@ export interface MarketingChannel {
   }
 }
 
-export class BrandGenieMarketingEngine {
+export class ForgePilotMarketingEngine {
   
   async launchAcquisitionCampaign(): Promise<MarketingCampaign> {
     // Target entrepreneurs, small business owners, side-hustlers
     const campaign = await this.createCampaign({
-      name: 'BrandGenie Acquisition Q1 2024',
+      name: 'ForgePilot Acquisition Q1 2024',
       type: 'acquisition',
       budget: { total: 50000, allocation: {
         'google-ads': 20000,
@@ -82,7 +82,7 @@ export class BrandGenieMarketingEngine {
   
   async generateMarketingCreatives(campaign: MarketingCampaign): Promise<any> {
     const brandData = {
-      brandName: 'BrandGenie AI',
+      brandName: 'ForgePilot AI',
       tagline: 'Generate complete brand identities in minutes - not months',
       colors: ['#3B82F6', '#1E40AF', '#F59E0B'],
       voice: 'confident, innovative, accessible'
@@ -110,8 +110,8 @@ export class BrandGenieMarketingEngine {
     ]
     
     const descriptions = [
-      'BrandGenie AI creates professional brand identities instantly. Get logos, colors, typography & brand guides in minutes, not months.',
-      'Join 10,000+ entrepreneurs who chose BrandGenie over expensive agencies. Complete branding solution starting at $49.',
+      'ForgePilot AI creates professional brand identities instantly. Get logos, colors, typography & brand guides in minutes, not months.',
+      'Join 10,000+ entrepreneurs who chose ForgePilot over expensive agencies. Complete branding solution starting at $49.',
       'No design skills needed. Our AI generates stunning brand packages tailored to your business. Try free today!'
     ]
 
@@ -137,7 +137,7 @@ export class BrandGenieMarketingEngine {
   
   private async generateFacebookAds(brand: any, campaign: MarketingCampaign): Promise<any> {
     // Generate video ads using our own video generation service!
-    const videoAds = await this.generateBrandGenieVideoAds()
+    const videoAds = await this.generateForgePilotVideoAds()
     
     return {
       campaigns: [
@@ -154,12 +154,12 @@ export class BrandGenieMarketingEngine {
               type: 'video',
               video: videoAds.entrepreneurStory,
               headline: 'From Idea to Brand in 5 Minutes',
-              text: 'Watch Sarah create her entire brand identity with BrandGenie AI. No design experience needed!'
+              text: 'Watch Sarah create her entire brand identity with ForgePilot AI. No design experience needed!'
             },
             {
               type: 'carousel',
               images: ['/ads/before-after-1.jpg', '/ads/before-after-2.jpg'],
-              headline: 'Before vs After: BrandGenie Results',
+              headline: 'Before vs After: ForgePilot Results',
               text: 'See real transformations from our customers'
             }
           ],
@@ -235,21 +235,21 @@ export class BrandGenieMarketingEngine {
     }
   }
   
-  private async generateBrandGenieVideoAds(): Promise<any> {
+  private async generateForgePilotVideoAds(): Promise<any> {
     // Use our own video generation service!
     const videoGenerator = new VideoGenerator()
     
     const entrepreneurStory = await videoGenerator.generateSocialAd(
       {
-        brandName: 'BrandGenie AI',
+        brandName: 'ForgePilot AI',
         tagline: 'Generate complete brand identities in minutes',
         colorPalette: ['#3B82F6', '#1E40AF']
       },
       {
         hook: 'I spent $5,000 on branding...',
         problem: 'Traditional agencies take months and cost thousands',
-        solution: 'BrandGenie AI creates professional brands in minutes',
-        cta: 'Try BrandGenie free today!'
+        solution: 'ForgePilot AI creates professional brands in minutes',
+        cta: 'Try ForgePilot free today!'
       },
       {
         type: 'social-ad',

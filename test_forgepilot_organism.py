@@ -20,7 +20,7 @@ class ForgePilotOrganismTest:
 
     async def test_digital_organism(self):
         """Test the complete ForgePilot organism"""
-        print("🧬 TESTING BRANDGENIE DIGITAL ORGANISM")
+        print("🧬 TESTING FORGEPILOT DIGITAL ORGANISM")
         print("=" * 50)
 
         # Test scenarios
@@ -267,7 +267,7 @@ class ForgePilotOrganismTest:
                     )
 
         print(
-            f"\n🚀 THE BRANDGENIE ORGANISM IS {'READY FOR DEPLOYMENT!' if len(successful_tests) == len(self.test_results) else 'STILL EVOLVING...'}"
+            f"\n🚀 THE FORGEPILOT ORGANISM IS {'READY FOR DEPLOYMENT!' if len(successful_tests) == len(self.test_results) else 'STILL EVOLVING...'}"
         )
 
 
@@ -275,7 +275,7 @@ async def main():
     """Run the ForgePilot organism test suite"""
     tester = ForgePilotOrganismTest()
 
-    print("🧬 BRANDGENIE DIGITAL SPECIES TEST SUITE")
+    print("🧬 FORGEPILOT DIGITAL SPECIES TEST SUITE")
     print("🚀 Testing autonomous brand generation organism...")
     print()
 

@@ -167,8 +167,8 @@ export class Renderer3D {
     // - Custom 3D pipeline
     
     return {
-      modelUrl: `https://storage.googleapis.com/brandgenie-3d-models/${Date.now()}.${options.format}`,
-      animationUrl: options.animation ? `https://storage.googleapis.com/brandgenie-3d-animations/${Date.now()}.mp4` : undefined,
+      modelUrl: `https://storage.googleapis.com/forgepilot-3d-models/${Date.now()}.${options.format}`,
+      animationUrl: options.animation ? `https://storage.googleapis.com/forgepilot-3d-animations/${Date.now()}.mp4` : undefined,
       variants: [
         { name: 'low-poly', url: 'model-low.glb', format: 'glb' },
         { name: 'high-poly', url: 'model-high.glb', format: 'glb' },
@@ -213,7 +213,7 @@ export class Renderer3D {
   private async generateModelFromViews(views: any[]): Promise<string> {
     // Photogrammetry-style 3D reconstruction from multiple views
     // Integration with services like Meshroom, Reality Capture, or custom pipeline
-    return `https://storage.googleapis.com/brandgenie-3d-models/reconstructed_${Date.now()}.glb`
+    return `https://storage.googleapis.com/forgepilot-3d-models/reconstructed_${Date.now()}.glb`
   }
   
   private async generateAnimationKeyframes(brandData: any, options: Render3DOptions) {
@@ -235,12 +235,12 @@ export class Renderer3D {
   private async createAnimation(keyframes: any[], options: Render3DOptions) {
     // Create smooth animation from keyframes
     return {
-      modelUrl: `https://storage.googleapis.com/brandgenie-3d-models/animated_${Date.now()}.glb`,
-      videoUrl: `https://storage.googleapis.com/brandgenie-3d-animations/splash_${Date.now()}.mp4`,
-      short: `https://storage.googleapis.com/brandgenie-3d-animations/splash_3s_${Date.now()}.mp4`,
-      medium: `https://storage.googleapis.com/brandgenie-3d-animations/splash_5s_${Date.now()}.mp4`,
-      long: `https://storage.googleapis.com/brandgenie-3d-animations/splash_10s_${Date.now()}.mp4`,
-      loop: `https://storage.googleapis.com/brandgenie-3d-animations/splash_loop_${Date.now()}.gif`
+      modelUrl: `https://storage.googleapis.com/forgepilot-3d-models/animated_${Date.now()}.glb`,
+      videoUrl: `https://storage.googleapis.com/forgepilot-3d-animations/splash_${Date.now()}.mp4`,
+      short: `https://storage.googleapis.com/forgepilot-3d-animations/splash_3s_${Date.now()}.mp4`,
+      medium: `https://storage.googleapis.com/forgepilot-3d-animations/splash_5s_${Date.now()}.mp4`,
+      long: `https://storage.googleapis.com/forgepilot-3d-animations/splash_10s_${Date.now()}.mp4`,
+      loop: `https://storage.googleapis.com/forgepilot-3d-animations/splash_loop_${Date.now()}.gif`
     }
   }
 }

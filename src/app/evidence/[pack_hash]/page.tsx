@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { brandGenieClient } from '@/lib/forgepilot-client'
+import { forgePilotClient } from '@/lib/forgepilot-client'
 import { Loader2, CheckCircle2, AlertCircle, Clock, FileText, ShieldCheck } from 'lucide-react'
 
 type EvidencePageProps = {
@@ -22,7 +22,7 @@ export default function EvidencePackPage({ params }: EvidencePageProps) {
     async function fetchEvidence() {
       try {
         setLoading(true)
-        const data = await brandGenieClient.getEvidencePack(packHash)
+        const data = await forgePilotClient.getEvidencePack(packHash)
         setEvidence(data)
       } catch (err: any) {
         console.error('Failed to fetch evidence:', err)

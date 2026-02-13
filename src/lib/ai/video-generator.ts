@@ -311,7 +311,7 @@ export class VideoGenerator {
     
     // Mock implementation - replace with actual TTS service
     return {
-      url: `https://storage.googleapis.com/brandgenie-videos/voiceover_${Date.now()}.mp3`,
+      url: `https://storage.googleapis.com/forgepilot-videos/voiceover_${Date.now()}.mp3`,
       duration: script.length * 0.1, // Rough estimate
       transcript: script
     }
@@ -324,10 +324,10 @@ export class VideoGenerator {
     const videoId = `video_${Date.now()}`
     
     return {
-      url: `https://storage.googleapis.com/brandgenie-videos/${videoId}.${options.format}`,
-      thumbnail: `https://storage.googleapis.com/brandgenie-videos/${videoId}_thumb.jpg`,
-      preview: `https://storage.googleapis.com/brandgenie-videos/${videoId}_preview.gif`,
-      subtitles: voiceover ? `https://storage.googleapis.com/brandgenie-videos/${videoId}_subs.vtt` : null,
+      url: `https://storage.googleapis.com/forgepilot-videos/${videoId}.${options.format}`,
+      thumbnail: `https://storage.googleapis.com/forgepilot-videos/${videoId}_thumb.jpg`,
+      preview: `https://storage.googleapis.com/forgepilot-videos/${videoId}_preview.gif`,
+      subtitles: voiceover ? `https://storage.googleapis.com/forgepilot-videos/${videoId}_subs.vtt` : null,
       variants: this.generateVideoVariants(videoId, options),
       fileSize: '25.6MB',
       renderTime: 180
@@ -382,9 +382,9 @@ export class VideoGenerator {
   
   private generateVideoVariants(videoId: string, options: VideoGenerationOptions): any[] {
     return [
-      { name: 'original', url: `https://storage.googleapis.com/brandgenie-videos/${videoId}.${options.format}`, format: options.format, resolution: options.resolution },
-      { name: 'compressed', url: `https://storage.googleapis.com/brandgenie-videos/${videoId}_compressed.mp4`, format: 'mp4', resolution: '720p' },
-      { name: 'gif', url: `https://storage.googleapis.com/brandgenie-videos/${videoId}.gif`, format: 'gif', resolution: '480p' }
+      { name: 'original', url: `https://storage.googleapis.com/forgepilot-videos/${videoId}.${options.format}`, format: options.format, resolution: options.resolution },
+      { name: 'compressed', url: `https://storage.googleapis.com/forgepilot-videos/${videoId}_compressed.mp4`, format: 'mp4', resolution: '720p' },
+      { name: 'gif', url: `https://storage.googleapis.com/forgepilot-videos/${videoId}.gif`, format: 'gif', resolution: '480p' }
     ]
   }
   

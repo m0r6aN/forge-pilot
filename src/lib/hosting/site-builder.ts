@@ -63,7 +63,7 @@ export class SiteBuilder {
         id: 'modern-landing',
         name: 'Modern Landing Page',
         category: 'landing',
-        preview: 'https://storage.googleapis.com/brandgenie-templates/modern-landing-preview.jpg',
+        preview: 'https://storage.googleapis.com/forgepilot-templates/modern-landing-preview.jpg',
         features: ['Responsive Design', 'Contact Form', 'SEO Optimized'],
         premium: false
       },
@@ -71,7 +71,7 @@ export class SiteBuilder {
         id: 'ecommerce-store',
         name: 'E-commerce Store',
         category: 'ecommerce',
-        preview: 'https://storage.googleapis.com/brandgenie-templates/ecommerce-preview.jpg',
+        preview: 'https://storage.googleapis.com/forgepilot-templates/ecommerce-preview.jpg',
         features: ['Product Catalog', 'Shopping Cart', 'Payment Integration', 'Inventory Management'],
         premium: true
       },
@@ -79,7 +79,7 @@ export class SiteBuilder {
         id: 'saas-platform',
         name: 'SaaS Platform',
         category: 'saas',
-        preview: 'https://storage.googleapis.com/brandgenie-templates/saas-preview.jpg',
+        preview: 'https://storage.googleapis.com/forgepilot-templates/saas-preview.jpg',
         features: ['User Dashboard', 'Subscription Management', 'API Documentation', 'Analytics'],
         premium: true
       },
@@ -87,7 +87,7 @@ export class SiteBuilder {
         id: 'portfolio-showcase',
         name: 'Portfolio Showcase',
         category: 'portfolio',
-        preview: 'https://storage.googleapis.com/brandgenie-templates/portfolio-preview.jpg',
+        preview: 'https://storage.googleapis.com/forgepilot-templates/portfolio-preview.jpg',
         features: ['Gallery', 'Blog', 'Contact Form', 'Social Integration'],
         premium: false
       }
@@ -105,7 +105,7 @@ export class SiteBuilder {
     const siteFiles = await this.buildSiteFiles(config.template, brand, config)
     
     // Deploy to Google Cloud Storage
-    const bucketName = `${subdomain}.brandgenie.app`
+    const bucketName = `${subdomain}.forgepilot.app`
     await this.createSiteBucket(bucketName)
     await this.uploadSiteFiles(bucketName, siteFiles)
     
@@ -123,8 +123,8 @@ export class SiteBuilder {
       customDomain: config.customDomain,
       template: config.template,
       status: 'deployed',
-      url: config.customDomain ? `https://${config.customDomain}` : `https://${subdomain}.brandgenie.app`,
-      previewUrl: `https://${subdomain}.brandgenie.app`,
+      url: config.customDomain ? `https://${config.customDomain}` : `https://${subdomain}.forgepilot.app`,
+      previewUrl: `https://${subdomain}.forgepilot.app`,
       lastDeployed: new Date(),
       analytics: {
         visitors: 0,
@@ -148,7 +148,7 @@ export class SiteBuilder {
     const siteFiles = await this.buildSiteFiles(site.template, brand, updates)
     
     // Redeploy
-    const bucketName = `${site.subdomain}.brandgenie.app`
+    const bucketName = `${site.subdomain}.forgepilot.app`
     await this.uploadSiteFiles(bucketName, siteFiles)
     
     // Update database
@@ -163,7 +163,7 @@ export class SiteBuilder {
     if (!site) throw new Error('Site not found')
     
     // Delete bucket and files
-    const bucketName = `${site.subdomain}.brandgenie.app`
+    const bucketName = `${site.subdomain}.forgepilot.app`
     await this.storage.bucket(bucketName).deleteFiles()
     await this.storage.bucket(bucketName).delete()
     

@@ -22,7 +22,7 @@ export function MainNav() {
       <div className="container flex items-center justify-between py-4">
         <Link href="/" className="flex items-center gap-2 font-bold text-xl">
           <Sparkles className="h-6 w-6 text-primary" />
-          BrandGenie AI
+          ForgePilot AI
         </Link>
 
         <div className="hidden md:flex items-center gap-6">

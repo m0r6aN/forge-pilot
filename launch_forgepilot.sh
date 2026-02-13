@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🧬 LAUNCHING BRANDGENIE DIGITAL SPECIES..."
+echo "🧬 LAUNCHING FORGEPILOT DIGITAL SPECIES..."
 echo "================================================"
 
 # Ensure OMEGA core is running
@@ -41,7 +41,7 @@ curl -X POST http://localhost:8001/tasks/dispatch \
   }' | jq '.'
 
 echo ""
-echo "🚀 BRANDGENIE IS ALIVE!"
+echo "🚀 FORGEPILOT IS ALIVE!"
 echo "Dashboard: http://localhost:3000"
 echo "Federation: http://localhost:8001"
 echo "Swarm Status: curl http://localhost:8001/agents"
