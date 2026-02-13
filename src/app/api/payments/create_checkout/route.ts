@@ -3,37 +3,37 @@ import Stripe from 'stripe'
 import * as jwt from 'jsonwebtoken'
 import { cookies } from 'next/headers'
 import { FirestoreService } from '@/lib/db/firestore'
+import { mustGetEnv, getEnv } from '@/lib/config/env'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-12-15.clover',
-})
-
-const JWT_SECRET = process.env.JWT_SECRET
+function createStripeClient() {
+  return new Stripe(mustGetEnv('STRIPE_SECRET_KEY'), {
+    apiVersion: '2025-12-15.clover',
+  })
+}
 
 const V1_PLAN_ID = 'starter'
 
 // Map plan IDs to Stripe price IDs
 const PLAN_PRICE_MAP: Record<string, string> = {
-  starter: process.env.STRIPE_LAUNCH_BLUEPRINT_PRICE_ID || process.env.STRIPE_STARTER_PRICE_ID || '',
+  starter: getEnv('STRIPE_LAUNCH_BLUEPRINT_PRICE_ID', getEnv('STRIPE_STARTER_PRICE_ID')) || '',
 }
 
 export async function POST(req: NextRequest) {
   try {
-    if (!process.env.STRIPE_SECRET_KEY) {
-      return NextResponse.json({ error: 'Payment system not configured' }, { status: 500 })
-    }
+    const stripe = createStripeClient()
+    const jwtSecret = mustGetEnv('JWT_SECRET')
 
     // Get authenticated user
     const cookieStore = await cookies()
     const token = cookieStore.get('auth-token')?.value
     
-    if (!token || !JWT_SECRET) {
+    if (!token) {
       return NextResponse.json({ error: 'Authentication required' }, { status: 401 })
     }
 
     let decoded: any
     try {
-      decoded = jwt.verify(token, JWT_SECRET)
+      decoded = jwt.verify(token, jwtSecret)
     } catch {
       return NextResponse.json({ error: 'Invalid session' }, { status: 401 })
     }

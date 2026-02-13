@@ -1,29 +1,13 @@
 export function BusinessCommandCenter({ userId }: { userId: string }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl font-bold text-white mb-8">
-          🚀 Business Command Center
-        </h1>
-
-        {/* Business Entity Status */}
-        <BusinessEntityCard userId={userId} />
-        
-        {/* AI Platform Accounts */}
-        <AIAccountsOverview userId={userId} />
-        
-        {/* Website & CMS Status */}
-        <WebsiteManagement userId={userId} />
-        
-        {/* Social Media Automation */}
-        <SocialMediaDashboard userId={userId} />
-        
-        {/* Banking & Financial Services */}
-        <FinancialServicesDashboard userId={userId} />
-        
-        {/* Revenue Analytics */}
-        <RevenueAnalytics userId={userId} />
-      </div>
+    <div className="rounded-lg border p-6">
+      <h2 className="text-xl font-semibold mb-2">Business Command Center</h2>
+      <p className="text-sm text-muted-foreground">
+        This module is frozen for v1 revenue focus. User: {userId}
+      </p>
+      <p className="text-sm text-muted-foreground mt-1">
+        Use Launch Blueprint, Brand Generator, and Evidence workflow for current production scope.
+      </p>
     </div>
   )
 }

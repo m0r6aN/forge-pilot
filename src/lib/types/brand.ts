@@ -38,3 +38,13 @@ export interface GenerationRequest {
     avoidWords?: string[]
   }
 }
+
+export type BrandStyle =
+  | 'modern'
+  | 'minimalist'
+  | 'classic'
+  | 'playful'
+  | 'bold'
+  | 'elegant'
+  | 'tech'
+  | 'organic'

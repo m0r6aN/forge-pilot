@@ -1,28 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { FirestoreService } from '@/lib/db/firestore'
+import { getEnv, mustGetEnv } from '@/lib/config/env'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-12-15.clover',
-})
+function createStripeClient() {
+  return new Stripe(mustGetEnv('STRIPE_SECRET_KEY'), {
+    apiVersion: '2025-12-15.clover',
+  })
+}
 
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!
-
-// Plan mapping from Stripe product to our plan names
-const PRODUCT_PLAN_MAP: Record<string, 'starter' | 'growth' | 'professional' | 'enterprise'> = {
-  [process.env.STRIPE_STARTER_PRODUCT_ID || '']: 'starter',
-  [process.env.STRIPE_GROWTH_PRODUCT_ID || '']: 'growth',
-  [process.env.STRIPE_PROFESSIONAL_PRODUCT_ID || '']: 'professional',
-  [process.env.STRIPE_ENTERPRISE_PRODUCT_ID || '']: 'enterprise',
+// Plan mapping from Stripe product to our v1 plan names
+const PRODUCT_PLAN_MAP: Record<string, 'starter'> = {
+  [getEnv('STRIPE_LAUNCH_BLUEPRINT_PRODUCT_ID', getEnv('STRIPE_STARTER_PRODUCT_ID')) || '']: 'starter',
 }
 
 export async function POST(req: NextRequest) {
   try {
+    const stripe = createStripeClient()
+    const webhookSecret = mustGetEnv('STRIPE_WEBHOOK_SECRET')
     const body = await req.text()
     const signature = req.headers.get('stripe-signature')
 
-    if (!signature || !webhookSecret) {
-      return NextResponse.json({ error: 'Missing signature or webhook secret' }, { status: 400 })
+    if (!signature) {
+      return NextResponse.json({ error: 'Missing stripe signature' }, { status: 400 })
     }
 
     let event: Stripe.Event
@@ -55,13 +55,13 @@ export async function POST(req: NextRequest) {
 
       case 'invoice.paid': {
         const invoice = event.data.object as Stripe.Invoice
-        await handleInvoicePaid(invoice)
+        await handleInvoicePaid(stripe, invoice)
         break
       }
 
       case 'invoice.payment_failed': {
         const invoice = event.data.object as Stripe.Invoice
-        await handlePaymentFailed(invoice)
+        await handlePaymentFailed(stripe, invoice)
         break
       }
 
@@ -180,9 +180,8 @@ async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   }
 }
 
-async function handleInvoicePaid(invoice: Stripe.Invoice) {
-  const customerId = invoice.customer as string
-  const subscriptionId = invoice.subscription as string
+async function handleInvoicePaid(stripe: Stripe, invoice: Stripe.Invoice) {
+  const subscriptionId = getInvoiceSubscriptionId(invoice)
 
   if (!subscriptionId) return
 
@@ -195,8 +194,8 @@ async function handleInvoicePaid(invoice: Stripe.Invoice) {
   }
 }
 
-async function handlePaymentFailed(invoice: Stripe.Invoice) {
-  const subscriptionId = invoice.subscription as string
+async function handlePaymentFailed(stripe: Stripe, invoice: Stripe.Invoice) {
+  const subscriptionId = getInvoiceSubscriptionId(invoice)
   if (!subscriptionId) return
 
   const subscription = await stripe.subscriptions.retrieve(subscriptionId)
@@ -229,6 +228,24 @@ async function handlePaymentFailed(invoice: Stripe.Invoice) {
       })
     }).catch(err => console.error('Failed to send payment failed email:', err))
   }
+}
+
+function getInvoiceSubscriptionId(invoice: Stripe.Invoice): string | null {
+  const sub = (
+    invoice as Stripe.Invoice & {
+      subscription?: string | Stripe.Subscription | null
+    }
+  ).subscription
+
+  if (!sub) {
+    return null
+  }
+
+  if (typeof sub === 'string') {
+    return sub
+  }
+
+  return sub.id ?? null
 }
 
 function mapStripeStatus(status: Stripe.Subscription.Status): 'active' | 'canceled' | 'past_due' | 'trialing' {

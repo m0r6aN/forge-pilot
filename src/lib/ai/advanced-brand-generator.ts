@@ -90,7 +90,7 @@ export async function generateLogoVariations(brandName: string, style: string, v
     })
 
     return {
-      url: response.data[0].url || '',
+      url: response.data?.[0]?.url || '',
       style: logoStyle,
       description: `${logoStyle.charAt(0).toUpperCase() + logoStyle.slice(1)} style logo with clean, professional design`
     }

@@ -21,7 +21,7 @@
        industry: '',
        targetAudience: '',
      })
-     const [brandResult, setBrandResult] = useState(null)
+    const [brandResult, setBrandResult] = useState<any>(null)
 
      const handleGenerate = async () => {
        setLoading(true)
@@ -132,16 +132,19 @@
                    <div>
                      <h3 className="font-semibold mb-2">Color Palette</h3>
                      <div className="flex gap-2">
-                       {Object.entries(brandResult.colorPalette).map(([name, color]) => (
-                         <div key={name} className="text-center">
+                      {Object.entries(brandResult.colorPalette).map(([name, color]) => {
+                        const swatch = String(color)
+                        return (
+                        <div key={name} className="text-center">
                            <div 
                              className="w-16 h-16 rounded-lg border"
-                             style={{ backgroundColor: color }}
+                             style={{ backgroundColor: swatch }}
                            />
                            <p className="text-xs mt-1">{name}</p>
-                           <p className="text-xs text-muted-foreground">{color}</p>
+                           <p className="text-xs text-muted-foreground">{swatch}</p>
                          </div>
-                       ))}
+                        )
+                      })}
                      </div>
                    </div>
                  )}
@@ -153,5 +156,3 @@
        </div>
      )
    }
-
-

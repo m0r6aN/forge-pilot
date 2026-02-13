@@ -1,7 +1,13 @@
 import * as jwt from 'jsonwebtoken'
+import { getEnv, mustGetEnv } from '@/lib/config/env'
 
-const JWT_SECRET = process.env.JWT_SECRET || 'default-secret-change-in-production'
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || JWT_SECRET
+function getJwtSecret(): string {
+  return mustGetEnv('JWT_SECRET')
+}
+
+function getJwtRefreshSecret(): string {
+  return getEnv('JWT_REFRESH_SECRET') || getJwtSecret()
+}
 
 export interface JWTPayload {
   userId: string
@@ -16,7 +22,7 @@ export interface JWTPayload {
  */
 export async function verifyJWT(token: string): Promise<JWTPayload> {
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as JWTPayload
+    const decoded = jwt.verify(token, getJwtSecret()) as JWTPayload
     
     if (decoded.type !== 'access') {
       throw new Error('Invalid token type')
@@ -38,7 +44,7 @@ export async function verifyJWT(token: string): Promise<JWTPayload> {
  */
 export async function verifyRefreshToken(token: string): Promise<JWTPayload> {
   try {
-    const decoded = jwt.verify(token, JWT_REFRESH_SECRET) as JWTPayload
+    const decoded = jwt.verify(token, getJwtRefreshSecret()) as JWTPayload
     
     if (decoded.type !== 'refresh') {
       throw new Error('Invalid token type')
@@ -61,7 +67,7 @@ export async function verifyRefreshToken(token: string): Promise<JWTPayload> {
 export function generateAccessToken(userId: string, email: string): string {
   return jwt.sign(
     { userId, email, type: 'access' },
-    JWT_SECRET,
+    getJwtSecret(),
     { expiresIn: '15m' }
   )
 }
@@ -72,7 +78,7 @@ export function generateAccessToken(userId: string, email: string): string {
 export function generateRefreshToken(userId: string, email: string): string {
   return jwt.sign(
     { userId, email, type: 'refresh' },
-    JWT_REFRESH_SECRET,
+    getJwtRefreshSecret(),
     { expiresIn: '7d' }
   )
 }

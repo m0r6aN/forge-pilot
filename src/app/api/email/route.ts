@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
 import { emailTemplates } from '@/lib/email/templates'
+import { mustGetEnv, getEnv } from '@/lib/config/env'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function createResendClient() {
+  return new Resend(mustGetEnv('RESEND_API_KEY'))
+}
 
 export async function POST(req: NextRequest) {
   try {
+    const resend = createResendClient()
     const { email, name, subject, content, templateId, templateData } = await req.json()
 
     if (!email) {
@@ -27,7 +31,7 @@ export async function POST(req: NextRequest) {
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
-      from: 'ForgePilot AI <noreply@forgepilot.ai>',
+      from: getEnv('EMAIL_FROM', 'ForgePilot <noreply@forgepilot.com>')!,
       to: [email],
       subject: emailSubject || 'Welcome to ForgePilot AI',
       html: emailContent || `<p>Hello ${name || 'there'},</p><p>Thank you for using ForgePilot AI!</p>`,

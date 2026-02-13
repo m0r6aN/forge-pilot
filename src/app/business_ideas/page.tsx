@@ -8,6 +8,10 @@ export default function BusinessIdeasPage() {
   const [selectedServices, setSelectedServices] = useState<Map<string, boolean>>(new Map())
   const [totalCost, setTotalCost] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [executingIdeaId, setExecutingIdeaId] = useState<string | null>(null)
+  const [executionErrors, setExecutionErrors] = useState<Record<string, string>>({})
+  const [executionResults, setExecutionResults] = useState<Record<string, any>>({})
+  const [publishTargets, setPublishTargets] = useState<Record<string, 'landing' | 'github'>>({})
 
   const handleGenerateIdeas = async (formData: any) => {
     setLoading(true)
@@ -44,6 +48,42 @@ export default function BusinessIdeasPage() {
     
     // Navigate to execution wizard
     window.location.href = `/business-execution?ideaId=${businessIdea.id}`
+  }
+
+  const executeInitialLaunchCampaign = async (businessIdea: BusinessIdea) => {
+    setExecutingIdeaId(businessIdea.id)
+    setExecutionErrors(prev => ({ ...prev, [businessIdea.id]: '' }))
+
+    try {
+      const publishTarget = publishTargets[businessIdea.id] || 'landing'
+      const response = await fetch('/api/launch/execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          publishTarget,
+          idea: {
+            id: businessIdea.id,
+            name: businessIdea.name,
+            description: businessIdea.description,
+            industry: businessIdea.industry,
+            targetMarket: businessIdea.targetMarket,
+            uniqueValueProposition: businessIdea.uniqueValueProposition,
+          },
+        }),
+      })
+
+      const data = await response.json()
+      if (!response.ok) {
+        throw new Error(data.error || 'Execution failed')
+      }
+
+      setExecutionResults(prev => ({ ...prev, [businessIdea.id]: data }))
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Execution failed'
+      setExecutionErrors(prev => ({ ...prev, [businessIdea.id]: message }))
+    } finally {
+      setExecutingIdeaId(null)
+    }
   }
 
   return (
@@ -205,6 +245,66 @@ export default function BusinessIdeasPage() {
               >
                 🚀 Launch This Business
               </button>
+            </div>
+
+            <div className="mt-6 p-4 bg-white/10 rounded-lg border border-white/20">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div>
+                  <div className="text-white font-semibold">🚀 Execute Initial Launch Campaign (Beta)</div>
+                  <div className="text-sm text-gray-300">
+                    Triggers FastAPI campaign creation, MarketOps manifest, and governed publisher handoff.
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <select
+                    className="bg-white/20 text-white rounded px-3 py-2 text-sm"
+                    value={publishTargets[idea.id] || 'landing'}
+                    onChange={(e) =>
+                      setPublishTargets(prev => ({
+                        ...prev,
+                        [idea.id]: e.target.value as 'landing' | 'github',
+                      }))
+                    }
+                  >
+                    <option value="landing">Landing Publish</option>
+                    <option value="github">GitHub Publisher</option>
+                  </select>
+                  <button
+                    onClick={() => executeInitialLaunchCampaign(idea)}
+                    disabled={executingIdeaId === idea.id}
+                    className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-5 py-2 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50"
+                  >
+                    {executingIdeaId === idea.id ? 'Executing...' : 'Execute Initial Launch Campaign (Beta)'}
+                  </button>
+                </div>
+              </div>
+
+              {executionErrors[idea.id] && (
+                <div className="mt-3 text-sm text-red-300">{executionErrors[idea.id]}</div>
+              )}
+
+              {executionResults[idea.id] && (
+                <div className="mt-3 text-sm text-gray-200 space-y-1">
+                  <div>Campaign ID: {executionResults[idea.id].campaign?.campaignId || 'n/a'}</div>
+                  <div>Manifest ID: {executionResults[idea.id].manifest?.manifest_id || 'n/a'}</div>
+                  <div>
+                    Federation: {executionResults[idea.id].federation?.submitted ? 'submitted' : 'not submitted'}
+                  </div>
+                  <div>
+                    Publish: {executionResults[idea.id].publication?.published ? 'published' : 'not published'}
+                  </div>
+                  {executionResults[idea.id].publication?.publishUrl && (
+                    <a
+                      href={executionResults[idea.id].publication.publishUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block text-blue-300 hover:text-blue-200 underline"
+                    >
+                      Open Published Output
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         ))}

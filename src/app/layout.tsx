@@ -7,9 +7,18 @@ import { MainLayout } from '@/components/layout/main-layout'
 
 const inter = Inter({ subsets: ['latin'] })
 
+if (process.env.NODE_ENV !== 'production') {
+  const required = ['STRIPE_SECRET_KEY', 'JWT_SECRET']
+  for (const key of required) {
+    if (!process.env[key]) {
+      console.warn(`[env] missing ${key}`)
+    }
+  }
+}
+
 export const metadata: Metadata = {
-  title: 'ForgePilot - Launch Blueprint',
-  description: 'Business idea validation, advanced brand generation, and evidence-backed launch execution in one focused v1 offer.',
+  title: 'ForgePilot - Your AI Co-Founder for Launching Real Businesses',
+  description: 'Go from idea to validated launch plan in under 10 minutes.',
 }
 
 export default function RootLayout({

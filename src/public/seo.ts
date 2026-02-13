@@ -4,11 +4,11 @@ type PageKey = 'home' | 'generator' | 'dashboard' | 'pricing' | 'admin'
 
 const pageMetadata: Record<PageKey, Metadata> = {
   home: {
-    title: 'ForgePilot - Launch Blueprint for New Businesses',
-    description: 'Turn ideas into a revenue-ready launch blueprint with business validation, advanced branding, and verification evidence.',
+    title: 'ForgePilot - Your AI Co-Founder for Launching Real Businesses',
+    description: 'Go from idea to validated launch plan in under 10 minutes.',
     openGraph: {
-      title: 'ForgePilot AI - Autonomous Branding Platform',
-      description: 'Generate complete brand identities in minutes',
+      title: 'ForgePilot - Your AI Co-Founder for Launching Real Businesses',
+      description: 'Go from idea to validated launch plan in under 10 minutes.',
       type: 'website',
     },
   },

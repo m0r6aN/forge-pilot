@@ -162,6 +162,25 @@ export class BusinessIdeaGenerator {
     
     return JSON.parse(response.choices[0].message.content || '[]')
   }
+
+  private async validateBusinessIdeas(concepts: any[], request: BusinessIdeaRequest): Promise<any[]> {
+    if (!Array.isArray(concepts)) {
+      return []
+    }
+
+    // Lightweight v1 validation: prioritize concepts with feasible startup cost and clear value props.
+    return concepts
+      .map((concept: any) => {
+        const startupCost = Number(concept?.startupCost || concept?.startup_cost || 0)
+        const budgetFitScore = request.budget > 0 && startupCost > 0
+          ? Math.max(0, Math.min(1, request.budget / startupCost))
+          : 0.5
+        const clarityScore = concept?.valueProposition || concept?.uniqueValueProposition ? 1 : 0.5
+        const score = budgetFitScore * 0.6 + clarityScore * 0.4
+        return { ...concept, score }
+      })
+      .sort((a, b) => (b.score || 0) - (a.score || 0))
+  }
   
   private async createDetailedBusinessPlan(concept: any, request: BusinessIdeaRequest): Promise<BusinessIdea> {
     const planPrompt = `
@@ -233,7 +252,15 @@ export class BusinessIdeaGenerator {
   }
   
   private async mapToForgePilotServices(businessPlan: any): Promise<any> {
-    const serviceMapping = {
+    const serviceMapping: Record<
+      string,
+      {
+        service: string
+        cost: number
+        forgepilotOffering: boolean
+        priority: 'essential' | 'recommended' | 'optional'
+      }
+    > = {
       'Business idea validation': {
         service: 'Business Idea Generator',
         cost: 0, // Included in Launch Blueprint
