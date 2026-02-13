@@ -10,12 +10,11 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 const JWT_SECRET = process.env.JWT_SECRET
 
+const V1_PLAN_ID = 'starter'
+
 // Map plan IDs to Stripe price IDs
 const PLAN_PRICE_MAP: Record<string, string> = {
-  starter: process.env.STRIPE_STARTER_PRICE_ID || '',
-  growth: process.env.STRIPE_GROWTH_PRICE_ID || '',
-  professional: process.env.STRIPE_PROFESSIONAL_PRICE_ID || '',
-  enterprise: process.env.STRIPE_ENTERPRISE_PRICE_ID || '',
+  starter: process.env.STRIPE_LAUNCH_BLUEPRINT_PRICE_ID || process.env.STRIPE_STARTER_PRICE_ID || '',
 }
 
 export async function POST(req: NextRequest) {
@@ -44,12 +43,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    const { priceId, planId } = await req.json()
-    
-    // Use provided priceId or look up from plan
-    const finalPriceId = priceId || PLAN_PRICE_MAP[planId]
+    const { planId } = await req.json()
+    if (planId !== V1_PLAN_ID) {
+      return NextResponse.json({ error: 'Only Launch Blueprint is available in v1' }, { status: 400 })
+    }
+
+    const finalPriceId = PLAN_PRICE_MAP[planId]
     if (!finalPriceId) {
-      return NextResponse.json({ error: 'Invalid plan selected' }, { status: 400 })
+      return NextResponse.json({ error: 'Launch Blueprint price is not configured' }, { status: 400 })
     }
 
     // Get or create Stripe customer

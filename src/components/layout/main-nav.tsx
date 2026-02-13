@@ -26,8 +26,8 @@ export function MainNav() {
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
-          <Link href="/generator" className="text-muted-foreground hover:text-foreground">
-            Generator
+          <Link href="/business_ideas" className="text-muted-foreground hover:text-foreground">
+            Launch Blueprint
           </Link>
           <Link href="/pricing" className="text-muted-foreground hover:text-foreground">
             Pricing

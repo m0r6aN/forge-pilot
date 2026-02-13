@@ -4,8 +4,8 @@ type PageKey = 'home' | 'generator' | 'dashboard' | 'pricing' | 'admin'
 
 const pageMetadata: Record<PageKey, Metadata> = {
   home: {
-    title: 'ForgePilot AI - Autonomous Branding Platform',
-    description: 'Generate complete brand identities for entrepreneurs, side-hustlers, and small businesses in minutes - not months.',
+    title: 'ForgePilot - Launch Blueprint for New Businesses',
+    description: 'Turn ideas into a revenue-ready launch blueprint with business validation, advanced branding, and verification evidence.',
     openGraph: {
       title: 'ForgePilot AI - Autonomous Branding Platform',
       description: 'Generate complete brand identities in minutes',
@@ -31,8 +31,8 @@ const pageMetadata: Record<PageKey, Metadata> = {
     },
   },
   pricing: {
-    title: 'Pricing - ForgePilot AI',
-    description: 'Choose the perfect plan for your branding needs. Start for free or upgrade for advanced features.',
+    title: 'Pricing - ForgePilot Launch Blueprint',
+    description: 'Single v1 offer: ForgePilot Launch Blueprint for $69/month with Stripe billing.',
     openGraph: {
       title: 'Pricing - ForgePilot AI',
       description: 'Choose the perfect plan for your branding needs',
@@ -56,10 +56,10 @@ export function getPageMetadata(page: PageKey): Metadata {
 
 export const defaultMetadata: Metadata = {
   title: {
-    default: 'ForgePilot AI',
-    template: '%s | ForgePilot AI',
+    default: 'ForgePilot',
+    template: '%s | ForgePilot',
   },
-  description: 'Generate complete brand identities for entrepreneurs, side-hustlers, and small businesses in minutes - not months.',
+  description: 'Launch blueprint platform for business idea validation, advanced branding, and proof-backed go-to-market execution.',
   keywords: ['branding', 'AI', 'logo generator', 'brand identity', 'small business', 'startup'],
   authors: [{ name: 'ForgePilot AI' }],
   creator: 'ForgePilot AI',

@@ -191,16 +191,14 @@ export class BusinessIdeaGenerator {
       - Phase 3: Expansion (12+ months)
       
       4. REQUIRED SERVICES
-      List all services needed to execute this business:
+      List only the v1 launch services needed to execute this business:
       - Brand identity and design
-      - Website and e-commerce
-      - Domain registration
-      - Marketing and advertising
-      - Legal entity formation
-      - Business registration
-      - Social media management
-      - Customer support systems
-      - Analytics and tracking
+      - Business idea validation
+      - Evidence and verification package
+      - Stripe payment setup
+      - Authentication and account setup
+      - Federation integration
+      - Optional: simple landing page output
       - Payment processing
       
       For each service, specify:
@@ -236,53 +234,53 @@ export class BusinessIdeaGenerator {
   
   private async mapToForgePilotServices(businessPlan: any): Promise<any> {
     const serviceMapping = {
+      'Business idea validation': {
+        service: 'Business Idea Generator',
+        cost: 0, // Included in Launch Blueprint
+        forgepilotOffering: true,
+        priority: 'essential'
+      },
       'Brand identity and design': {
-        service: 'AI Brand Generation',
-        cost: 0, // Included in subscription
+        service: 'Advanced Brand Generator',
+        cost: 0, // Included in Launch Blueprint
         forgepilotOffering: true,
         priority: 'essential'
       },
-      'Website and e-commerce': {
-        service: 'Website Builder + E-commerce',
-        cost: 0, // Included in subscription
+      'Evidence and verification package': {
+        service: 'Evidence and Verification',
+        cost: 0, // Included in Launch Blueprint
         forgepilotOffering: true,
         priority: 'essential'
       },
-      'Domain registration': {
-        service: 'Domain Registration',
-        cost: 12.99,
+      'Payment processing': {
+        service: 'Stripe Payments',
+        cost: 0, // Included in Launch Blueprint
         forgepilotOffering: true,
         priority: 'essential'
       },
-      'Marketing and advertising': {
-        service: 'AI Marketing Automation',
-        cost: 0, // Included in subscription
+      'Stripe payment setup': {
+        service: 'Stripe Payments',
+        cost: 0, // Included in Launch Blueprint
         forgepilotOffering: true,
         priority: 'essential'
       },
-      'Legal entity formation': {
-        service: 'Business Entity Registration',
-        cost: 299,
+      'Authentication and account setup': {
+        service: 'Authentication',
+        cost: 0, // Included in Launch Blueprint
         forgepilotOffering: true,
         priority: 'essential'
       },
-      'Social media management': {
-        service: 'AI Social Media Manager',
-        cost: 0, // Included in subscription
+      'Federation integration': {
+        service: 'Federation Integration',
+        cost: 0, // Included in Launch Blueprint
         forgepilotOffering: true,
-        priority: 'recommended'
+        priority: 'essential'
       },
-      'AI avatar creation': {
-        service: 'AI Avatar & Video Suite',
-        cost: 197,
+      'Optional: simple landing page output': {
+        service: 'Simple Landing Page Output',
+        cost: 0, // Included in Launch Blueprint
         forgepilotOffering: true,
-        priority: 'recommended'
-      },
-      'Customer support systems': {
-        service: 'AI Customer Support',
-        cost: 0, // Included in subscription
-        forgepilotOffering: true,
-        priority: 'recommended'
+        priority: 'optional'
       }
     }
     

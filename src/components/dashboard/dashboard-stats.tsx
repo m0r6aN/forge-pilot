@@ -1,35 +1,35 @@
 'use client'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { TrendingUp, Users, Zap, DollarSign } from 'lucide-react'
+import { CheckCircle2, FileCheck2, Sparkles, Wallet } from 'lucide-react'
 
 const stats = [
   {
-    title: 'Brand Assets',
+    title: 'Blueprints Started',
     value: '12',
     change: '+2 this week',
-    icon: Zap,
+    icon: Sparkles,
     color: 'text-blue-600'
   },
   {
-    title: 'Active Campaigns',
-    value: '3',
-    change: '+1 this month',
-    icon: TrendingUp,
+    title: 'Brand Packages',
+    value: '8',
+    change: 'Ready for download',
+    icon: FileCheck2,
     color: 'text-green-600'
   },
   {
-    title: 'Total Impressions',
-    value: '45.2K',
-    change: '+12% vs last month',
-    icon: Users,
+    title: 'Verification Status',
+    value: '100%',
+    change: 'Evidence pipeline healthy',
+    icon: CheckCircle2,
     color: 'text-purple-600'
   },
   {
-    title: 'Ad Spend',
-    value: '$1,240',
-    change: 'Within budget',
-    icon: DollarSign,
+    title: 'MRR Target',
+    value: '$69',
+    change: 'Per active blueprint customer',
+    icon: Wallet,
     color: 'text-orange-600'
   }
 ]

@@ -32,12 +32,13 @@ export default function BusinessIdeasPage() {
   const executeBusinessPlan = async (businessIdea: BusinessIdea) => {
     // Walk user through step-by-step business creation
     const steps = [
-      'Generate brand identity',
-      'Register domain',
-      'Create business entity',
-      'Build website',
-      'Setup marketing campaigns',
-      'Configure customer support',
+      'Validate business idea',
+      'Generate advanced brand identity',
+      'Build evidence and verification package',
+      'Connect Stripe checkout',
+      'Enable auth and account access',
+      'Wire federation integration',
+      'Optionally generate a simple landing page',
       'Launch business'
     ]
     
@@ -53,7 +54,7 @@ export default function BusinessIdeasPage() {
             🧠 AI Business Idea Generator
           </h1>
           <p className="text-xl text-gray-300 mb-8">
-            Discover profitable business opportunities and launch them in minutes
+            Discover profitable opportunities and turn them into a Launch Blueprint
           </p>
         </div>
 
@@ -194,7 +195,7 @@ export default function BusinessIdeasPage() {
                   Total Setup Cost: ${totalCost.toLocaleString()}
                 </div>
                 <div className="text-gray-300">
-                  + ${149}/month ForgePilot Growth Plan
+                  + $69/month ForgePilot Launch Blueprint
                 </div>
               </div>
               

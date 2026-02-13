@@ -8,8 +8,8 @@ import { MainLayout } from '@/components/layout/main-layout'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ForgePilot AI - Autonomous Branding Platform',
-  description: 'Generate complete brand identities for entrepreneurs, side-hustlers, and small businesses in minutes - not months.',
+  title: 'ForgePilot - Launch Blueprint',
+  description: 'Business idea validation, advanced brand generation, and evidence-backed launch execution in one focused v1 offer.',
 }
 
 export default function RootLayout({
@@ -29,4 +29,3 @@ export default function RootLayout({
     </html>
   )
 }
-
