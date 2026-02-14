@@ -1,0 +1,1 @@
+{"error":"Failed to generate teaser via OMEGA","details":"OMEGA endpoint is not configured. Set OMEGA_BASE_URL, FASTAPI_BASE_URL, or FORGEPILOT_BACKEND_URL."}

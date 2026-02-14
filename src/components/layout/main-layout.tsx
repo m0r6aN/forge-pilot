@@ -12,8 +12,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   // Navigation items
   const navItems = [
     { href: '/', label: 'Home' },
-    { href: '/business_ideas', label: 'Launch Blueprint' },
-    { href: '/generator', label: 'Brand Generator' },
+    { href: '/launch', label: 'Launch Session' },
+    { href: '/business_ideas', label: 'Idea Lab' },
     { href: '/dashboard', label: 'Dashboard' },
     { href: '/pricing', label: 'Pricing' },
   ]

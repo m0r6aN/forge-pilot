@@ -24,8 +24,11 @@ export function MainNav() {
         </Link>
 
         <div className="hidden md:flex items-center gap-6">
+          <Link href="/launch" className="text-muted-foreground hover:text-foreground">
+            Launch Session
+          </Link>
           <Link href="/business_ideas" className="text-muted-foreground hover:text-foreground">
-            Launch Blueprint
+            Idea Lab
           </Link>
           <Link href="/pricing" className="text-muted-foreground hover:text-foreground">
             Pricing

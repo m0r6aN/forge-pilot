@@ -10,11 +10,11 @@ export default function HomePage() {
           <span className="block text-primary">Your AI Co-Founder for Launching Real Businesses</span>
         </h1>
         <p className="text-xl text-muted-foreground">
-          Go from idea to validated launch plan in under 10 minutes.
+          The Launch Session gives you a strategic teaser first, then unlocks the full blueprint.
         </p>
         <div className="pt-4">
           <Button asChild size="lg" className="text-base px-8">
-            <Link href="/pricing">Generate My Launch Blueprint — $69</Link>
+            <Link href="/launch">Start My Launch Session - $69</Link>
           </Button>
         </div>
       </div>

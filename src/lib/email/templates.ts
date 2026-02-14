@@ -267,6 +267,36 @@ The ForgePilot Team
     `,
     text: (data) => `Crypto payment confirmed! TX: ${data.txHash}. Your ${data.plan} plan is active.`
   },
+
+  'launch-blueprint-unlock': {
+    subject: 'Verify Email to Unlock Your ForgePilot Blueprint',
+    html: (data) => `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #1f2937; }
+            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+            .content { border: 1px solid #e5e7eb; border-radius: 10px; padding: 24px; background: #ffffff; }
+            .cta { display: inline-block; background: #111827; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 8px; margin: 16px 0; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="content">
+              <h2>One quick step before checkout</h2>
+              <p>Use this secure link to verify your email, then you can unlock the full Launch Blueprint.</p>
+              <p><a class="cta" href="${data.verificationUrl}">Verify Email</a></p>
+              <p>This link expires in 20 minutes.</p>
+              <p>- ForgePilot</p>
+            </div>
+          </div>
+        </body>
+      </html>
+    `,
+    text: (data) => `Verify your email to unlock the blueprint: ${data.verificationUrl}. This link expires in 20 minutes.`
+  },
 }
 
 export function getTemplate(templateId: string) {

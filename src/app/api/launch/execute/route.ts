@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getEnv } from '@/lib/config/env'
+import { logLaunchExecutionToOmega } from '@/lib/omega/client'
 
 type PublishTarget = 'github' | 'landing'
 
@@ -155,6 +156,7 @@ export async function POST(req: NextRequest) {
     }
 
     const fastApiBaseUrl =
+      getEnv('OMEGA_BASE_URL') ||
       getEnv('FASTAPI_BASE_URL') ||
       getEnv('FORGEPILOT_BACKEND_URL') ||
       getEnv('NEXT_PUBLIC_FASTAPI_BASE_URL') ||
@@ -197,6 +199,18 @@ export async function POST(req: NextRequest) {
         ? publicationResult.value
         : { published: false, reason: publicationResult.reason?.message || 'publication failed' }
 
+    const omegaExecutionLog = await logLaunchExecutionToOmega({
+      idea,
+      publishTarget,
+      campaign: {
+        campaignId: campaign.campaign_id,
+        status: campaign.status || 'created',
+      },
+      manifest,
+      federation,
+      publication,
+    })
+
     return NextResponse.json({
       success: true,
       message: 'Initial launch campaign execution started',
@@ -207,6 +221,7 @@ export async function POST(req: NextRequest) {
       manifest,
       federation,
       publication,
+      omega: omegaExecutionLog,
     })
   } catch (error) {
     console.error('Launch execution error:', error)
