@@ -31,6 +31,8 @@ export function LaunchSession() {
   const [hexDraft, setHexDraft] = useState('')
   const [questions, setQuestions] = useState<string[]>([])
   const [answers, setAnswers] = useState<string[]>([])
+  const [resumeRunId, setResumeRunId] = useState<string>('')
+  const [resumeGateId, setResumeGateId] = useState<string>('')
   const [teaser, setTeaser] = useState<LaunchTeaser | null>(null)
   const [traceId, setTraceId] = useState<string>('')
   const [receiptRef, setReceiptRef] = useState<string>('')
@@ -106,6 +108,8 @@ export function LaunchSession() {
 
       if (payload.needs_clarification) {
         const nextQuestions = Array.isArray(payload.questions) ? payload.questions.slice(0, 2) : []
+        setResumeRunId(typeof payload.runId === 'string' ? payload.runId : '')
+        setResumeGateId(typeof payload.gateId === 'string' ? payload.gateId : '')
         setQuestions(nextQuestions)
         setAnswers(nextQuestions.map(() => ''))
         setStep('clarify')
@@ -126,13 +130,16 @@ export function LaunchSession() {
     setError('')
 
     try {
+      if (!resumeRunId || !resumeGateId) {
+        throw new Error('Missing workflow resume context. Please restart the strategy session.')
+      }
+
       const response = await fetch('/api/launch/teaser/answer', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          sessionId,
-          idea,
-          advanced,
+          runId: resumeRunId,
+          gateId: resumeGateId,
           answers,
         }),
       })
@@ -146,6 +153,8 @@ export function LaunchSession() {
       setTeaser(payload.teaser)
       setTraceId(payload.traceId || traceId)
       setReceiptRef(payload.receiptRef || receiptRef)
+      setResumeRunId('')
+      setResumeGateId('')
       setStep('teaser')
     } catch (err) {
       setError((err as Error).message)
@@ -202,10 +211,14 @@ export function LaunchSession() {
     setError('')
 
     try {
+      if (!traceId || !receiptRef) {
+        throw new Error('Missing trace/receipt binding. Regenerate teaser before checkout.')
+      }
+
       const response = await fetch('/api/payments/create_launch_checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ sessionId }),
+        body: JSON.stringify({ sessionId, traceId, receiptRef }),
       })
 
       const payload = await response.json()
@@ -450,7 +463,10 @@ export function LaunchSession() {
                 </div>
               ))}
 
-              <Button onClick={submitAnswers} disabled={loading || answers.some((answer) => !answer.trim())}>
+              <Button
+                onClick={submitAnswers}
+                disabled={loading || !resumeRunId || !resumeGateId || answers.some((answer) => !answer.trim())}
+              >
                 {loading ? 'Finalizing teaser...' : 'Generate Teaser'}
               </Button>
             </CardContent>
@@ -467,8 +483,8 @@ export function LaunchSession() {
             </CardHeader>
             <CardContent className="space-y-6">
               <section>
-                <h3 className="text-lg font-semibold">1. Working Name</h3>
-                <p className="mt-2 text-sm leading-7">{teaser.workingName}</p>
+                <h3 className="text-lg font-semibold">1. One-liner</h3>
+                <p className="mt-2 text-sm leading-7">{teaser.oneLiner}</p>
               </section>
 
               <section>
@@ -477,13 +493,24 @@ export function LaunchSession() {
               </section>
 
               <section>
-                <h3 className="text-lg font-semibold">3. Market Pressure Insight</h3>
-                <p className="mt-2 text-sm leading-7 whitespace-pre-wrap">{teaser.marketPressure}</p>
+                <h3 className="text-lg font-semibold">3. ICP Snapshot</h3>
+                <p className="mt-2 text-sm leading-7 whitespace-pre-wrap">{teaser.icpSnapshot}</p>
               </section>
 
               <section>
-                <h3 className="text-lg font-semibold">4. Brand Color Direction</h3>
-                <p className="mt-2 text-sm leading-7 whitespace-pre-wrap">{teaser.colorDirection}</p>
+                <h3 className="text-lg font-semibold">4. Monetization Angle</h3>
+                <p className="mt-2 text-sm leading-7 whitespace-pre-wrap">{teaser.monetizationAngle}</p>
+              </section>
+
+              <section>
+                <h3 className="text-lg font-semibold">5. Strategic Differentiator</h3>
+                <p className="mt-2 text-sm leading-7 whitespace-pre-wrap">{teaser.strategicDifferentiator}</p>
+              </section>
+
+              <section>
+                <h3 className="text-lg font-semibold">6. Call to Action</h3>
+                <p className="mt-2 text-sm leading-7">{teaser.ctaHeadline}</p>
+                <p className="mt-2 text-sm leading-7 text-muted-foreground">{teaser.ctaUnlockValue}</p>
               </section>
 
               <div className="rounded-xl border bg-slate-50 p-5">

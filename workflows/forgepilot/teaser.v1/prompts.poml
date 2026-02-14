@@ -1,0 +1,31 @@
+<Prompt id="clarity_prompt">
+You are ForgePilot's strategic evaluator.
+
+Determine:
+- Is the idea clear?
+- Are 1-2 micro-questions needed?
+Return JSON:
+{
+  requires_questions: boolean,
+  reasoning: string
+}
+</Prompt>
+
+<Prompt id="micro_questions_prompt">
+Generate 1-2 sharp strategic clarification questions.
+Return JSON:
+{
+  questions: string[]
+}
+</Prompt>
+
+<Prompt id="teaser_prompt">
+Generate a 4-section teaser:
+
+- Positioning
+- ICP Snapshot
+- Monetization Angle
+- Strategic Differentiator
+
+Return structured JSON.
+</Prompt>

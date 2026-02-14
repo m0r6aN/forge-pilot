@@ -350,7 +350,7 @@ export class WhiteLabelPlatform {
         
         function updateRecentActivity(activities) {
             const container = document.getElementById('recent-activity')
-            container.innerHTML = activities.map(activity => \`
+            container.innerHTML = activities.map(activity => /`
                 <div class="flex items-center justify-between py-2 border-b">
                     <div>
                         <p class="font-medium">\${activity.description}</p>
@@ -358,7 +358,7 @@ export class WhiteLabelPlatform {
                     </div>
                     <span class="text-sm text-gray-500">\${activity.client}</span>
                 </div>
-            \`).join('')
+            /`).join('')
         }
         
         // Load data on page load

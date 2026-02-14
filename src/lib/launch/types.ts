@@ -10,10 +10,13 @@ export interface LaunchAdvancedOptions {
 }
 
 export interface LaunchTeaser {
-  workingName: string
+  oneLiner: string
   positioning: string
-  marketPressure: string
-  colorDirection: string
+  icpSnapshot: string
+  monetizationAngle: string
+  strategicDifferentiator: string
+  ctaHeadline: string
+  ctaUnlockValue: string
 }
 
 export interface LaunchTeaserRequest {
@@ -34,6 +37,8 @@ export interface ClarificationResponse {
   questions: string[]
   traceId: string
   receiptRef?: string
+  runId: string
+  gateId: string
 }
 
 export interface TeaserResponse {

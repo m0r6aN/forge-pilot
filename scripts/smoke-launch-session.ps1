@@ -37,23 +37,43 @@ function Invoke-JsonPost {
   }
 
   try {
-    if ($WebSession) {
-      $response = Invoke-WebRequest -Method POST -Uri $Url -Headers $requestHeaders -Body $JsonBody -WebSession $WebSession
-    } else {
-      $response = Invoke-WebRequest -Method POST -Uri $Url -Headers $requestHeaders -Body $JsonBody
+    $supportsSkipHttpErrorCheck = (Get-Command Invoke-WebRequest).Parameters.ContainsKey('SkipHttpErrorCheck')
+
+    $invokeParams = @{
+      Method = 'POST'
+      Uri = $Url
+      Headers = $requestHeaders
+      Body = $JsonBody
     }
+    if ($WebSession) {
+      $invokeParams.WebSession = $WebSession
+    }
+    if ($supportsSkipHttpErrorCheck) {
+      $invokeParams.SkipHttpErrorCheck = $true
+    }
+
+    $response = Invoke-WebRequest @invokeParams
     $statusCode = [int]$response.StatusCode
     $content = $response.Content
   } catch {
     $httpResponse = $_.Exception.Response
     if ($httpResponse -and $httpResponse.StatusCode) {
-      $statusCode = [int]$httpResponse.StatusCode.value__
+      $statusCode = [int]$httpResponse.StatusCode
       try {
-        $stream = $httpResponse.GetResponseStream()
-        if ($stream) {
-          $reader = New-Object System.IO.StreamReader($stream)
-          $content = $reader.ReadToEnd()
+        if ($_.ErrorDetails -and $_.ErrorDetails.Message) {
+          $content = $_.ErrorDetails.Message
+        } elseif ($httpResponse -is [System.Net.Http.HttpResponseMessage]) {
+          $content = $httpResponse.Content.ReadAsStringAsync().GetAwaiter().GetResult()
         } else {
+          $stream = $httpResponse.GetResponseStream()
+          if ($stream) {
+            $reader = New-Object System.IO.StreamReader($stream)
+            $content = $reader.ReadToEnd()
+          } else {
+            $content = $_.Exception.Message
+          }
+        }
+        if (-not $content) {
           $content = $_.Exception.Message
         }
       } catch {
@@ -112,6 +132,11 @@ if ($teaser.Json -and $teaser.Json.needs_clarification -eq $true) {
   Write-Host $answer.Content
 
   $latest = $answer
+}
+
+if ($latest.StatusCode -lt 200 -or $latest.StatusCode -ge 300) {
+  Write-Host "`nTeaser phase failed with HTTP $($latest.StatusCode). Not proceeding to unlock/checkout."
+  exit 1
 }
 
 if ($SkipUnlock) {

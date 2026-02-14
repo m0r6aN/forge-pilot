@@ -19,11 +19,23 @@ function createStripeClient() {
 
 export async function POST(req: NextRequest) {
   try {
-    const { sessionId } = (await req.json()) as { sessionId?: string }
+    const { sessionId, traceId, receiptRef } = (await req.json()) as {
+      sessionId?: string
+      traceId?: string
+      receiptRef?: string
+    }
     const requestIdempotencyKey = req.headers.get('idempotency-key')?.trim()
 
     if (!sessionId || !isValidSessionId(sessionId)) {
       return NextResponse.json({ error: 'Valid sessionId is required' }, { status: 400 })
+    }
+
+    if (!traceId || typeof traceId !== 'string') {
+      return NextResponse.json({ error: 'traceId is required for checkout binding' }, { status: 400 })
+    }
+
+    if (!receiptRef || typeof receiptRef !== 'string') {
+      return NextResponse.json({ error: 'receiptRef is required for checkout binding' }, { status: 400 })
     }
 
     const cookieStore = await cookies()
@@ -63,6 +75,8 @@ export async function POST(req: NextRequest) {
         sessionId,
         email: unlockSession.email,
         product: 'launch-blueprint',
+        traceId,
+        receiptRef,
       },
     }, { idempotencyKey })
 

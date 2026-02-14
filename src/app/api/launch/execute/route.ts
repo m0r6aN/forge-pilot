@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createOmegaClient, generateCorrelationId, validateCorrelationId } from '@omega/sdk'
 import { getEnv } from '@/lib/config/env'
-import { logLaunchExecutionToOmega } from '@/lib/omega/client'
 
 type PublishTarget = 'github' | 'landing'
 
@@ -37,6 +37,65 @@ interface MarketOpsManifest {
     publish_target: PublishTarget
     governance_mode: 'governed'
   }
+}
+
+function createClient() {
+  const federationUrl = getEnv('OMEGA_FEDERATION_URL')
+  const apiKey = getEnv('OMEGA_API_KEY')
+  const tenantId = getEnv('OMEGA_TENANT_ID')
+  const actorId = getEnv('OMEGA_ACTOR_ID')
+
+  if (!federationUrl || !apiKey || !tenantId || !actorId) {
+    throw new Error('Missing required OMEGA configuration for launch execution logging')
+  }
+
+  return createOmegaClient({
+    federationUrl,
+    apiKey,
+    tenantId,
+    actorId,
+    timeoutMs: Number(process.env.OMEGA_TIMEOUT_MS ?? 120_000),
+    maxRetries: Number(process.env.OMEGA_MAX_RETRIES ?? 3),
+  })
+}
+
+async function logLaunchExecutionToOmega(payload: unknown): Promise<{ traceId: string; receiptRef: string }> {
+  const tenantId = process.env.OMEGA_TENANT_ID
+  const actorId = process.env.OMEGA_ACTOR_ID
+  if (!tenantId || !actorId) {
+    throw new Error('Missing OMEGA_TENANT_ID or OMEGA_ACTOR_ID')
+  }
+
+  const correlationId = generateCorrelationId(tenantId)
+  validateCorrelationId(correlationId)
+  const omega = createClient()
+
+  const run = await omega.workflows.runWorkflow(
+    'forgepilot.execution.beta.v1',
+    { payload },
+    { tenantId, actorId, correlationId }
+  )
+
+  const completed = await omega.workflows.waitForCompletion(run.runId, {
+    tenantId,
+    actorId,
+    correlationId,
+    pollIntervalMs: 1_000,
+    timeoutMs: 60_000,
+  })
+
+  const traceId = completed.correlationId
+  const receiptRef =
+    completed.workflowReceiptHash ||
+    (Array.isArray(completed.receiptChain) && completed.receiptChain.length > 0
+      ? completed.receiptChain[completed.receiptChain.length - 1]
+      : undefined)
+
+  if (!traceId || !receiptRef) {
+    throw new Error('OMEGA execution logger did not return traceId and receiptRef')
+  }
+
+  return { traceId, receiptRef }
 }
 
 function buildMarketOpsManifest(
