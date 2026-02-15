@@ -6,6 +6,7 @@ Scope:
 - v1 offer only: Launch Blueprint ($69)
 - Stripe-only billing
 - Evidence + Federation execution path enabled
+- Blueprint worker queue enabled
 
 ## 1) Stripe Price ID for $69
 - Status: `REQUIRES ENV VERIFICATION`
@@ -68,6 +69,18 @@ Scope:
   1. Ensure `RESEND_API_KEY` and `EMAIL_FROM` are set.
   2. Complete test checkout in Stripe test mode.
   3. Confirm receipt email is delivered with `subscription-confirmed` template.
+
+## 7) Blueprint Worker Queue + Completion
+- Status: `PASS (code path)`, `REQUIRES RUNTIME TEST`
+- Code wiring:
+  - Webhook publish: `src/app/api/webhooks/stripe/route.ts`
+  - Worker runner: `scripts/blueprint-worker.ts`
+  - Worker logic: `src/lib/launch/blueprint-worker.ts`
+- Verify:
+  1. Ensure `REDIS_URL` is set and worker process is running (`npm run omega:blueprint-worker`).
+  2. Complete test checkout in Stripe test mode.
+  3. Confirm ledger shows `blueprint.requested` then `blueprint.generated`.
+  4. Confirm trace now includes `blueprint`, `blueprintReceiptRef`, and `blueprintGeneratedAt`.
 
 ## Launch Gate
 - Do not launch until every item above is runtime-verified in production-like environment.

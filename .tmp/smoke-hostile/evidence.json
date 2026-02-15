@@ -1,0 +1,140 @@
+{
+  "metadata": {
+    "localTime": "Sat Feb 14 2026 18:27:18 GMT-0500 (Eastern Standard Time)",
+    "utcTime": "2026-02-14T23:27:18.996Z",
+    "baseUrl": "http://localhost:3000",
+    "gitSha": "6f46715",
+    "sdkSha": "7a57bb8",
+    "sdkTarball": "omega-sdk-1.0.0.tgz",
+    "sdkTarHash": "d190f11d960a94a07eae8e3decce8cc88533d21e6f39754bdd5f533103dd6d0a",
+    "fcImage": "omega-core-federation_core",
+    "fcDigest": "sha256:31501dcd75701f8867e2e50387e210ea08312e5b861ec4a5f4f7370fddd024ca"
+  },
+  "steps": {
+    "A": {
+      "command": "node -r dotenv/config scripts/omega-register.mjs",
+      "status": 200,
+      "durationMs": 525,
+      "pass": true,
+      "result": [
+        {
+          "correlationId": "t:morgan-findings|c:019c5e7a-eb79-7819-99bc-f02a1b505691",
+          "workflowId": "forgepilot.teaser.v1",
+          "version": "1.0.0",
+          "artifactHashes": {
+            "workflowYaml": "sha256:91799bda09566d6924dd06befb5e846856a15029b6aeb99fdd49bab07df38c03",
+            "promptsPoml": "sha256:283e464a71df98071ab5f1c27f97b3e941b3b17add3b1d9771aa349b7dc0369b",
+            "schemas": {
+              "output.schema.json": "sha256:b0bb8d2b9ad96045d598a541eb058c682a72fc2d93173393b37b6128b6c56d94",
+              "steps/clarityEval.schema.json": "sha256:600a1bcdf0f51715ecad1a5d5599e77f020aedaccf0173c4a0aa9038d3c7511d",
+              "steps/microQuestions.schema.json": "sha256:02fecbf6c3dd24818d76dfbb5a34c65f27883c4ad234a42f31017053adcd36ab",
+              "steps/teaserGenerate.schema.json": "sha256:89c46226a4155a5b9cb72b1241338e13f58002696a37450f5c5a2df271bf450b"
+            }
+          },
+          "idempotent": true
+        },
+        {
+          "correlationId": "t:morgan-findings|c:019c5e7a-eb79-7819-99bc-f02a1b505691",
+          "workflowId": "forgepilot.blueprint.v1",
+          "version": "1.0.0",
+          "artifactHashes": {
+            "workflowYaml": "sha256:53cae7058dda099845026040f3c4e76c126fe95adcf2c80f224d1c61c7ff11e7",
+            "promptsPoml": "sha256:f36ce7f4b8909d50ec689a736af77d787490d7a957b2031df85c88ad1e51d97a",
+            "schemas": {
+              "output.schema.json": "sha256:7d3a606bef78eeaee6468722823dc3246a7dac9bd3cfc02dce2ebe237573eaf6"
+            }
+          },
+          "idempotent": true
+        }
+      ]
+    },
+    "B": {
+      "request": {
+        "idea": "AI compliance copilot for SMB HR teams",
+        "email": "smoke-runner@example.com",
+        "sessionId": "9d943090-8f45-4cc0-8676-829551cfe5f1"
+      },
+      "status": 502,
+      "traceId": null,
+      "receiptRef": null,
+      "pass": false
+    },
+    "C": {
+      "pass": false,
+      "reason": "Could not trigger clarification branch in 3 attempts"
+    },
+    "E": {
+      "request": {
+        "type": "checkout.session.completed",
+        "traceId": null,
+        "receiptRef": null
+      },
+      "status": 200,
+      "pass": true,
+      "responseText": "{\"received\":true}"
+    },
+    "D": {
+      "request": {
+        "traceId": null,
+        "receiptRef": null
+      },
+      "status": 400,
+      "pass": false,
+      "responseText": "{\"error\":\"traceId is required\"}"
+    },
+    "F": {
+      "workerKilled": true,
+      "redisConnected": false,
+      "pendingAfterKill": null,
+      "pendingAfterRestart": null,
+      "completed": false,
+      "pass": false
+    },
+    "G": {
+      "traceId": null,
+      "teaserReceiptRef": null,
+      "blueprintReceiptRef": null,
+      "exportBlueprintStatus": null,
+      "exportMismatchStatus": null,
+      "receiptsDistinct": false,
+      "pass": false,
+      "workflowVersion": null
+    },
+    "H": {
+      "status": 200,
+      "responseText": "{\"received\":true}",
+      "blueprintGeneratedCount": 0,
+      "pass": false,
+      "blueprintReceiptRefStable": false
+    }
+  },
+  "requests": {},
+  "responses": {
+    "B": {
+      "status": 502,
+      "headers": {
+        "connection": "keep-alive",
+        "content-type": "application/json",
+        "date": "Sat, 14 Feb 2026 23:29:20 GMT",
+        "keep-alive": "timeout=5",
+        "referrer-policy": "origin-when-cross-origin",
+        "transfer-encoding": "chunked",
+        "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY"
+      },
+      "text": "{\"error\":\"Failed to generate teaser via OMEGA\",\"details\":{\"name\":\"Error\",\"message\":\"OMEGA run timeout: runId=9cb1e01f-57af-4d27-aec0-63f65c855e3d, elapsedMs=120024, status=pending, currentStep=unknown, gateId=none\",\"stackPreview\":\"Error: OMEGA run timeout: runId=9cb1e01f-57af-4d27-aec0-63f65c855e3d, elapsedMs=120024, status=pending, currentStep=unknown, gateId=none\\n    at waitForRunReady (D:\\\\Repos\\\\keon-omega\\\\forgepilot\\\\.next\\\\dev\\\\server\\\\chunks\\\\[root-of-the-server]__3ec38917._.js:227:11)\\n    at async POST (D:\\\\Repos\\\\keon-omega\\\\forgepilot\\\\.next\\\\dev\\\\server\\\\chunks\\\\[root-of-the-server]__3ec38917._.js:644:27)\\n    at async AppRouteRouteModule.do (D:\\\\Repos\\\\keon-omega\\\\forgepilot\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-route-turbo.runtime.dev.js:5:37866)\\n    at async AppRouteRouteModule.handle (D:\\\\Repos\\\\keon-omega\\\\forgepilot\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-route-turbo.runtime.dev.js:5:45156)\\n    at async responseGenerator (D:\\\\Repos\\\\keon-omega\\\\forgepilot\\\\.next\\\\dev\\\\server\\\\chunks\\\\node_modules_85cc6963._.js:25002:38)\\n    at async AppRouteRouteModule.handleResponse (D:\\\\Repos\\\\keon-omega\\\\forgepilot\\\\node_modules\\\\next\\\\dist\\\\compiled\\\\next-server\\\\app-route-turbo.runtime.dev.js:1:191938)\\n    at async handleResponse (D:\\\\Repos\\\\keon-omega\\\\forgepilot\\\\.next\\\\dev\\\\server\\\\chunks\\\\node_modules_85cc6963._.js:25065:32)\\n    at async Module.handler (D:\\\\Repos\\\\keon-omega\\\\forgepilot\\\\.next\\\\dev\\\\server\\\\chunks\\\\node_modules_85cc696...\"}}",
+      "json": {
+        "error": "Failed to generate teaser via OMEGA",
+        "details": {
+          "name": "Error",
+          "message": "OMEGA run timeout: runId=9cb1e01f-57af-4d27-aec0-63f65c855e3d, elapsedMs=120024, status=pending, currentStep=unknown, gateId=none",
+          "stackPreview": "Error: OMEGA run timeout: runId=9cb1e01f-57af-4d27-aec0-63f65c855e3d, elapsedMs=120024, status=pending, currentStep=unknown, gateId=none\n    at waitForRunReady (D:\\Repos\\keon-omega\\forgepilot\\.next\\dev\\server\\chunks\\[root-of-the-server]__3ec38917._.js:227:11)\n    at async POST (D:\\Repos\\keon-omega\\forgepilot\\.next\\dev\\server\\chunks\\[root-of-the-server]__3ec38917._.js:644:27)\n    at async AppRouteRouteModule.do (D:\\Repos\\keon-omega\\forgepilot\\node_modules\\next\\dist\\compiled\\next-server\\app-route-turbo.runtime.dev.js:5:37866)\n    at async AppRouteRouteModule.handle (D:\\Repos\\keon-omega\\forgepilot\\node_modules\\next\\dist\\compiled\\next-server\\app-route-turbo.runtime.dev.js:5:45156)\n    at async responseGenerator (D:\\Repos\\keon-omega\\forgepilot\\.next\\dev\\server\\chunks\\node_modules_85cc6963._.js:25002:38)\n    at async AppRouteRouteModule.handleResponse (D:\\Repos\\keon-omega\\forgepilot\\node_modules\\next\\dist\\compiled\\next-server\\app-route-turbo.runtime.dev.js:1:191938)\n    at async handleResponse (D:\\Repos\\keon-omega\\forgepilot\\.next\\dev\\server\\chunks\\node_modules_85cc6963._.js:25065:32)\n    at async Module.handler (D:\\Repos\\keon-omega\\forgepilot\\.next\\dev\\server\\chunks\\node_modules_85cc696..."
+        }
+      }
+    }
+  },
+  "notes": [],
+  "ledger": [],
+  "trace": null
+}

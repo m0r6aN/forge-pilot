@@ -1,15 +1,15 @@
 'use client'
 
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { 
-  Shield, 
-  Users, 
-  BarChart3, 
-  Settings, 
-  Bell,
-  Home
+import {
+    BarChart3,
+    Bell,
+    Home,
+    Settings,
+    Shield,
+    Users
 } from 'lucide-react'
+import Link from 'next/link'
 
 export function AdminDashboard() {
   return (
@@ -18,7 +18,7 @@ export function AdminDashboard() {
         <div className="flex items-center justify-between">
           {/* Logo & Title */}
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-gradient-to-br from-purple-600 to-blue-600">
+            <div className="p-2 rounded-sm bg-primary">
               <Shield className="h-6 w-6 text-white" />
             </div>
             <div>

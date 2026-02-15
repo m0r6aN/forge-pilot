@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { voiceStrings } from '@/lib/ui/voiceStrings'
 import { Check, Rocket } from 'lucide-react'
+import { useState } from 'react'
 
 const launchBlueprintPlan = {
   id: 'starter',
@@ -51,7 +52,7 @@ export function PricingTiers() {
     <div className="max-w-2xl mx-auto">
       <Card className="border-primary shadow-lg">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit">
+          <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-sm w-fit">
             <Rocket className="h-6 w-6 text-primary" />
           </div>
           <CardTitle className="text-2xl">{launchBlueprintPlan.name}</CardTitle>
@@ -77,7 +78,7 @@ export function PricingTiers() {
             onClick={() => handleSubscribe(launchBlueprintPlan.id)}
             disabled={loading === launchBlueprintPlan.id}
           >
-            {loading === launchBlueprintPlan.id ? 'Processing...' : 'Start Launch Blueprint'}
+            {loading === launchBlueprintPlan.id ? voiceStrings.pricing.checkoutInitAction : 'Start Launch Blueprint'}
           </Button>
           <p className="text-xs text-center text-muted-foreground">Stripe payments only for v1.</p>
         </CardContent>

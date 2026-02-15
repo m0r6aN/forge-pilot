@@ -26,19 +26,15 @@ export interface LaunchTeaserRequest {
 }
 
 export interface LaunchTeaserAnswerRequest {
-  sessionId: string
-  answers: string[]
-  idea?: string
-  advanced?: LaunchAdvancedOptions
+  traceId: string
+  answers: Record<string, string>
 }
 
 export interface ClarificationResponse {
   needs_clarification: true
   questions: string[]
   traceId: string
-  receiptRef?: string
-  runId: string
-  gateId: string
+  workflowVersion: string
 }
 
 export interface TeaserResponse {
@@ -46,6 +42,7 @@ export interface TeaserResponse {
   teaser: LaunchTeaser
   traceId: string
   receiptRef: string
+  workflowVersion: string
 }
 
 export type LaunchTeaserApiResponse = ClarificationResponse | TeaserResponse

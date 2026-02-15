@@ -14,21 +14,18 @@ function requiredEnv(name) {
 async function main() {
   const __dirname = path.dirname(fileURLToPath(import.meta.url))
   const root = path.resolve(__dirname, '..')
-  const artifactRoot = path.join(root, 'workflows', 'forgepilot', 'teaser.v1')
-
-  const workflowYaml = await fs.readFile(path.join(artifactRoot, 'workflow.yaml'), 'utf8')
-  const promptsPoml = await fs.readFile(path.join(artifactRoot, 'prompts.poml'), 'utf8')
-
-  const schemaDir = path.join(artifactRoot, 'schema')
-  const schemas = {}
-  const files = await fs.readdir(schemaDir, { recursive: true })
-  for (const file of files) {
-    if (typeof file !== 'string') continue
-    if (!file.endsWith('.json')) continue
-    const abs = path.join(schemaDir, file)
-    const jsonText = await fs.readFile(abs, 'utf8')
-    schemas[file.replace(/\\/g, '/')] = JSON.parse(jsonText)
-  }
+  const workflowRoots = [
+    {
+      workflowId: 'forgepilot.teaser.v1',
+      version: '1.0.0',
+      artifactRoot: path.join(root, 'workflows', 'forgepilot', 'teaser.v1'),
+    },
+    {
+      workflowId: 'forgepilot.blueprint.v1',
+      version: '1.0.0',
+      artifactRoot: path.join(root, 'workflows', 'forgepilot', 'blueprint.v1'),
+    },
+  ]
 
   const tenantId = requiredEnv('OMEGA_TENANT_ID')
   const actorId = requiredEnv('OMEGA_ACTOR_ID')
@@ -42,26 +39,44 @@ async function main() {
   })
 
   const correlationId = generateCorrelationId(tenantId)
-  const result = await client.workflows.register(
-    {
-      workflowYaml,
-      promptsPoml,
-      schemas,
-      workflowId: 'forgepilot.teaser.v1',
-      version: '1.0.0',
-    },
-    {
-      tenantId,
-      actorId,
-      correlationId,
-    }
-  )
+  const results = []
+  for (const workflow of workflowRoots) {
+    const workflowYaml = await fs.readFile(path.join(workflow.artifactRoot, 'workflow.yaml'), 'utf8')
+    const promptsPoml = await fs.readFile(path.join(workflow.artifactRoot, 'prompts.poml'), 'utf8')
 
-  console.log(JSON.stringify({ correlationId, ...result }, null, 2))
+    const schemaDir = path.join(workflow.artifactRoot, 'schema')
+    const schemas = {}
+    const files = await fs.readdir(schemaDir, { recursive: true })
+    for (const file of files) {
+      if (typeof file !== 'string') continue
+      if (!file.endsWith('.json')) continue
+      const abs = path.join(schemaDir, file)
+      const jsonText = await fs.readFile(abs, 'utf8')
+      schemas[file.replace(/\\/g, '/')] = JSON.parse(jsonText)
+    }
+
+    const result = await client.workflows.register(
+      {
+        workflowYaml,
+        promptsPoml,
+        schemas,
+        workflowId: workflow.workflowId,
+        version: workflow.version,
+      },
+      {
+        tenantId,
+        actorId,
+        correlationId,
+      }
+    )
+
+    results.push({ correlationId, ...result })
+  }
+
+  console.log(JSON.stringify(results, null, 2))
 }
 
 main().catch((error) => {
   console.error('Failed to register workflow artifacts:', error)
   process.exitCode = 1
 })
-

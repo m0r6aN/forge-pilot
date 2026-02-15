@@ -1,18 +1,19 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import { LaunchAdvancedOptions, LaunchTeaser } from '@/lib/launch/types'
+import { voiceStrings } from '@/lib/ui/voiceStrings'
+import { useEffect, useMemo, useState } from 'react'
 
 const DEFAULT_ADVANCED: LaunchAdvancedOptions = {
   colorMode: 'none',
@@ -31,8 +32,6 @@ export function LaunchSession() {
   const [hexDraft, setHexDraft] = useState('')
   const [questions, setQuestions] = useState<string[]>([])
   const [answers, setAnswers] = useState<string[]>([])
-  const [resumeRunId, setResumeRunId] = useState<string>('')
-  const [resumeGateId, setResumeGateId] = useState<string>('')
   const [teaser, setTeaser] = useState<LaunchTeaser | null>(null)
   const [traceId, setTraceId] = useState<string>('')
   const [receiptRef, setReceiptRef] = useState<string>('')
@@ -55,6 +54,25 @@ export function LaunchSession() {
   }, [])
 
   const canSubmitIdea = idea.trim().length >= 20
+
+  const buildAnswerPayload = () => {
+    const payload: Record<string, string> = {}
+    questions.forEach((question, index) => {
+      const value = (answers[index] || '').trim()
+      if (!value) {
+        return
+      }
+
+      const key = question
+        .toLowerCase()
+        .replace(/[^a-z0-9]+(.)/g, (_, chr: string) => chr.toUpperCase())
+        .replace(/[^a-z0-9]/g, '')
+        .replace(/^[0-9]+/, '')
+
+      payload[key || `answer${index + 1}`] = value
+    })
+    return payload
+  }
 
   const addHexColor = () => {
     const clean = hexDraft.trim()
@@ -108,8 +126,6 @@ export function LaunchSession() {
 
       if (payload.needs_clarification) {
         const nextQuestions = Array.isArray(payload.questions) ? payload.questions.slice(0, 2) : []
-        setResumeRunId(typeof payload.runId === 'string' ? payload.runId : '')
-        setResumeGateId(typeof payload.gateId === 'string' ? payload.gateId : '')
         setQuestions(nextQuestions)
         setAnswers(nextQuestions.map(() => ''))
         setStep('clarify')
@@ -130,7 +146,7 @@ export function LaunchSession() {
     setError('')
 
     try {
-      if (!resumeRunId || !resumeGateId) {
+      if (!traceId) {
         throw new Error('Missing workflow resume context. Please restart the strategy session.')
       }
 
@@ -138,9 +154,8 @@ export function LaunchSession() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          runId: resumeRunId,
-          gateId: resumeGateId,
-          answers,
+          traceId,
+          answers: buildAnswerPayload(),
         }),
       })
 
@@ -153,8 +168,6 @@ export function LaunchSession() {
       setTeaser(payload.teaser)
       setTraceId(payload.traceId || traceId)
       setReceiptRef(payload.receiptRef || receiptRef)
-      setResumeRunId('')
-      setResumeGateId('')
       setStep('teaser')
     } catch (err) {
       setError((err as Error).message)
@@ -255,7 +268,7 @@ export function LaunchSession() {
   return (
     <div className="container py-12 md:py-16">
       <div className="mx-auto max-w-4xl space-y-6">
-        <div className="rounded-2xl border bg-gradient-to-br from-slate-50 via-white to-blue-50 p-8">
+        <div className="rounded-sm border bg-card p-8">
           <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">ForgePilot Launch Session</p>
           <h1 className="mt-3 text-4xl font-semibold tracking-tight">A calm strategy room before we build.</h1>
           <p className="mt-4 text-muted-foreground">
@@ -285,7 +298,7 @@ export function LaunchSession() {
               <p className="text-sm text-red-700">{error}</p>
               {(step === 'idea' || step === 'clarify') && (
                 <Button variant="outline" onClick={retryCurrentStep} disabled={loading}>
-                  Retry Strategy Session
+                  {voiceStrings.common.retryAction}
                 </Button>
               )}
             </CardContent>
@@ -295,7 +308,7 @@ export function LaunchSession() {
         {loading && (
           <Card className="border-blue-200">
             <CardContent className="pt-6">
-              <p className="text-sm font-medium text-slate-800">Strategy session in progress...</p>
+              <p className="text-sm font-medium text-slate-800">{voiceStrings.launch.sessionInProgress}</p>
               <div className="mt-3 grid gap-1 text-xs text-slate-600">
                 <p>1. Evaluating clarity signals</p>
                 <p>2. Tightening strategic angle</p>
@@ -321,7 +334,7 @@ export function LaunchSession() {
                 placeholder="Describe the venture, who it helps, and what makes it timely."
               />
 
-              <details className="rounded-lg border p-4">
+              <details className="rounded-sm border p-4">
                 <summary className="cursor-pointer text-sm font-medium">Advanced options</summary>
                 <div className="mt-4 space-y-4">
                   <div className="grid gap-3 md:grid-cols-2">
@@ -420,7 +433,7 @@ export function LaunchSession() {
                           <button
                             key={hex}
                             type="button"
-                            className="rounded-full border px-3 py-1 text-xs"
+                            className="rounded-sm border px-3 py-1 text-xs"
                             onClick={() => removeHexColor(hex)}
                           >
                             {hex}
@@ -433,7 +446,7 @@ export function LaunchSession() {
               </details>
 
               <Button onClick={submitIdea} disabled={!canSubmitIdea || loading} size="lg">
-                {loading ? 'Building your teaser...' : 'Begin Strategy Session'}
+                {loading ? voiceStrings.launch.teaserBuildAction : 'Begin Strategy Session'}
               </Button>
             </CardContent>
           </Card>
@@ -465,9 +478,9 @@ export function LaunchSession() {
 
               <Button
                 onClick={submitAnswers}
-                disabled={loading || !resumeRunId || !resumeGateId || answers.some((answer) => !answer.trim())}
+                disabled={loading || !traceId || answers.some((answer) => !answer.trim())}
               >
-                {loading ? 'Finalizing teaser...' : 'Generate Teaser'}
+                {loading ? voiceStrings.launch.teaserFinalizeAction : 'Generate Teaser'}
               </Button>
             </CardContent>
           </Card>
@@ -513,7 +526,7 @@ export function LaunchSession() {
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">{teaser.ctaUnlockValue}</p>
               </section>
 
-              <div className="rounded-xl border bg-slate-50 p-5">
+              <div className="rounded-sm border bg-muted p-5">
                 <p className="text-sm font-medium">Locked blueprint sections</p>
                 <div className="mt-3 grid gap-2 text-sm text-muted-foreground blur-[1px] select-none">
                   <div>Go-to-market sequence (90 days)</div>
@@ -523,7 +536,7 @@ export function LaunchSession() {
                 </div>
               </div>
 
-              <div className="space-y-2 rounded-lg border bg-blue-50 p-4 text-xs text-slate-700">
+              <div className="space-y-2 rounded-sm border bg-muted p-4 text-xs text-muted-foreground">
                 <p>Trace: {traceId || 'pending'}</p>
                 <p>Receipt: {receiptRef || 'pending'}</p>
               </div>
@@ -559,7 +572,7 @@ export function LaunchSession() {
 
               <div className="flex gap-2">
                 <Button onClick={requestEmailLink} disabled={!email || emailStatusLoading}>
-                  {emailStatusLoading ? 'Sending...' : 'Send Verification Link'}
+                  {emailStatusLoading ? voiceStrings.launch.verificationSendAction : 'Send Verification Link'}
                 </Button>
                 <Button variant="outline" onClick={refreshEmailStatus} disabled={emailStatusLoading}>
                   I Verified My Email

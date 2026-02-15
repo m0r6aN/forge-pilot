@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Download, Edit, Share, Palette, FileText } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Download, Edit, Palette, Share } from 'lucide-react'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 interface BrandAsset {
   id: string
@@ -75,7 +75,7 @@ export function BrandAssets() {
         ) : (
           <div className="space-y-4">
             {assets.map(asset => (
-              <div key={asset.id} className="flex items-center justify-between p-4 border rounded-lg">
+              <div key={asset.id} className="flex items-center justify-between p-4 border rounded-sm">
                 <div className="flex items-center gap-3">
                   {asset.type === 'logo' && asset.url && (
                     <Image src={asset.url} alt="Logo" width={40} height={40} className="rounded" />

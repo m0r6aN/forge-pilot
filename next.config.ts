@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  transpilePackages: ['@omega/sdk'],
+  experimental: {
+    externalDir: true,
+  },
   // Enable standalone output for Docker
   output: 'standalone',
   

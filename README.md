@@ -270,8 +270,11 @@ curl -X POST http://localhost:8000/api/v1/campaigns \
 ForgePilot uses an OMEGA-native architecture:
 - **Frontend**: Next.js 14 (UI/UX)
 - **forgepilot-api**: Thin API layer (HTTP ↔ Federation Core)
-- **Federation Core**: OMEGA orchestration and agent coordination
+- **Federation Core**: Control plane, canonical run state, governance boundary
+- **ForgePilot Worker**: Execution plane for Redis Stream workflow consumption
 - **OMEGA Pantheon**: MCP-based agent swarm
+
+Execution note: for ForgePilot workflows, runner lifecycle logs are expected in worker/stream-consumer logs, not Federation Core API logs.
 
 See `/docs/backend/` for detailed specifications.
 
@@ -301,5 +304,4 @@ See `/docs/backend/` for detailed specifications.
 ---
 
 *© 2024 ForgePilot AI. All rights reserved. See [LICENSE.md](LICENSE.md) for usage terms.*
-
 

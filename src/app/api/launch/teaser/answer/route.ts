@@ -2,6 +2,17 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createOmegaClient, generateCorrelationId, validateCorrelationId } from '@omega/sdk'
 import { mustGetEnv } from '@/lib/config/env'
 import { ForgePilotTeaserOutputSchema, enforceReceiptRules } from '@/lib/contracts/forgepilot-teaser'
+import {
+  appendLedger,
+  buildResumeAnswerHash,
+  getTrace,
+  hashJson,
+  structuredInfo,
+  upsertTrace,
+} from '@/lib/launch/runtime-store'
+import { checkRateLimit } from '@/lib/launch/security'
+import { waitForRunReady } from '@/lib/launch/omega-wait'
+import { extractOmegaErrorDiagnostics } from '@/lib/launch/omega-error'
 
 function createClient() {
   return createOmegaClient({
@@ -26,25 +37,63 @@ function resolveReceiptRef(receiptHash?: string, receiptChain?: string[]): strin
   return undefined
 }
 
+function parseAnswers(input: unknown): Record<string, string> {
+  if (!input || typeof input !== 'object') {
+    return {}
+  }
+
+  const entries = Object.entries(input as Record<string, unknown>)
+  const filtered = entries.filter(([, value]) => typeof value === 'string' && value.trim().length > 0)
+
+  return Object.fromEntries(filtered.map(([key, value]) => [key, (value as string).trim()]))
+}
+
+function toOmegaAnswers(answers: Record<string, string>): string[] {
+  return Object.keys(answers)
+    .sort()
+    .map((key) => `${key}: ${answers[key]}`)
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const runId = typeof body?.runId === 'string' ? body.runId.trim() : ''
-    const gateId = typeof body?.gateId === 'string' ? body.gateId.trim() : ''
-    const answers = Array.isArray(body?.answers)
-      ? body.answers.filter((value: unknown): value is string => typeof value === 'string' && value.trim().length > 0)
-      : []
+    const traceId = typeof body?.traceId === 'string' ? body.traceId.trim() : ''
+    const answers = parseAnswers(body?.answers)
+    const ip = (req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown')
+      .split(',')[0]
+      .trim()
 
-    if (!runId) {
-      return NextResponse.json({ error: 'runId is required' }, { status: 400 })
+    if (!traceId) {
+      return NextResponse.json({ error: 'traceId is required' }, { status: 400 })
     }
 
-    if (!gateId) {
-      return NextResponse.json({ error: 'gateId is required' }, { status: 400 })
+    if (!Object.keys(answers).length) {
+      return NextResponse.json({ error: 'At least one answer field is required' }, { status: 400 })
     }
 
-    if (!answers.length) {
-      return NextResponse.json({ error: 'At least one answer is required' }, { status: 400 })
+    const rate = checkRateLimit(`teaser-answer:${ip}:${traceId}`, 20, 15 * 60 * 1000)
+    if (!rate.allowed) {
+      return NextResponse.json({ error: 'Rate limit exceeded', retryAfterMs: Math.max(0, rate.resetAt - Date.now()) }, { status: 429 })
+    }
+
+    const trace = await getTrace(traceId)
+    if (!trace) {
+      return NextResponse.json({ error: 'Unknown traceId' }, { status: 400 })
+    }
+
+    if (trace.status === 'unlocked') {
+      return NextResponse.json({ error: 'Trace already finalized' }, { status: 409 })
+    }
+
+    if (!trace.runId || !trace.gateId) {
+      return NextResponse.json({ error: 'Trace is not waiting for clarification' }, { status: 409 })
+    }
+
+    const answerHash = buildResumeAnswerHash(answers)
+    const replay = trace.resumeRecords[answerHash]
+    if (replay) {
+      structuredInfo('teaser.resumed', { traceId, replay: true, receiptRef: replay.response.receiptRef })
+      return NextResponse.json(replay.response)
     }
 
     const tenantId = mustGetEnv('OMEGA_TENANT_ID')
@@ -56,10 +105,10 @@ export async function POST(req: NextRequest) {
 
     const resumed = await omega.workflows.resumeRun(
       {
-        runId,
-        gateId,
+        runId: trace.runId,
+        gateId: trace.gateId,
         decision: 'approve',
-        input: { answers },
+        input: { answers: toOmegaAnswers(answers) },
       },
       {
         tenantId,
@@ -68,17 +117,15 @@ export async function POST(req: NextRequest) {
       }
     )
 
-    const completed = await omega.workflows.waitForCompletion(resumed.runId, {
+    const completed = await waitForRunReady(omega, resumed.runId, {
       tenantId,
       actorId,
       correlationId,
-      pollIntervalMs: 1_000,
-      timeoutMs: 120_000,
     })
 
-    const traceId = completed.correlationId
-    if (!traceId) {
-      throw new Error('Fail-closed: OMEGA workflow response missing traceId')
+    const completedTraceId = completed.correlationId
+    if (!completedTraceId || completedTraceId !== traceId) {
+      throw new Error('Fail-closed: resumed workflow returned mismatched traceId')
     }
 
     if (completed.status !== 'completed') {
@@ -102,26 +149,75 @@ export async function POST(req: NextRequest) {
       throw new Error('Fail-closed: teaser branch missing receiptRef')
     }
 
-    return NextResponse.json({
-      needs_clarification: false,
-      teaser: {
-        oneLiner: output.teaser.oneLiner,
-        positioning: output.teaser.sections.positioning,
-        icpSnapshot: output.teaser.sections.icpSnapshot,
-        monetizationAngle: output.teaser.sections.monetizationAngle,
-        strategicDifferentiator: output.teaser.sections.strategicDifferentiator,
-        ctaHeadline: output.teaser.cta.headline,
-        ctaUnlockValue: output.teaser.cta.unlockValue,
-      },
+    const teaser = {
+      oneLiner: output.teaser.oneLiner,
+      positioning: output.teaser.sections.positioning,
+      icpSnapshot: output.teaser.sections.icpSnapshot,
+      monetizationAngle: output.teaser.sections.monetizationAngle,
+      strategicDifferentiator: output.teaser.sections.strategicDifferentiator,
+      ctaHeadline: output.teaser.cta.headline,
+      ctaUnlockValue: output.teaser.cta.unlockValue,
+    }
+
+    const responsePayload = {
+      needs_clarification: false as const,
+      teaser,
       traceId,
       receiptRef,
+      workflowVersion: output.version,
+    }
+
+    const updatedReceipts = [...trace.receipts]
+    if (!updatedReceipts.find((item) => item.receiptRef === receiptRef)) {
+      updatedReceipts.push({
+        receiptRef,
+        class: 'success',
+        source: 'resume',
+        createdAt: new Date().toISOString(),
+      })
+    }
+
+    trace.resumeRecords[answerHash] = {
+      answerHash,
+      response: responsePayload,
+      createdAt: new Date().toISOString(),
+    }
+
+    await upsertTrace({
+      ...trace,
+      workflowVersion: output.version,
+      status: 'teaser_ready',
+      successReceiptRef: receiptRef,
+      teaser,
+      clarificationAnswers: answers,
+      runId: undefined,
+      gateId: undefined,
+      questions: undefined,
+      receipts: updatedReceipts,
+      inputHash: hashJson({ traceId, answers }),
+      updatedAt: new Date().toISOString(),
     })
+
+    await appendLedger({
+      type: 'teaser.resumed',
+      traceId,
+      receiptRef,
+      code: 'FC-GATE-003',
+      at: new Date().toISOString(),
+      meta: {
+        inputHash: hashJson({ traceId, answers }),
+      },
+    })
+    structuredInfo('teaser.resumed', { traceId, receiptRef })
+
+    return NextResponse.json(responsePayload)
   } catch (error) {
-    console.error('Launch teaser answer processing failed:', error)
+    const diagnostics = extractOmegaErrorDiagnostics(error)
+    console.error('Launch teaser answer processing failed:', diagnostics)
     return NextResponse.json(
       {
         error: 'Failed to complete teaser via OMEGA',
-        details: process.env.NODE_ENV === 'production' ? undefined : (error as Error)?.message,
+        details: process.env.NODE_ENV === 'production' ? undefined : diagnostics,
       },
       { status: 502 }
     )

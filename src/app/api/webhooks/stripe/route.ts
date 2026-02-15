@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { FirestoreService } from '@/lib/db/firestore'
 import { getEnv, mustGetEnv } from '@/lib/config/env'
+import {
+  appendLedger,
+  structuredInfo,
+  upsertTrace,
+  verifyTraceReceiptBinding,
+} from '@/lib/launch/runtime-store'
+import { buildBlueprintRequestedEvent } from '@/lib/launch/blueprint-events'
+import { publishBlueprintRequested } from '@/lib/launch/redis-pubsub'
 
 function createStripeClient() {
   return new Stripe(mustGetEnv('STRIPE_SECRET_KEY'), {
@@ -36,7 +44,7 @@ export async function POST(req: NextRequest) {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
-        await handleCheckoutCompleted(session)
+        await handleCheckoutCompleted(session, event.id)
         break
       }
 
@@ -76,21 +84,143 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
+async function handleCheckoutCompleted(session: Stripe.Checkout.Session, paymentEventId?: string) {
+  const traceId = session.metadata?.traceId?.trim()
+  const receiptRef = session.metadata?.receiptRef?.trim()
+  const workflowVersion = session.metadata?.workflowVersion?.trim()
+
+  if (traceId || receiptRef || workflowVersion) {
+    if (!traceId || !receiptRef || !workflowVersion) {
+      await appendLedger({
+        type: 'payment.ignored',
+        traceId: traceId || 'unknown',
+        at: new Date().toISOString(),
+        detail: 'missing required launch metadata',
+        meta: { checkoutSessionId: session.id },
+      })
+      return
+    }
+
+    const binding = await verifyTraceReceiptBinding(traceId, receiptRef, {
+      requireSuccess: true,
+      rejectRevoked: true,
+    })
+    if (!binding.ok) {
+      await appendLedger({
+        type: 'payment.ignored',
+        traceId,
+        at: new Date().toISOString(),
+        detail: binding.reason,
+        meta: { checkoutSessionId: session.id },
+      })
+      return
+    }
+
+    const trace = binding.trace
+    if (trace.status !== 'unlocked') {
+      trace.status = 'unlocked'
+      trace.payment.completedAt = new Date().toISOString()
+      trace.payment.unlockedAt = trace.payment.completedAt
+      trace.updatedAt = new Date().toISOString()
+      await upsertTrace(trace)
+    }
+
+    if (trace.blueprint && trace.blueprintReceiptRef) {
+      return
+    }
+
+    await appendLedger({
+      type: 'payment.completed',
+      traceId,
+      receiptRef,
+      at: new Date().toISOString(),
+      meta: {
+        checkoutSessionId: session.id,
+        workflowVersion,
+      },
+    })
+    structuredInfo('payment.completed', { traceId })
+
+    const email = session.metadata?.email?.trim() || session.customer_details?.email?.trim()
+    if (!email) {
+      await appendLedger({
+        type: 'blueprint.failed',
+        traceId,
+        receiptRef,
+        at: new Date().toISOString(),
+        detail: 'missing email for blueprint request',
+        meta: { checkoutSessionId: session.id },
+      })
+      return
+    }
+
+    try {
+      const tenantId = process.env.OMEGA_TENANT_ID || 'tenant-demo'
+      const correlationId = trace.traceId
+      const event = buildBlueprintRequestedEvent({
+        traceId,
+        tenantId,
+        correlationId,
+        email,
+        paymentEventId: paymentEventId || session.id,
+        checkoutSessionId: session.id,
+        teaserReceiptRef: receiptRef,
+        service: 'forgepilot-webhook',
+      })
+
+      if (trace.blueprintRequestKey === event.idempotencyKey) {
+        return
+      }
+
+      trace.blueprintRequestedAt = new Date().toISOString()
+      trace.blueprintRequestEventId = event.eventId
+      trace.blueprintRequestKey = event.idempotencyKey
+      trace.updatedAt = new Date().toISOString()
+      await upsertTrace(trace)
+
+      await publishBlueprintRequested(event)
+      await appendLedger({
+        type: 'blueprint.requested',
+        traceId,
+        receiptRef,
+        at: new Date().toISOString(),
+        meta: {
+          checkoutSessionId: session.id,
+          eventId: event.eventId,
+          idempotencyKey: event.idempotencyKey,
+          channel: 'omega.forgepilot.blueprint.requested.v1',
+        },
+      })
+      structuredInfo('blueprint.requested', { traceId, eventId: event.eventId })
+    } catch (error) {
+      await appendLedger({
+        type: 'blueprint.failed',
+        traceId,
+        receiptRef,
+        at: new Date().toISOString(),
+        detail: error instanceof Error ? error.message : 'Failed to publish blueprint request event',
+        meta: { checkoutSessionId: session.id },
+      })
+      structuredInfo('blueprint.request.publish_failed', {
+        traceId,
+        error: error instanceof Error ? error.message : 'unknown',
+      })
+    }
+    return
+  }
+
   const userId = session.metadata?.userId
   const planId = session.metadata?.planId
-  
+
   if (!userId || !planId) {
     console.error('Missing metadata in checkout session')
     return
   }
 
-  // Update user's plan
   await FirestoreService.updateUser(userId, {
     plan: planId as any,
   })
 
-  // Send success notification email
   const user = await FirestoreService.getUser(userId)
   if (user) {
     const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'

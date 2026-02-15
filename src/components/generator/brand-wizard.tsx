@@ -1,12 +1,12 @@
    'use client'
    
-   import { useState } from 'react'
    import { Button } from '@/components/ui/button'
-   import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-   import { Input } from '@/components/ui/input'
-   import { Textarea } from '@/components/ui/textarea'
-   import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-   import { Loader2 } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { Loader2 } from 'lucide-react'
+import { useState } from 'react'
 
    const industries = [
      'Technology', 'Healthcare', 'Finance', 'Retail', 'Food & Beverage',
@@ -137,7 +137,7 @@
                         return (
                         <div key={name} className="text-center">
                            <div 
-                             className="w-16 h-16 rounded-lg border"
+                             className="w-16 h-16 rounded-sm border"
                              style={{ backgroundColor: swatch }}
                            />
                            <p className="text-xs mt-1">{name}</p>

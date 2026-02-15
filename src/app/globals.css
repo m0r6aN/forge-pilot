@@ -1,56 +1,148 @@
 @import "tailwindcss";
 
-/* Custom theme variables */
+/* ─────────────────────────────────────────────
+   ForgePilot Design System
+   Calm · Professional · Refined
+   ───────────────────────────────────────────── */
+
+/* ── Light Mode (default) ── */
 @theme {
-  --color-border: 214.3 31.8% 91.4%;
-  --color-input: 214.3 31.8% 91.4%;
-  --color-ring: 221.2 83.2% 53.3%;
+  --color-border: 220 13% 91%;
+  --color-input: 220 13% 91%;
+  --color-ring: 215 20% 65%;
   --color-background: 0 0% 100%;
-  --color-foreground: 222.2 84% 4.9%;
-  --color-primary: 221.2 83.2% 53.3%;
-  --color-primary-foreground: 210 40% 98%;
-  --color-secondary: 210 40% 96%;
-  --color-secondary-foreground: 222.2 84% 4.9%;
-  --color-destructive: 0 84.2% 60.2%;
-  --color-destructive-foreground: 210 40% 98%;
-  --color-muted: 210 40% 96%;
-  --color-muted-foreground: 215.4 16.3% 46.9%;
-  --color-accent: 210 40% 96%;
-  --color-accent-foreground: 222.2 84% 4.9%;
+  --color-foreground: 220 14% 10%;
+  --color-primary: 215 25% 27%;
+  --color-primary-foreground: 0 0% 100%;
+  --color-secondary: 220 14% 96%;
+  --color-secondary-foreground: 220 14% 10%;
+  --color-destructive: 0 72% 51%;
+  --color-destructive-foreground: 0 0% 100%;
+  --color-muted: 220 14% 96%;
+  --color-muted-foreground: 220 9% 46%;
+  --color-accent: 220 14% 96%;
+  --color-accent-foreground: 220 14% 10%;
   --color-popover: 0 0% 100%;
-  --color-popover-foreground: 222.2 84% 4.9%;
+  --color-popover-foreground: 220 14% 10%;
   --color-card: 0 0% 100%;
-  --color-card-foreground: 222.2 84% 4.9%;
-  
+  --color-card-foreground: 220 14% 10%;
+
   --radius: 0.5rem;
 }
 
-/* Custom styles */
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: hsl(var(--color-background));
-  color: hsl(var(--color-foreground));
+/* ── Dark Mode ── */
+.dark {
+  --color-background: 0 0% 0%;
+  --color-foreground: 0 0% 95%;
+  --color-card: 0 0% 4%;
+  --color-card-foreground: 0 0% 95%;
+  --color-popover: 0 0% 4%;
+  --color-popover-foreground: 0 0% 95%;
+  --color-primary: 215 20% 65%;
+  --color-primary-foreground: 0 0% 0%;
+  --color-secondary: 0 0% 10%;
+  --color-secondary-foreground: 0 0% 95%;
+  --color-muted: 0 0% 10%;
+  --color-muted-foreground: 0 0% 64%;
+  --color-accent: 0 0% 10%;
+  --color-accent-foreground: 0 0% 95%;
+  --color-destructive: 0 62% 30%;
+  --color-destructive-foreground: 0 0% 95%;
+  --color-border: 0 0% 15%;
+  --color-input: 0 0% 15%;
+  --color-ring: 215 20% 65%;
 }
 
-/* Dark mode */
-.dark {
-  --color-background: 222.2 84% 4.9%;
-  --color-foreground: 210 40% 98%;
-  --color-card: 222.2 84% 4.9%;
-  --color-card-foreground: 210 40% 98%;
-  --color-popover: 222.2 84% 4.9%;
-  --color-popover-foreground: 210 40% 98%;
-  --color-primary: 217.2 91.2% 59.8%;
-  --color-primary-foreground: 222.2 84% 4.9%;
-  --color-secondary: 217.2 32.6% 17.5%;
-  --color-secondary-foreground: 210 40% 98%;
-  --color-muted: 217.2 32.6% 17.5%;
-  --color-muted-foreground: 215 20.2% 65.1%;
-  --color-accent: 217.2 32.6% 17.5%;
-  --color-accent-foreground: 210 40% 98%;
-  --color-destructive: 0 62.8% 30.6%;
-  --color-destructive-foreground: 210 40% 98%;
-  --color-border: 217.2 32.6% 17.5%;
-  --color-input: 217.2 32.6% 17.5%;
-  --color-ring: 224.3 76.3% 94.1%;
+/* ── Base ── */
+*,
+*::before,
+*::after {
+  border-color: hsl(var(--color-border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: hsl(var(--color-background));
+  color: hsl(var(--color-foreground));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: hsl(215 25% 27% / 0.15);
+}
+
+.dark ::selection {
+  background-color: hsl(215 20% 65% / 0.25);
+}
+
+/* ── Subtle Animations ── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-slow {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out both;
+}
+
+.animate-fade-in-delay-1 {
+  animation: fade-in 0.6s ease-out 0.15s both;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fade-in 0.6s ease-out 0.3s both;
+}
+
+.animate-fade-in-delay-3 {
+  animation: fade-in 0.6s ease-out 0.45s both;
+}
+
+.animate-fade-in-delay-4 {
+  animation: fade-in 0.6s ease-out 0.6s both;
+}
+
+.animate-fade-in-slow {
+  animation: fade-in-slow 1.2s ease-out both;
+}
+
+/* ── Focus styles ── */
+:focus-visible {
+  outline: 2px solid hsl(var(--color-ring));
+  outline-offset: 2px;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--color-muted-foreground) / 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--color-muted-foreground) / 0.5);
 }
