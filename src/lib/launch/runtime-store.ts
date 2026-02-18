@@ -1,5 +1,6 @@
 import { createHash } from 'crypto'
 import { mkdir, readFile, writeFile, appendFile } from 'fs/promises'
+import os from 'os'
 import path from 'path'
 import type { LaunchAdvancedOptions } from './types'
 
@@ -122,7 +123,9 @@ export interface LedgerEntry {
   meta?: Record<string, unknown>
 }
 
-const TMP_DIR = path.join(process.cwd(), '.tmp')
+const TMP_DIR = process.env.FORGEPILOT_RUNTIME_DIR?.trim()
+  ? path.resolve(process.env.FORGEPILOT_RUNTIME_DIR.trim())
+  : path.join(os.tmpdir(), 'forgepilot-runtime')
 const DB_FILE = path.join(TMP_DIR, 'forgepilot-launch-runtime.json')
 const LEDGER_FILE = path.join(TMP_DIR, 'forgepilot-launch-ledger.jsonl')
 
@@ -230,3 +233,4 @@ export async function verifyTraceReceiptBinding(
 export function structuredInfo(event: string, payload: Record<string, unknown>) {
   console.info(JSON.stringify({ level: 'info', event, ...payload }))
 }
+
