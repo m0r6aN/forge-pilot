@@ -299,6 +299,8 @@ All items below must be green before declaring ForgePilot v1 production-ready.
 | **Payment gate before blueprint** | The blueprint step has no payment check. Any user who completes the teaser can request a blueprint for free. | Add Stripe receipt verification to `POST /api/launch/blueprint` before enabling in prod. |
 | **Azure Key Vault wiring** | `ANTHROPIC_API_KEY`, `OMEGA_API_KEY`, `MONGODB_URI` must be provisioned in Key Vault and injected into container env. | Run `scripts/setup-secrets.sh` against staging subscription; verify before cutover. |
 
+> **Fixed post-initial-delivery (2026-02-20):** The FC inline runner previously called `run_store.backend.fetch_all(raw SQL)` which would fail with `NotImplementedError` on the MongoDB backend. This was fixed in `59faa95` — `_inline_runner_loop` now calls `run_store.backend.list_runs(tenant_id=None, status=PENDING)` which works on both SQLite and MongoDB.
+
 ### P1 — Required for GA stability
 
 | Risk | Detail | Action |
