@@ -16,10 +16,10 @@ const launchBlueprintPlan = {
     'Business Idea Generator',
     'Advanced Brand Generator',
     'Evidence and verification package',
-    'Stripe checkout integration',
-    'Secure auth and dashboard access',
-    'Federation-ready backend integration',
-    'Optional simple landing output'
+    'Secure checkout flow',
+    'Private dashboard access',
+    'Structured launch workflow',
+    'Optional simple landing page'
   ],
 }
 
@@ -50,7 +50,7 @@ export function PricingTiers() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <Card className="border-primary shadow-lg">
+      <Card className="fp-glass-panel-soft border-primary/40 shadow-lg">
         <CardHeader className="text-center">
           <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-sm w-fit">
             <Rocket className="h-6 w-6 text-primary" />
@@ -58,7 +58,7 @@ export function PricingTiers() {
           <CardTitle className="text-2xl">{launchBlueprintPlan.name}</CardTitle>
           <div className="text-3xl font-bold">
             ${launchBlueprintPlan.price}
-            <span className="text-sm font-normal text-muted-foreground">/month</span>
+            <span className="text-sm font-normal text-muted-foreground"> one-time</span>
           </div>
           <p className="text-muted-foreground">{launchBlueprintPlan.description}</p>
         </CardHeader>
@@ -80,7 +80,6 @@ export function PricingTiers() {
           >
             {loading === launchBlueprintPlan.id ? voiceStrings.pricing.checkoutInitAction : 'Start Launch Blueprint'}
           </Button>
-          <p className="text-xs text-center text-muted-foreground">Stripe payments only for v1.</p>
         </CardContent>
       </Card>
     </div>
