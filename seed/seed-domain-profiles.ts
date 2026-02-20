@@ -193,13 +193,12 @@ async function syncToFcRegistry(
   payloadHash: string
 ): Promise<void> {
   const url = `${federationUrl}/api/fc/registry/domain-profiles`;
+  // FC registry endpoint expects: { id, version, content, schema_id }
   const body = JSON.stringify({
-    domain_key: profile.domain_key,
-    schema_id: schemaId,
+    id: profile.domain_key,
     version: profile.profile_version ?? "1.0.0",
-    payload: profile,
-    payload_hash: payloadHash,
-    source: profile.source ?? "curated_seed",
+    content: profile,
+    schema_id: schemaId,
   });
 
   const res = await fetch(url, {
