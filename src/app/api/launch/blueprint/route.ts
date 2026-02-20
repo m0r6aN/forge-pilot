@@ -3,6 +3,7 @@ import { generateCorrelationId, validateCorrelationId } from '@omega/sdk'
 import { mustGetEnv } from '@/lib/config/env'
 import { runGovernedWorkflow } from '@/lib/omega/runGovernedWorkflow'
 import { readVerifiedEmailSession } from '@/lib/auth/verified-email-session'
+import { getTrace, structuredInfo } from '@/lib/launch/runtime-store'
 
 const BLUEPRINT_WORKFLOW_ID = 'forgepilot.blueprint.v1'
 
@@ -35,6 +36,31 @@ export async function POST(req: NextRequest) {
         verification_required: true,
         message: 'Email verification required to generate blueprint.',
       })
+    }
+
+    // Payment gate: trace must be unlocked (payment completed + webhook processed).
+    const trace = await getTrace(traceId)
+    if (!trace) {
+      return NextResponse.json(
+        { ok: false, code: 'trace_not_found', message: 'Unknown traceId. Generate your strategy brief first.' },
+        { status: 400 }
+      )
+    }
+
+    if (trace.status !== 'unlocked') {
+      structuredInfo('blueprint.payment_gate_rejected', {
+        traceId,
+        traceStatus: trace.status,
+        actorEmailHash: verifiedSession.emailHash,
+      })
+      return NextResponse.json(
+        {
+          ok: false,
+          code: 'payment_required',
+          message: 'Complete checkout to unlock your blueprint.',
+        },
+        { status: 402 }
+      )
     }
 
     const tenantId = mustGetEnv('OMEGA_TENANT_ID')

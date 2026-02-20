@@ -938,18 +938,20 @@ export function LaunchSession() {
                 Unlock Complete Launch Plan - $69
               </Button>
 
-              <div className="mt-6 text-center">
-                <Button
-                  onClick={generateBlueprint}
-                  disabled={blueprintLoading}
-                  className="bg-primary text-primary-foreground px-8 py-3 text-lg"
-                >
-                  {blueprintLoading ? 'Generating Blueprint...' : 'Generate Full Blueprint'}
-                </Button>
-                {blueprintError && (
-                  <p className="mt-2 text-sm text-destructive">{blueprintError}</p>
-                )}
-              </div>
+              {checkoutStatus === 'success' && (
+                <div className="mt-6 text-center">
+                  <Button
+                    onClick={generateBlueprint}
+                    disabled={blueprintLoading}
+                    className="bg-primary text-primary-foreground px-8 py-3 text-lg"
+                  >
+                    {blueprintLoading ? 'Generating Blueprint...' : 'Generate Full Blueprint'}
+                  </Button>
+                  {blueprintError && (
+                    <p className="mt-2 text-sm text-destructive">{blueprintError}</p>
+                  )}
+                </div>
+              )}
             </CardContent>
           </Card>
         )}
