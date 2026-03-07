@@ -2,96 +2,92 @@
 
 ## Run Context
 - Base URL: `http://localhost:3000`
-- Executed (Local): `2026-02-14 18:40:09 -05:00`
-- Executed (UTC): `2026-02-14T23:40:09.524Z`
-- ForgePilot Git SHA: `6f46715`
-- SDK Tarball: `omega-sdk-1.0.0.tgz`
-- SDK Tarball SHA256: `D190F11D960A94A07EAE8E3DECCE8CC88533D21E6F39754BDD5F533103DD6D0A`
-- FC Image: `omega-core-federation_core`
-- FC Image Digest: `sha256:31501dcd75701f8867e2e50387e210ea08312e5b861ec4a5f4f7370fddd024ca`
+- Email: `morganclint76@gmail.com`
+- Executed At (UTC): `2026-02-21T10:57:04.7558687Z`
 
-## Gate Rule
-- This run follows: if any step fails, list failing boundary and stop.
-
-## Step A - Workflow Registration
-- Command / request: `node -r dotenv/config scripts/omega-register.mjs`
-- HTTP status: `200` (command succeeded)
-- traceId: `n/a`
-- receiptRef: `n/a`
-- Expected vs actual: expected both teaser + blueprint workflows registered with artifact hashes; actual returned 2 registrations with hashes.
-- Pass/Fail: **PASS**
-
-```json
-[
-  {
-    "workflowId": "forgepilot.teaser.v1",
-    "version": "1.0.0",
-    "idempotent": false
-  },
-  {
-    "workflowId": "forgepilot.blueprint.v1",
-    "version": "1.0.0",
-    "idempotent": false
-  }
-]
-```
-
-## Step B - Teaser Run
-- Command / request: `POST /api/launch/teaser`
-- HTTP status: `502`
-- traceId: `n/a` (request failed before usable response payload)
-- receiptRef: `n/a`
-- Expected vs actual: expected `200` with teaser/clarification payload and trace; actual `502` timeout after 120s with FC run still `pending`.
-- Pass/Fail: **FAIL**
-
+## Step A - POST /api/launch/teaser
 ### Request
 ```json
 {
-  "idea": "AI compliance copilot for SMB HR teams",
-  "email": "smoke-runner@example.com",
-  "sessionId": "656c88bb-ee4a-43c1-9368-59554eafc6e9"
+  "idea": "AI-powered compliance workflow for SMBs",
+  "email": "morganclint76@gmail.com",
+  "sessionId": "657383a3-2527-4753-a917-b24c59e507ed"
 }
 ```
+### Response (`HTTP 0`)
+```json
+No connection could be made because the target machine actively refused it.
+```
 
-### Response
+## Step B - Trigger Clarification Branch
+### Request
 ```json
 {
-  "error": "Failed to generate teaser via OMEGA",
-  "details": {
-    "name": "Error",
-    "message": "OMEGA run timeout: runId=76825e8b-3467-40ad-a01d-141906ab2441, elapsedMs=120007, status=pending, currentStep=unknown, gateId=none"
+  "idea": "Something with AI for marketing",
+  "email": "morganclint76@gmail.com",
+  "sessionId": "c93f7219-0de9-489b-a7c4-7f42a94d6271"
+}
+```
+### Response (`HTTP 0`)
+```json
+No connection could be made because the target machine actively refused it.
+```
+
+## Step C - POST /api/launch/teaser/answer
+### Request
+```json
+{
+  "traceId": "",
+  "answers": {
+    "targetCustomer": "B2B SaaS founders",
+    "priceRange": "$49-$199/mo"
   }
 }
 ```
-
-## Failing Boundary
-- Boundary: **Execution plane not progressing FC runs** (`runId=76825e8b-3467-40ad-a01d-141906ab2441` stayed `pending` until timeout).
-- Impact: Cannot produce teaser `traceId`/`receiptRef`; downstream hostile steps C-H are blocked by design.
-
-## Key Log Excerpts
-### FC
-```text
-GET /api/fc/runs/76825e8b-3467-40ad-a01d-141906ab2441?include_gates=true -> 200 (repeated polling)
-event: "Getting run: 76825e8b-3467-40ad-a01d-141906ab2441, tenant=morgan-findings"
-No dispatch/runner lifecycle event observed for this run during polling window.
-```
-
-### Worker
-```text
-> npm run omega:blueprint-worker
-> tsx scripts/blueprint-worker.ts
-```
-
-## Ledger Proof
+### Response (`HTTP 0`)
 ```json
-{"type":"payment.ignored","traceId":"unknown","detail":"missing required launch metadata","meta":{"checkoutSessionId":"cs_smoke_1771112127162"}}
-{"type":"payment.ignored","traceId":"unknown","detail":"missing required launch metadata","meta":{"checkoutSessionId":"cs_smoke_1771112127162"}}
+No connection could be made because the target machine actively refused it.
 ```
 
-## Steps C-H
-- Not executed.
-- Reason: Step B failure hit stop rule.
+## Idempotency Replay Check
+- First replay HTTP: `0`
+- Attack1 replay statuses (x5): `0, 0, 0, 0, 0`
 
-## Overall
-- Result: **FAIL (NOT SEALED)**
-- Summary: `A=PASS, B=FAIL, C-H=BLOCKED`
+## Attack Pass Results
+- Attack2 fake receipt HTTP: `0`
+- Attack3 payment without receipt HTTP: `0`
+- Attack4 resume after unlock HTTP: `0`
+
+## FC Ledger Excerpt
+```json
+{"type":"payment.ignored","traceId":"unknown","at":"2026-02-14T23:39:02.225Z","detail":"missing required launch metadata","meta":{"checkoutSessionId":"cs_smoke_1771112127162"}}
+{"type":"teaser.generated","traceId":"t:morgan-findings|c:019c5e9e-28fd-7ea7-b858-0c01d838efb2","receiptRef":"df34d622202593a67cadb9a8b637efac01441ce2510fb7d8907a742339be8b34","at":"2026-02-15T00:05:50.547Z","code":"FC-GATE-002","meta":{"inputHash":"c897fdeef7ce6ae948a9506baa89347204557b1f730c2114272a8a9f2ea476a9","artifactId":"forgepilot.teaser.v1","artifactHash":"3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341"}}
+{"type":"teaser.generated","traceId":"t:morgan-findings|c:019c5ea1-ad6d-79e9-b5f1-de3fa33575ef","receiptRef":"d8ab0d69aa5878466f2b811de4eb207df37571e52c138c6b74a8f958d84a0595","at":"2026-02-15T00:09:41.066Z","code":"FC-GATE-002","meta":{"inputHash":"aaf58d4444b73cf4acadb24f39aca5c2973731074c70e0ad49572a4588e8d908","artifactId":"forgepilot.teaser.v1","artifactHash":"3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341"}}
+{"type":"export.generated","traceId":"t:morgan-findings|c:019c5ea1-ad6d-79e9-b5f1-de3fa33575ef","receiptRef":"d8ab0d69aa5878466f2b811de4eb207df37571e52c138c6b74a8f958d84a0595","at":"2026-02-15T00:13:02.306Z","meta":{"pdfSha256":"e7f738ece062a45232aee1a80a55da10e3d71da31554d9aa190cce89ccd87883","format":"teaser"}}
+{"type":"payment.completed","traceId":"t:morgan-findings|c:019c5ea1-ad6d-79e9-b5f1-de3fa33575ef","receiptRef":"d8ab0d69aa5878466f2b811de4eb207df37571e52c138c6b74a8f958d84a0595","at":"2026-02-15T00:13:37.063Z","meta":{"checkoutSessionId":"cs_smoke_run2_001","workflowVersion":"1.0.0"}}
+{"type":"payment.completed","traceId":"t:morgan-findings|c:019c5ea1-ad6d-79e9-b5f1-de3fa33575ef","receiptRef":"d8ab0d69aa5878466f2b811de4eb207df37571e52c138c6b74a8f958d84a0595","at":"2026-02-15T00:13:40.166Z","meta":{"checkoutSessionId":"cs_smoke_run2_001","workflowVersion":"1.0.0"}}
+{"type":"teaser.generated","traceId":"t:morgan-findings|c:019c5eae-c6d5-7228-9c84-07ed2fc8f17f","receiptRef":"2d24145be6925065931a95b7a6d741d6ab78ba3753ff48390c61f4926c026b08","at":"2026-02-15T00:23:59.537Z","code":"FC-GATE-002","meta":{"inputHash":"e94b92c3a72510ad1240febd60162d8ed9f251a4d54e9049230d9f5559d600fa","artifactId":"forgepilot.teaser.v1","artifactHash":"3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341"}}
+{"type":"teaser.generated","traceId":"t:morgan-findings|c:019c5ece-691a-7c0f-a060-fa61608f95d2","receiptRef":"b4dab3537892955142b31512485e93bf32984dff69a5d4ecc7b2937a0159a8a4","at":"2026-02-15T00:58:32.713Z","code":"FC-GATE-002","meta":{"inputHash":"5b6772dce253b918d0f709f30ca1cd1e3e8a46c065276f7f138869961cd55d82","artifactId":"forgepilot.teaser.v1","artifactHash":"3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341"}}
+{"type":"payment.completed","traceId":"t:morgan-findings|c:019c5ece-691a-7c0f-a060-fa61608f95d2","receiptRef":"b4dab3537892955142b31512485e93bf32984dff69a5d4ecc7b2937a0159a8a4","at":"2026-02-15T00:58:33.595Z","meta":{"checkoutSessionId":"cs_smoke_run3_1771117112934","workflowVersion":"1.0.0"}}
+{"type":"payment.completed","traceId":"t:morgan-findings|c:019c5ece-691a-7c0f-a060-fa61608f95d2","receiptRef":"b4dab3537892955142b31512485e93bf32984dff69a5d4ecc7b2937a0159a8a4","at":"2026-02-15T01:01:41.019Z","meta":{"checkoutSessionId":"cs_smoke_run3_replay_1771117301001","workflowVersion":"1.0.0"}}
+{"type":"teaser.generated","traceId":"t:morgan-findings|c:019c5ee4-71e4-7d70-ba0e-f98522b7e7b2","receiptRef":"3d75a17ad2e73c500abe28aed73eae4c1d7535b9030241879c2d2cea05053748","at":"2026-02-15T01:22:36.719Z","code":"FC-GATE-002","meta":{"inputHash":"c83bb21811ee8462c9b1621099e6ff38a7a45a7de5812fb44b9cd962757f32f5","artifactId":"forgepilot.teaser.v1","artifactHash":"3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341"}}
+{"type":"teaser.generated","traceId":"t:morgan-findings|c:019c5ee4-7661-7aa3-9bd2-c44167f52be1","receiptRef":"1134256c50d9587c6f2b6d4d90bc6fa78d4a09eddf89cadedbe26a432ec64eb1","at":"2026-02-15T01:22:37.817Z","code":"FC-GATE-002","meta":{"inputHash":"17c9b58a7f1eef985ef40dcfda13504017f64f7248d702284f3662f0cbf56e2b","artifactId":"forgepilot.teaser.v1","artifactHash":"3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341"}}
+{"type":"attack.rejected","traceId":"t:morgan-findings|c:019c5ee4-7661-7aa3-9bd2-c44167f52be1","receiptRef":"fake_receipt_ref_123","at":"2026-02-15T01:22:41.707Z","detail":"receiptRef does not belong to traceId"}
+{"type":"attack.rejected","traceId":"t:morgan-findings|c:019c5ee4-7661-7aa3-9bd2-c44167f52be1","at":"2026-02-15T01:22:41.742Z","detail":"checkout missing receiptRef"}
+{"type":"teaser.generated","traceId":"t:morgan-findings|c:019c5ee6-af4c-76d1-8b66-42c40e3f9766","receiptRef":"2ef92dd7079862a6e8b4fceae6e72dc8cbfce0689b48c0fc333eb13f9c32558b","at":"2026-02-15T01:25:03.476Z","code":"FC-GATE-002","meta":{"inputHash":"4781293f0354c997a66bbcb55d576de769daa53d97bc7b203b765be1900bb2fd","artifactId":"forgepilot.teaser.v1","artifactHash":"3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341"}}
+{"type":"payment.completed","traceId":"t:morgan-findings|c:019c5ee6-af4c-76d1-8b66-42c40e3f9766","receiptRef":"2ef92dd7079862a6e8b4fceae6e72dc8cbfce0689b48c0fc333eb13f9c32558b","at":"2026-02-15T01:25:37.679Z","meta":{"checkoutSessionId":"cs_run4_1771118737005","workflowVersion":"1.0.0"}}
+{"type":"blueprint.requested","traceId":"t:morgan-findings|c:019c5ee6-af4c-76d1-8b66-42c40e3f9766","receiptRef":"2ef92dd7079862a6e8b4fceae6e72dc8cbfce0689b48c0fc333eb13f9c32558b","at":"2026-02-15T01:25:37.716Z","meta":{"checkoutSessionId":"cs_run4_1771118737005","eventId":"5dee85c9-fee7-43b0-922c-e6ff8d7c8272","idempotencyKey":"9e5aefd9237d8054b0d02ae271b08babbc056c9e64da720600cf230700aac152","channel":"omega.forgepilot.blueprint.requested.v1"}}
+{"type":"blueprint.generated","traceId":"t:morgan-findings|c:019c5ee6-af4c-76d1-8b66-42c40e3f9766","receiptRef":"2b94bb2087e9d912a35cb27b4c001a307320e7dee00444d7911bb54ebbd34c85","at":"2026-02-15T01:26:18.919Z","meta":{"workflowId":"forgepilot.blueprint.v1","workflowVersion":"1.0.0","artifactId":"forgepilot.blueprint.v1","artifactHash":"a9939fdb7bc66cd47e8f2272ddf3c222e9dfb622f78b71a5f4cd26514838b195","inputHash":"e5fc8ddef8cdb590d995db272bf4ba254fd361cbecfc65b7f1f77270b4f69f7e","runId":"74770d4a-23c4-4faf-845e-88f0d5ac4b77"}}
+{"type":"export.generated","traceId":"t:morgan-findings|c:019c5ee6-af4c-76d1-8b66-42c40e3f9766","receiptRef":"2b94bb2087e9d912a35cb27b4c001a307320e7dee00444d7911bb54ebbd34c85","at":"2026-02-15T01:27:21.812Z","meta":{"pdfSha256":"470a9dc641a7870eb01b5b6229513ff48f1a58fc4cf0b8f8ab47223cd5697fbb","format":"blueprint"}}
+{"type":"teaser.generated","traceId":"t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b","receiptRef":"dd87eb4650d14fd0bf8188ecacdb8bed82e79825abf8fa6bf53e686edb6d5f68","at":"2026-02-15T01:57:57.115Z","code":"FC-GATE-002","meta":{"inputHash":"c8138bd067e30497d35887f9ef918a01b50c9ebb8154995e58009985b778c65c","artifactId":"forgepilot.teaser.v1","artifactHash":"3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341"}}
+{"type":"payment.completed","traceId":"t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b","receiptRef":"dd87eb4650d14fd0bf8188ecacdb8bed82e79825abf8fa6bf53e686edb6d5f68","at":"2026-02-15T01:58:25.358Z","meta":{"checkoutSessionId":"cs_run5_1771120705293","workflowVersion":"1.0.0"}}
+{"type":"blueprint.requested","traceId":"t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b","receiptRef":"dd87eb4650d14fd0bf8188ecacdb8bed82e79825abf8fa6bf53e686edb6d5f68","at":"2026-02-15T01:58:25.391Z","meta":{"checkoutSessionId":"cs_run5_1771120705293","eventId":"802e1269-e277-46b7-b8d6-fcc33be05634","idempotencyKey":"72506a906784ce90bdcd29893d26147cbd5cd23918126eb73b3dea9cb180d3ff","channel":"omega.forgepilot.blueprint.requested.v1"}}
+{"type":"blueprint.generated","traceId":"t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b","receiptRef":"0fa628f9875badc74f22fc7bb8c54a1e474c64c05580189f1bc49d5411a1f4f6","at":"2026-02-15T01:58:26.598Z","meta":{"workflowId":"forgepilot.blueprint.v1","workflowVersion":"1.0.0","artifactId":"forgepilot.blueprint.v1","artifactHash":"a9939fdb7bc66cd47e8f2272ddf3c222e9dfb622f78b71a5f4cd26514838b195","inputHash":"810bab4e77e9a5996a67337d7989b607b5135813063f20b06c28a5778cc9af1b","runId":"2caeff14-c1ef-4248-a562-38c240d46c8e"}}
+{"type":"export.generated","traceId":"t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b","receiptRef":"0fa628f9875badc74f22fc7bb8c54a1e474c64c05580189f1bc49d5411a1f4f6","at":"2026-02-15T01:59:31.298Z","meta":{"pdfSha256":"04728f987068d584db3112bfe69df45c7f120410bbb77b068c71448ca05a1014","format":"blueprint"}}
+{"type":"teaser.generated","traceId":"t:morgan-findings|c:019c632c-26bd-7008-b253-1f0cc70059d3","receiptRef":"b1288c5c38ff0b7cd2e05eb17765b624da2bf8d47fbce1abac11b3bee6430952","at":"2026-02-15T21:19:24.954Z","code":"FC-GATE-002","meta":{"inputHash":"0ab3d7e3805c639cca478fc400742dfca2efdbef10febbc0ec67866bdf7682e5","artifactId":"forgepilot.teaser.v1","artifactHash":"3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341","behavioralScore":0}}
+```
+
+## Artifact Hash Snapshot
+```json
+{}
+```

@@ -1,0 +1,118 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e7]:
+        - link "ForgePilot" [ref=e9] [cursor=pointer]:
+          - /url: /
+          - generic [ref=e10]: ForgePilot
+        - navigation [ref=e12]:
+          - link "Home" [ref=e13] [cursor=pointer]:
+            - /url: /
+            - text: Home
+          - link "Launch Session" [ref=e14] [cursor=pointer]:
+            - /url: /launch
+            - text: Launch Session
+        - button "Switch to light mode" [ref=e17]:
+          - img [ref=e18]
+    - main [ref=e24]:
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - paragraph [ref=e28]: ForgePilot Launch Session
+          - generic [ref=e29]:
+            - generic [ref=e30]: 1) Define
+            - generic [ref=e31]: →
+            - generic [ref=e32]: 2) Confirm
+            - generic [ref=e33]: →
+            - generic [ref=e34]: 3) Launch Plan Preview
+          - heading "Get a 90-Day Launch Plan" [level=1] [ref=e35]
+          - paragraph [ref=e36]: Bring the idea. Leave with a clear 90-day launch path and execution priorities.
+        - generic [ref=e37]:
+          - generic [ref=e38]:
+            - generic [ref=e39]: Your Launch Plan Preview
+            - generic [ref=e40]: Preview only. Unlock the complete launch plan after checkout.
+          - generic [ref=e41]:
+            - generic [ref=e42]:
+              - heading "1. One-liner" [level=3] [ref=e43]
+              - paragraph [ref=e44]: T
+            - generic [ref=e45]:
+              - heading "2. Positioning Snapshot" [level=3] [ref=e46]
+              - paragraph [ref=e47]: p
+            - generic [ref=e48]:
+              - heading "3. ICP Snapshot" [level=3] [ref=e49]
+              - paragraph [ref=e50]: i
+            - generic [ref=e51]:
+              - heading "4. Monetization Angle" [level=3] [ref=e52]
+              - paragraph [ref=e53]: m
+            - generic [ref=e54]:
+              - heading "5. Strategic Differentiator" [level=3] [ref=e55]
+              - paragraph [ref=e56]: s
+            - generic [ref=e57]:
+              - heading "6. Call to Action" [level=3] [ref=e58]
+              - paragraph [ref=e59]: c
+              - paragraph [ref=e60]: u
+            - generic [ref=e61]:
+              - paragraph [ref=e62]: Complete Launch Plan Includes
+              - generic [ref=e63]:
+                - generic [ref=e64]: 90-day go-to-market roadmap
+                - generic [ref=e65]: Monetization structure and pricing posture
+                - generic [ref=e66]: Channel strategy and execution stack
+                - generic [ref=e67]: Offer design and conversion mechanics
+            - generic [ref=e68]:
+              - paragraph [ref=e69]: "Trace: complete-trace"
+              - paragraph [ref=e70]: "Receipt: complete-receipt"
+            - button "Unlock Complete Launch Plan - $69" [ref=e71]
+        - generic [ref=e72]:
+          - generic [ref=e74]: What you'll get in your launch plan
+          - generic [ref=e75]:
+            - paragraph [ref=e76]: 90-day launch roadmap with priorities by week.
+            - paragraph [ref=e77]: Channel strategy matched to your budget and timeline.
+            - paragraph [ref=e78]: Offer and monetization structure tuned to your model.
+            - paragraph [ref=e79]: Immediate execution moves for your first traction loop.
+        - generic [ref=e80]:
+          - generic [ref=e82]: Who this is for
+          - generic [ref=e83]:
+            - paragraph [ref=e84]: Founders moving from idea to first real launch plan.
+            - paragraph [ref=e85]: Operators who want a focused go-to-market path, not generic advice.
+            - paragraph [ref=e86]: Teams validating product, pricing, and demand in the next 90 days.
+        - generic [ref=e87]:
+          - generic [ref=e89]: FAQ
+          - generic [ref=e90]:
+            - generic [ref=e91]:
+              - heading "What is included in the $69 launch plan?" [level=3] [ref=e92]
+              - paragraph [ref=e93]: You get a complete 90-day launch plan with positioning, monetization, channels, and execution priorities.
+            - generic [ref=e94]:
+              - heading "How long does the session take?" [level=3] [ref=e95]
+              - paragraph [ref=e96]: Most founders complete the intake in 5-10 minutes, including any clarification questions.
+            - generic [ref=e97]:
+              - heading "Will I need to answer a lot of follow-up questions?" [level=3] [ref=e98]
+              - paragraph [ref=e99]: No. I'll ask at most two questions if needed to tighten your plan.
+            - generic [ref=e100]:
+              - heading "Can this work for local and online businesses?" [level=3] [ref=e101]
+              - paragraph [ref=e102]: Yes. The session adapts strategy based on your business type, location constraints, and timeline.
+    - contentinfo [ref=e103]:
+      - generic [ref=e104]:
+        - generic [ref=e105]:
+          - generic [ref=e106]:
+            - img "ForgePilot" [ref=e107]
+            - generic [ref=e108]:
+              - generic [ref=e109]: ForgePilot
+              - paragraph [ref=e110]: Clarity before you launch.
+          - generic [ref=e111]:
+            - link "How It Works" [ref=e112] [cursor=pointer]:
+              - /url: /how-it-works
+            - link "What's Included" [ref=e113] [cursor=pointer]:
+              - /url: /included
+            - link "Pricing" [ref=e114] [cursor=pointer]:
+              - /url: /pricing
+            - link "Start Session" [ref=e115] [cursor=pointer]:
+              - /url: /launch
+        - generic [ref=e116]:
+          - paragraph [ref=e117]: Governed by Keon.
+          - paragraph [ref=e118]: © 2026 ForgePilot. All rights reserved.
+  - button "Open Next.js Dev Tools" [ref=e124] [cursor=pointer]:
+    - img [ref=e125]
+  - alert [ref=e128]
+```

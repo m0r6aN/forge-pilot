@@ -1,0 +1,19 @@
+FROM node:20-alpine
+
+WORKDIR /app
+RUN apk add --no-cache libc6-compat
+
+COPY package.json package-lock.json* ./
+COPY omega-sdk-ts ./omega-sdk-ts
+RUN npm pkg delete dependencies.lightningcss-win32-x64-msvc
+RUN npm ci
+
+COPY . .
+
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+ENV NODE_ENV=development
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev", "--", "-H", "0.0.0.0", "-p", "3000"]

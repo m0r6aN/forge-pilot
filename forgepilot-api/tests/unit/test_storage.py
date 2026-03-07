@@ -110,3 +110,26 @@ class TestInMemoryCampaignStore:
         retrieved = await store.get(campaign_id)
         assert retrieved.conversation_id == "conv_456"
         assert retrieved.actor_id == "user2@example.com"
+
+    async def test_get_by_idempotency_key(self):
+        """Test lookup by idempotency key."""
+        store = InMemoryCampaignStore()
+        tenant_id = uuid4()
+        metadata = CampaignMetadata(
+            campaign_id=uuid4(),
+            conversation_id="conv_123",
+            tenant_id=tenant_id,
+            actor_id="user@example.com",
+            correlation_id=uuid4(),
+            created_at=datetime.utcnow(),
+            idempotency_key="idem-123",
+        )
+
+        await store.save(metadata)
+        retrieved = await store.get_by_idempotency(
+            tenant_id=tenant_id,
+            actor_id="user@example.com",
+            idempotency_key="idem-123",
+        )
+        assert retrieved is not None
+        assert retrieved.campaign_id == metadata.campaign_id

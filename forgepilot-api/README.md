@@ -168,6 +168,22 @@ pytest tests/unit/test_models.py
 
 # Integration tests only
 pytest tests/integration/
+
+# API-driven E2E scenarios
+python tests/e2e/run_e2e.py --scenario E2E-1 --base-url http://localhost:8000
+
+# Chaos experiment (staging only)
+python tests/chaos/run_chaos.py --experiment Chaos-01
+```
+
+### Release Gates
+
+```powershell
+# Contract + trace continuity + idempotency
+./scripts/release-gates.ps1
+
+# Include staging E2E-1 and E2E-2 gates
+./scripts/release-gates.ps1 -RunStagingE2E -ApiBaseUrl http://staging-keon-backend
 ```
 
 ### Linting
@@ -192,6 +208,23 @@ mypy app/
 | `DEBUG` | Enable debug mode | `false` |
 | `PORT` | Server port | `8000` |
 | `CORS_ORIGINS` | Allowed CORS origins | `["http://localhost:3000"]` |
+| `EVIDENCE_ENABLED` | Emit run manifests/artifacts | `true` |
+| `EVIDENCE_ENV` | Evidence environment prefix | `dev` |
+| `EVIDENCE_LAYER` | Layer name in manifests | `keon-backend` |
+| `EVIDENCE_CONTAINER` | Blob container for receipts | `fc-receipts` |
+| `EVIDENCE_PREFER_LOCAL` | Write evidence to local spool | `false` |
+
+### Canonical Evidence Output
+
+Every pytest suite run now emits:
+- `run_manifest.json`
+- `artifacts.json`
+
+Canonical prefix:
+`{env}/{layer}/{suite}/{scenarioId}/{runId}`
+
+Run manifests use schema:
+`docs/internal/canon/schemas/keon.run_manifest.v1.schema.json`
 
 ## Architecture Patterns
 

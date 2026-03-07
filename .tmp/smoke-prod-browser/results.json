@@ -1,0 +1,23 @@
+{
+  "base": "https://forgepilot-web.whitecliff-8730e711.eastus2.azurecontainerapps.io",
+  "startedAt": "2026-02-18T15:39:15.352Z",
+  "unauthenticated": {
+    "submit": {
+      "ok": false,
+      "attempts": 6,
+      "state": "timeout"
+    },
+    "modalVisible": false
+  },
+  "authenticated": {
+    "submit": {
+      "ok": false,
+      "attempts": 6,
+      "state": "timeout"
+    },
+    "state": "brief_direct",
+    "traceVisible": true,
+    "receiptVisible": true
+  },
+  "finishedAt": "2026-02-18T15:41:08.154Z"
+}

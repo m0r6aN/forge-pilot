@@ -1,0 +1,48 @@
+{
+  "traceId": "t:morgan-findings|c:019c5ece-691a-7c0f-a060-fa61608f95d2",
+  "sessionId": "5d28ae84-bffc-4f9e-85fd-d417f269a046",
+  "email": "smoke-runner@example.com",
+  "idea": "Hostile rerun D-H: HR compliance copilot",
+  "advancedOptions": {
+    "colorMode": "none",
+    "hexColors": [],
+    "colorVibe": null,
+    "tone": null,
+    "budget": null
+  },
+  "clarificationAnswers": {},
+  "workflowVersion": "1.0.0",
+  "artifactId": "forgepilot.teaser.v1",
+  "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+  "inputHash": "5b6772dce253b918d0f709f30ca1cd1e3e8a46c065276f7f138869961cd55d82",
+  "status": "unlocked",
+  "teaser": {
+    "oneLiner": "Hostile rerun D-H: HR compliance copilot: a focused, governed launch path for the first 90 days.",
+    "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+    "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+    "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+    "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+    "ctaHeadline": "Unlock the full launch blueprint",
+    "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+  },
+  "successReceiptRef": "b4dab3537892955142b31512485e93bf32984dff69a5d4ecc7b2937a0159a8a4",
+  "resumeRecords": {},
+  "receipts": [
+    {
+      "receiptRef": "b4dab3537892955142b31512485e93bf32984dff69a5d4ecc7b2937a0159a8a4",
+      "class": "success",
+      "source": "teaser",
+      "createdAt": "2026-02-15T00:58:32.687Z"
+    }
+  ],
+  "payment": {
+    "completedAt": "2026-02-15T00:58:33.590Z",
+    "unlockedAt": "2026-02-15T00:58:33.590Z"
+  },
+  "exports": [],
+  "createdAt": "2026-02-15T00:58:32.687Z",
+  "updatedAt": "2026-02-15T00:58:33.600Z",
+  "blueprintRequestedAt": "2026-02-15T00:58:33.600Z",
+  "blueprintRequestEventId": "b7548bc0-52f5-42ff-9d8c-7fa4cbc609ab",
+  "blueprintRequestKey": "642c65f979219ede92ef9d4d8029711b6cf33a3dd14aa14ef57be4d3c01343e4"
+}

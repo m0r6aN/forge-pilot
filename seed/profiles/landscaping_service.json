@@ -1,0 +1,47 @@
+{
+  "schema_id": "domain.schema.v1",
+  "domain_key": "landscaping_service",
+  "profile_version": "1.0.0",
+  "source": "curated_seed",
+  "archetype_id": "service_home_001",
+  "display_name": "Residential Landscaping & Maintenance",
+  "summary": "Outdoor property maintenance focusing on lawn care, trimming, and seasonal cleanup. A labor-intensive model with high recurring revenue potential through maintenance subscriptions.",
+  "business_model": {
+    "delivery_model": "mobile",
+    "customer_type": "B2C",
+    "revenue_motion": "recurring"
+  },
+  "economics": {
+    "startup_cost_range": { "min_usd": 10000, "max_usd": 50000 },
+    "gross_margin_range_pct": { "min": 35, "max": 55 },
+    "typical_break_even_months": { "min": 2, "max": 6 }
+  },
+  "operations": {
+    "required_roles": ["Crew Leader", "Laborer", "Admin/Scheduler"],
+    "core_workflows": ["Route density planning", "Equipment maintenance", "Seasonal upsell quoting"],
+    "capacity_drivers": ["Truck/Trailer capacity", "Daylight hours", "Crew stamina"],
+    "tooling_stack_baseline": ["Jobber (Field Service Mgmt)", "GPS Tracking", "Accounting Software"]
+  },
+  "go_to_market": {
+    "primary_channels": ["Door hangers/flyers", "Nextdoor recommendations", "Truck wrap branding"],
+    "sales_cycle": "appointment",
+    "retention_levers": ["Auto-pay setup", "Bundled seasonal services", "Communication reliability"],
+    "pricing_models": ["Monthly maintenance fee", "Per-project bid"]
+  },
+  "risk_and_compliance": {
+    "regulatory_intensity": "low",
+    "required_licenses": ["Business License", "Pesticide Applicator License (if applicable)", "DOT registration (for heavy trucks)"],
+    "insurance_considerations": ["General Liability", "Workers Comp", "Commercial Auto"],
+    "common_failure_modes": ["Equipment theft", "Under-pricing labor", "Inability to staff in peak season"],
+    "top_risks": ["Weather delays", "Labor shortage", "Fuel costs"]
+  },
+  "starter_plan": {
+    "first_5_actions": ["Purchase essential equipment (mower, blower, trailer)", "Set up legal entity", "Print door hangers", "Determine pricing per sq ft", "Secure secure storage for tools"],
+    "first_30_days": ["Canvass neighborhoods for route density", "Complete first 10 jobs", "Request Google Reviews from happy clients"],
+    "success_metrics": ["Route density (drive time vs work time)", "Client churn rate", "Revenue per man-hour"]
+  },
+  "evidence": {
+    "assumptions": ["Homeowners outsource lawn care in target area", "Seasonality allows for 8+ months of revenue"],
+    "requires_local_validation": ["Green waste disposal fees", "Local labor wage rates"]
+  }
+}

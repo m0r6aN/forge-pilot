@@ -1,0 +1,55 @@
+services:
+  brand-strategist:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+      args:
+        AGENT_NAME: brand_strategist
+    environment:
+      - OMEGA_AGENT_NAME=brand_strategist
+      - FEDERATION_CORE_URL=http://federation-core:8001
+      - CONTEXT_SERVER_URL=http://context-server:8002
+    networks:
+      - omega-net
+    depends_on:
+      - federation-core
+      - context-server
+    restart: unless-stopped
+
+  domain-hunter:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+      args:
+        AGENT_NAME: domain_hunter
+    environment:
+      - OMEGA_AGENT_NAME=domain_hunter
+      - FEDERATION_CORE_URL=http://federation-core:8001
+      - CONTEXT_SERVER_URL=http://context-server:8002
+    networks:
+      - omega-net
+    depends_on:
+      - federation-core
+      - context-server
+    restart: unless-stopped
+
+  legal-guardian:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+      args:
+        AGENT_NAME: legal_guardian
+    environment:
+      - OMEGA_AGENT_NAME=legal_guardian
+      - FEDERATION_CORE_URL=http://federation-core:8001
+      - CONTEXT_SERVER_URL=http://context-server:8002
+    networks:
+      - omega-net
+    depends_on:
+      - federation-core
+      - context-server
+    restart: unless-stopped
+
+networks:
+  omega-net:
+    external: true

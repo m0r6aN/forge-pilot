@@ -1,0 +1,47 @@
+{
+  "schema_id": "domain.schema.v1",
+  "domain_key": "nonprofit_community_initiative",
+  "profile_version": "1.0.0",
+  "source": "curated_seed",
+  "archetype_id": "nonprofit_001",
+  "display_name": "Community Impact Nonprofit",
+  "summary": "A tax-exempt organization focused on a specific social cause. Success is measured by impact and fundraising efficiency rather than profit.",
+  "business_model": {
+    "delivery_model": "hybrid",
+    "customer_type": "nonprofit",
+    "revenue_motion": "transactional"
+  },
+  "economics": {
+    "startup_cost_range": { "min_usd": 2000, "max_usd": 15000 },
+    "gross_margin_range_pct": { "min": 0, "max": 0 },
+    "typical_break_even_months": { "min": 0, "max": 0 }
+  },
+  "operations": {
+    "required_roles": ["Executive Director", "Board Members", "Volunteers"],
+    "core_workflows": ["Grant writing/reporting", "Program delivery", "Donor stewardship"],
+    "capacity_drivers": ["Volunteer hours", "Funding availability", "Staff bandwidth"],
+    "tooling_stack_baseline": ["Donorbox/CRM", "Quickbooks for Nonprofits", "Volunteer management tool"]
+  },
+  "go_to_market": {
+    "primary_channels": ["Community events", "Grant applications", "Peer-to-peer fundraising"],
+    "sales_cycle": "mixed",
+    "retention_levers": ["Impact reports", "Donor appreciation events", "Recurring giving programs"],
+    "pricing_models": ["Donations", "Grants", "Fee-for-service (rare)"]
+  },
+  "risk_and_compliance": {
+    "regulatory_intensity": "high",
+    "required_licenses": ["501(c)(3) Status", "State Charity Registration", "Bylaws"],
+    "insurance_considerations": ["Directors & Officers (D&O)", "General Liability", "Volunteer Accident"],
+    "common_failure_modes": ["Founder burnout", "Failure to fundraise", "Board conflicts"],
+    "top_risks": ["Loss of key grant", "Compliance violations", "Mission creep"]
+  },
+  "starter_plan": {
+    "first_5_actions": ["Form initial Board of Directors", "Draft bylaws and mission", "File Articles of Incorporation", "Apply for EIN and tax-exempt status", "Launch pilot program"],
+    "first_30_days": ["Secure first 100 donors", "Execute first program event", "Set up accounting specifically for fund accounting"],
+    "success_metrics": ["Funds raised vs goal", "Program beneficiaries served", "Donor retention rate"]
+  },
+  "evidence": {
+    "assumptions": ["Community need exists", "Donors are willing to support this cause"],
+    "requires_local_validation": ["Duplicate services in area", "Local philanthropic landscape"]
+  }
+}

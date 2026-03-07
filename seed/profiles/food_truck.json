@@ -1,0 +1,47 @@
+{
+  "schema_id": "domain.schema.v1",
+  "domain_key": "food_truck",
+  "profile_version": "1.0.0",
+  "source": "curated_seed",
+  "archetype_id": "hospitality_mobile_001",
+  "display_name": "Gourmet Food Truck",
+  "summary": "A mobile kitchen serving specialized cuisine at rotating locations, events, or permanent pods. Offers lower overhead than brick-and-mortar but higher logistical complexity.",
+  "business_model": {
+    "delivery_model": "mobile",
+    "customer_type": "B2C",
+    "revenue_motion": "transactional"
+  },
+  "economics": {
+    "startup_cost_range": { "min_usd": 30000, "max_usd": 120000 },
+    "gross_margin_range_pct": { "min": 65, "max": 75 },
+    "typical_break_even_months": { "min": 6, "max": 18 }
+  },
+  "operations": {
+    "required_roles": ["Cook/Driver", "Cashier/Expo"],
+    "core_workflows": ["Commissary kitchen prep", "Truck sanitation and maintenance", "Event setup and breakdown"],
+    "capacity_drivers": ["Kitchen throughput", "Serving window speed", "Storage space"],
+    "tooling_stack_baseline": ["Mobile POS (Square)", "Social Media Scheduler", "GPS/Routing App"]
+  },
+  "go_to_market": {
+    "primary_channels": ["Social media location drops", "Food truck festivals", "Corporate catering contracts"],
+    "sales_cycle": "walk_in",
+    "retention_levers": ["Email list for weekly schedule", "Secret menu items", "Catering discounts"],
+    "pricing_models": ["Menu pricing", "Event minimum guarantees"]
+  },
+  "risk_and_compliance": {
+    "regulatory_intensity": "high",
+    "required_licenses": ["Mobile Food Facility Permit", "Commissary Letter of Agreement", "Propane/Fire Safety Permit"],
+    "insurance_considerations": ["Commercial Auto", "General Liability", "Inland Marine (Equipment)"],
+    "common_failure_modes": ["Mechanical breakdowns", "Parking regulation violations", "Weather dependence"],
+    "top_risks": ["Vehicle maintenance costs", "Strict municipal zoning", "Seasonal revenue dips"]
+  },
+  "starter_plan": {
+    "first_5_actions": ["Define menu concept (fast prep time)", "Secure commissary kitchen contract", "Purchase or lease truck", "Apply for mobile food permits", "Create brand wrap design"],
+    "first_30_days": ["Test menu execution speed", "Scout parking locations", "Launch social media teaser campaign"],
+    "success_metrics": ["Sell-out rate", "Event booking conversion", "Food cost percentage"]
+  },
+  "evidence": {
+    "assumptions": ["Valid parking locations exist in target city", "Menu items can be prepped in bulk"],
+    "requires_local_validation": ["Specific city distance-to-bathroom rules", "Generator noise ordinances"]
+  }
+}

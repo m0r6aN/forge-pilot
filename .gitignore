@@ -12,6 +12,8 @@
 
 # testing
 /coverage
+/.evidence
+forgepilot-api/.evidence
 
 # next.js
 /.next/
