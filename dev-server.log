@@ -1,0 +1,33 @@
+
+> forgepilot-ai@1.0.0 dev
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://100.112.1.41:3000
+- Environments: .env
+- Experiments (use with caution):
+  ✓ externalDir
+
+✓ Starting...
+✓ Ready in 1573ms
+○ Compiling / ...
+Image with src "/images/forge_pilot_wings.png" is using quality "82" which is not configured in images.qualities [75]. Please update your config to [75, 82].
+Read more: https://nextjs.org/docs/messages/next-image-unconfigured-qualities
+ GET / 200 in 20.4s (compile: 19.5s, proxy.ts: 635ms, render: 327ms)
+ GET / 200 in 67ms (compile: 9ms, proxy.ts: 6ms, render: 52ms)
+○ Compiling /launch ...
+ GET /launch 200 in 10.4s (compile: 9.7s, proxy.ts: 5ms, render: 735ms)
+ GET /launch 200 in 10.6s (compile: 9.9s, proxy.ts: 7ms, render: 786ms)
+ GET /launch 200 in 5.0s (compile: 4.3s, proxy.ts: 6ms, render: 726ms)
+ GET /launch 200 in 4.8s (compile: 4.2s, proxy.ts: 4ms, render: 533ms)
+ GET /launch 200 in 4.6s (compile: 4.1s, proxy.ts: 4ms, render: 480ms)
+ GET /launch 200 in 4.8s (compile: 4.2s, proxy.ts: 5ms, render: 555ms)
+ GET /launch 200 in 4.6s (compile: 4.1s, proxy.ts: 7ms, render: 520ms)
+ GET /launch 200 in 4.6s (compile: 4.1s, proxy.ts: 7ms, render: 500ms)
+ GET /launch 200 in 4.7s (compile: 4.3s, proxy.ts: 4ms, render: 464ms)
+ GET /launch 200 in 10.5s (compile: 10.0s, proxy.ts: 5ms, render: 447ms)
+✓ Finished filesystem cache database compaction in 21.0s
+✓ Finished writing to filesystem cache in 18.4s
+ GET /launch 200 in 156ms (compile: 36ms, proxy.ts: 5ms, render: 115ms)
+^C

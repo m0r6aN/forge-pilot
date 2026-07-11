@@ -1,0 +1,262 @@
+{
+  "$id": "domain.schema.v1",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DomainProfileV1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_id",
+    "domain_key",
+    "profile_version",
+    "source",
+    "archetype_id",
+    "display_name",
+    "summary",
+    "business_model",
+    "economics",
+    "operations",
+    "go_to_market",
+    "risk_and_compliance",
+    "starter_plan",
+    "evidence"
+  ],
+  "properties": {
+    "schema_id": {
+      "type": "string",
+      "const": "domain.schema.v1"
+    },
+    "domain_key": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$"
+    },
+    "profile_version": {
+      "type": "string",
+      "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["curated_seed", "genesis_enriched"]
+    },
+    "archetype_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "display_name": {
+      "type": "string",
+      "minLength": 3
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 10
+    },
+
+    "business_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["delivery_model", "customer_type", "revenue_motion"],
+      "properties": {
+        "delivery_model": {
+          "type": "string",
+          "enum": ["physical_location", "mobile", "online", "hybrid"]
+        },
+        "customer_type": {
+          "type": "string",
+          "enum": ["B2C", "B2B", "B2B2C", "nonprofit"]
+        },
+        "revenue_motion": {
+          "type": "string",
+          "enum": ["transactional", "recurring", "hybrid"]
+        }
+      }
+    },
+
+    "economics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "startup_cost_range",
+        "gross_margin_range_pct",
+        "typical_break_even_months"
+      ],
+      "properties": {
+        "startup_cost_range": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["min_usd", "max_usd"],
+          "properties": {
+            "min_usd": { "type": "integer", "minimum": 0 },
+            "max_usd": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "gross_margin_range_pct": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["min", "max"],
+          "properties": {
+            "min": { "type": "number", "minimum": 0, "maximum": 100 },
+            "max": { "type": "number", "minimum": 0, "maximum": 100 }
+          }
+        },
+        "typical_break_even_months": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["min", "max"],
+          "properties": {
+            "min": { "type": "integer", "minimum": 0 },
+            "max": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+
+    "operations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_roles",
+        "core_workflows",
+        "capacity_drivers",
+        "tooling_stack_baseline"
+      ],
+      "properties": {
+        "required_roles": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 2 }
+        },
+        "core_workflows": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "type": "string", "minLength": 3 }
+        },
+        "capacity_drivers": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "tooling_stack_baseline": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "go_to_market": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "primary_channels",
+        "sales_cycle",
+        "retention_levers",
+        "pricing_models"
+      ],
+      "properties": {
+        "primary_channels": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "type": "string" }
+        },
+        "sales_cycle": {
+          "type": "string",
+          "enum": [
+            "walk_in",
+            "appointment",
+            "contract",
+            "online_checkout",
+            "mixed"
+          ]
+        },
+        "retention_levers": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "pricing_models": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "risk_and_compliance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "regulatory_intensity",
+        "required_licenses",
+        "insurance_considerations",
+        "common_failure_modes",
+        "top_risks"
+      ],
+      "properties": {
+        "regulatory_intensity": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "required_licenses": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "insurance_considerations": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "common_failure_modes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "top_risks": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "starter_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "first_5_actions",
+        "first_30_days",
+        "success_metrics"
+      ],
+      "properties": {
+        "first_5_actions": {
+          "type": "array",
+          "minItems": 3,
+          "items": { "type": "string" }
+        },
+        "first_30_days": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "success_metrics": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assumptions", "requires_local_validation"],
+      "properties": {
+        "assumptions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "requires_local_validation": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "keon.policy.behavioral.v1",
+  "title": "Keon Behavioral Policy v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "policyId",
+    "version",
+    "type",
+    "archetype",
+    "rules",
+    "enforcement"
+  ],
+  "properties": {
+    "policyId": {
+      "type": "string",
+      "const": "keon.policy.behavioral.v1"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of this policy artifact",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "type": {
+      "type": "string",
+      "const": "behavioral"
+    },
+    "archetype": {
+      "type": "string",
+      "description": "Declared behavioral identity profile",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "rules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lexical",
+        "structural",
+        "agency",
+        "emotional"
+      ],
+      "properties": {
+        "lexical": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "prohibited",
+            "fatalistic"
+          ],
+          "properties": {
+            "prohibited": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "description": "Regex strings (without flags) that are prohibited"
+            },
+            "fatalistic": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256
+              },
+              "description": "Regex strings that indicate fatalism and trigger rewrite/review"
+            }
+          }
+        },
+        "structural": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "requireFirstPerson",
+            "minFirstPersonDensity"
+          ],
+          "properties": {
+            "requireFirstPerson": {
+              "type": "boolean"
+            },
+            "minFirstPersonDensity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "directiveLimitPer500Words": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          }
+        },
+        "agency": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "preserveUserAgency",
+            "discourageDirectiveTone"
+          ],
+          "properties": {
+            "preserveUserAgency": {
+              "type": "boolean"
+            },
+            "discourageDirectiveTone": {
+              "type": "boolean"
+            }
+          }
+        },
+        "emotional": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "disallowedToneMarkers"
+          ],
+          "properties": {
+            "disallowedToneMarkers": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "description": "Keywords for tone classification buckets (dismissive, condescending, fatalistic, etc.)"
+            }
+          }
+        }
+      }
+    },
+    "enforcement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "critical",
+        "moderate"
+      ],
+      "properties": {
+        "critical": {
+          "type": "string",
+          "enum": [
+            "fail_closed",
+            "rewrite_required"
+          ]
+        },
+        "moderate": {
+          "type": "string",
+          "enum": [
+            "rewrite_required",
+            "allow_with_warning"
+          ]
+        },
+        "maxRewriteAttempts": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        }
+      }
+    }
+  }
+}

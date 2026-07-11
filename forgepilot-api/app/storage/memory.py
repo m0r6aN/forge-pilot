@@ -19,6 +19,7 @@ class CampaignMetadata:
     actor_id: str
     correlation_id: UUID
     created_at: datetime
+    idempotency_key: str | None = None
 
 
 class CampaignStore(Protocol):
@@ -36,6 +37,12 @@ class CampaignStore(Protocol):
         """List campaigns by tenant."""
         ...
 
+    async def get_by_idempotency(
+        self, tenant_id: UUID, actor_id: str, idempotency_key: str
+    ) -> Optional[CampaignMetadata]:
+        """Get campaign by idempotency key."""
+        ...
+
 
 class InMemoryCampaignStore:
     """
@@ -51,6 +58,7 @@ class InMemoryCampaignStore:
         """Initialize in-memory store."""
         self._store: dict[UUID, CampaignMetadata] = {}
         self._tenant_index: dict[UUID, set[UUID]] = {}
+        self._idempotency_index: dict[tuple[UUID, str, str], UUID] = {}
 
     async def save(self, metadata: CampaignMetadata) -> None:
         """Save campaign metadata."""
@@ -60,6 +68,13 @@ class InMemoryCampaignStore:
         if metadata.tenant_id not in self._tenant_index:
             self._tenant_index[metadata.tenant_id] = set()
         self._tenant_index[metadata.tenant_id].add(metadata.campaign_id)
+        if metadata.idempotency_key:
+            index_key = (
+                metadata.tenant_id,
+                metadata.actor_id,
+                metadata.idempotency_key,
+            )
+            self._idempotency_index[index_key] = metadata.campaign_id
 
         logger.info(
             f"Saved campaign metadata: {metadata.campaign_id}",
@@ -78,6 +93,15 @@ class InMemoryCampaignStore:
         """List campaigns by tenant."""
         campaign_ids = self._tenant_index.get(tenant_id, set())
         return [self._store[cid] for cid in campaign_ids if cid in self._store]
+
+    async def get_by_idempotency(
+        self, tenant_id: UUID, actor_id: str, idempotency_key: str
+    ) -> Optional[CampaignMetadata]:
+        """Get campaign metadata by idempotency key."""
+        campaign_id = self._idempotency_index.get((tenant_id, actor_id, idempotency_key))
+        if not campaign_id:
+            return None
+        return self._store.get(campaign_id)
 
 
 # Singleton instance for v0.1.0

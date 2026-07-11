@@ -1,0 +1,60 @@
+[
+  {
+    "type": "teaser.generated",
+    "traceId": "t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b",
+    "receiptRef": "dd87eb4650d14fd0bf8188ecacdb8bed82e79825abf8fa6bf53e686edb6d5f68",
+    "at": "2026-02-15T01:57:57.115Z",
+    "code": "FC-GATE-002",
+    "meta": {
+      "inputHash": "c8138bd067e30497d35887f9ef918a01b50c9ebb8154995e58009985b778c65c",
+      "artifactId": "forgepilot.teaser.v1",
+      "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341"
+    }
+  },
+  {
+    "type": "payment.completed",
+    "traceId": "t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b",
+    "receiptRef": "dd87eb4650d14fd0bf8188ecacdb8bed82e79825abf8fa6bf53e686edb6d5f68",
+    "at": "2026-02-15T01:58:25.358Z",
+    "meta": {
+      "checkoutSessionId": "cs_run5_1771120705293",
+      "workflowVersion": "1.0.0"
+    }
+  },
+  {
+    "type": "blueprint.requested",
+    "traceId": "t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b",
+    "receiptRef": "dd87eb4650d14fd0bf8188ecacdb8bed82e79825abf8fa6bf53e686edb6d5f68",
+    "at": "2026-02-15T01:58:25.391Z",
+    "meta": {
+      "checkoutSessionId": "cs_run5_1771120705293",
+      "eventId": "802e1269-e277-46b7-b8d6-fcc33be05634",
+      "idempotencyKey": "72506a906784ce90bdcd29893d26147cbd5cd23918126eb73b3dea9cb180d3ff",
+      "channel": "omega.forgepilot.blueprint.requested.v1"
+    }
+  },
+  {
+    "type": "blueprint.generated",
+    "traceId": "t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b",
+    "receiptRef": "0fa628f9875badc74f22fc7bb8c54a1e474c64c05580189f1bc49d5411a1f4f6",
+    "at": "2026-02-15T01:58:26.598Z",
+    "meta": {
+      "workflowId": "forgepilot.blueprint.v1",
+      "workflowVersion": "1.0.0",
+      "artifactId": "forgepilot.blueprint.v1",
+      "artifactHash": "a9939fdb7bc66cd47e8f2272ddf3c222e9dfb622f78b71a5f4cd26514838b195",
+      "inputHash": "810bab4e77e9a5996a67337d7989b607b5135813063f20b06c28a5778cc9af1b",
+      "runId": "2caeff14-c1ef-4248-a562-38c240d46c8e"
+    }
+  },
+  {
+    "type": "export.generated",
+    "traceId": "t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b",
+    "receiptRef": "0fa628f9875badc74f22fc7bb8c54a1e474c64c05580189f1bc49d5411a1f4f6",
+    "at": "2026-02-15T01:59:31.298Z",
+    "meta": {
+      "pdfSha256": "04728f987068d584db3112bfe69df45c7f120410bbb77b068c71448ca05a1014",
+      "format": "blueprint"
+    }
+  }
+]

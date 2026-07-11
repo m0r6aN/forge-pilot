@@ -1,0 +1,15 @@
+import { chromium } from 'playwright';
+const base=process.env.SMOKE_BASE_URL;
+const browser=await chromium.launch({headless:true});
+const page=await browser.newPage();
+await page.goto(`${base}/launch`,{waitUntil:'domcontentloaded',timeout:300000});
+const ta = page.locator('textarea[placeholder="What are you building, who is it for, and why now?"]');
+await ta.click();
+await ta.pressSequentially('Typed idea text with enough details to exceed twenty characters and trigger state update.');
+const em = page.locator('input[placeholder="founder@company.com"]');
+await em.click();
+await em.pressSequentially('morganclint76@gmail.com');
+await page.waitForTimeout(500);
+const st = await page.evaluate(()=>{const b=[...document.querySelectorAll('button')].find(x=>x.textContent?.includes('Build My 90-Day Launch Plan')); return {disabled:b?.hasAttribute('disabled'),text:b?.textContent};});
+console.log(JSON.stringify(st));
+await browser.close();

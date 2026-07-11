@@ -1,0 +1,31 @@
+[
+  {
+    "correlationId": "t:morgan-findings|c:019c5e64-e17f-75cb-a398-9a4cbb7ba7a5",
+    "workflowId": "forgepilot.teaser.v1",
+    "version": "1.0.0",
+    "artifactHashes": {
+      "workflowYaml": "sha256:91799bda09566d6924dd06befb5e846856a15029b6aeb99fdd49bab07df38c03",
+      "promptsPoml": "sha256:283e464a71df98071ab5f1c27f97b3e941b3b17add3b1d9771aa349b7dc0369b",
+      "schemas": {
+        "output.schema.json": "sha256:b0bb8d2b9ad96045d598a541eb058c682a72fc2d93173393b37b6128b6c56d94",
+        "steps/clarityEval.schema.json": "sha256:600a1bcdf0f51715ecad1a5d5599e77f020aedaccf0173c4a0aa9038d3c7511d",
+        "steps/microQuestions.schema.json": "sha256:02fecbf6c3dd24818d76dfbb5a34c65f27883c4ad234a42f31017053adcd36ab",
+        "steps/teaserGenerate.schema.json": "sha256:89c46226a4155a5b9cb72b1241338e13f58002696a37450f5c5a2df271bf450b"
+      }
+    },
+    "idempotent": false
+  },
+  {
+    "correlationId": "t:morgan-findings|c:019c5e64-e17f-75cb-a398-9a4cbb7ba7a5",
+    "workflowId": "forgepilot.blueprint.v1",
+    "version": "1.0.0",
+    "artifactHashes": {
+      "workflowYaml": "sha256:53cae7058dda099845026040f3c4e76c126fe95adcf2c80f224d1c61c7ff11e7",
+      "promptsPoml": "sha256:f36ce7f4b8909d50ec689a736af77d787490d7a957b2031df85c88ad1e51d97a",
+      "schemas": {
+        "output.schema.json": "sha256:7d3a606bef78eeaee6468722823dc3246a7dac9bd3cfc02dce2ebe237573eaf6"
+      }
+    },
+    "idempotent": false
+  }
+]

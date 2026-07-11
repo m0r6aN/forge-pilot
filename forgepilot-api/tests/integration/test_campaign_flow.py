@@ -112,6 +112,26 @@ class TestCampaignFlow:
         assert data["error"]["code"] == "CAMPAIGN_NOT_FOUND"
 
     @patch.object(FederationClient, "create_conversation")
+    async def test_tenant_isolation_status_read(
+        self, mock_create, test_client, sample_campaign_request
+    ):
+        """Tenant B cannot read tenant A campaign status."""
+        mock_create.return_value = {
+            "conversation_id": "conv_123456",
+            "state": "active",
+            "created_at": datetime.utcnow().isoformat(),
+        }
+        create_response = test_client.post("/api/v1/campaigns", json=sample_campaign_request)
+        campaign_id = create_response.json()["campaign_id"]
+        other_tenant = str(uuid4())
+        status_response = test_client.get(
+            f"/api/v1/campaigns/{campaign_id}",
+            headers={"X-Tenant-ID": other_tenant},
+        )
+        assert status_response.status_code == 403
+        assert status_response.json()["error"]["code"] == "TENANT_FORBIDDEN"
+
+    @patch.object(FederationClient, "create_conversation")
     @patch.object(FederationClient, "get_conversation")
     @patch.object(FederationClient, "get_artifacts")
     async def test_get_artifacts_success(
@@ -274,3 +294,74 @@ class TestCorrelationID:
         assert response.status_code == 201
         data = response.json()
         assert data["correlation_id"] == custom_correlation_id
+
+    @patch.object(FederationClient, "create_conversation")
+    async def test_trace_id_continuity(
+        self, mock_create, test_client, sample_campaign_request
+    ):
+        """Trace and correlation IDs should be preserved through middleware."""
+        mock_create.return_value = {
+            "conversation_id": "conv_123456",
+            "state": "active",
+            "created_at": datetime.utcnow().isoformat(),
+        }
+        correlation_id = str(uuid4())
+        trace_id = str(uuid4())
+        response = test_client.post(
+            "/api/v1/campaigns",
+            json=sample_campaign_request,
+            headers={
+                "X-Correlation-ID": correlation_id,
+                "X-Trace-ID": trace_id,
+                "Idempotency-Key": "trace-proof-1",
+            },
+        )
+        assert response.status_code == 201
+        assert response.headers["X-Correlation-ID"] == correlation_id
+        assert response.headers["X-Trace-ID"] == trace_id
+        assert response.json()["correlation_id"] == correlation_id
+
+    @patch.object(FederationClient, "create_conversation")
+    async def test_idempotency_conflict(
+        self, mock_create, test_client, sample_campaign_request
+    ):
+        """Second request with same idempotency key must return 409."""
+        mock_create.return_value = {
+            "conversation_id": "conv_123456",
+            "state": "active",
+            "created_at": datetime.utcnow().isoformat(),
+        }
+        headers = {"Idempotency-Key": "idem-hit-1"}
+        first = test_client.post(
+            "/api/v1/campaigns",
+            json=sample_campaign_request,
+            headers=headers,
+        )
+        assert first.status_code == 201
+
+        second = test_client.post(
+            "/api/v1/campaigns",
+            json=sample_campaign_request,
+            headers=headers,
+        )
+        assert second.status_code == 409
+        body = second.json()
+        assert body["error"]["code"] == "IDEMPOTENCY_HIT"
+
+    @patch.object(FederationClient, "create_conversation")
+    async def test_tenant_header_forbidden(
+        self, mock_create, test_client, sample_campaign_request
+    ):
+        """Mismatched X-Tenant-ID should return 403."""
+        mock_create.return_value = {
+            "conversation_id": "conv_123456",
+            "state": "active",
+            "created_at": datetime.utcnow().isoformat(),
+        }
+        response = test_client.post(
+            "/api/v1/campaigns",
+            json=sample_campaign_request,
+            headers={"X-Tenant-ID": str(uuid4())},
+        )
+        assert response.status_code == 403
+        assert response.json()["error"]["code"] == "TENANT_FORBIDDEN"

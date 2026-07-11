@@ -1,0 +1,47 @@
+{
+  "schema_id": "domain.schema.v1",
+  "domain_key": "home_cleaning_service",
+  "profile_version": "1.0.0",
+  "source": "curated_seed",
+  "archetype_id": "service_home_002",
+  "display_name": "Residential Cleaning Service",
+  "summary": "A service providing standard and deep cleaning for private residences. Operates on a high-trust model with low capital requirements but high management overhead for staff.",
+  "business_model": {
+    "delivery_model": "mobile",
+    "customer_type": "B2C",
+    "revenue_motion": "recurring"
+  },
+  "economics": {
+    "startup_cost_range": { "min_usd": 2000, "max_usd": 10000 },
+    "gross_margin_range_pct": { "min": 40, "max": 60 },
+    "typical_break_even_months": { "min": 1, "max": 3 }
+  },
+  "operations": {
+    "required_roles": ["Cleaner", "Scheduler/QA Manager"],
+    "core_workflows": ["Key handling/access management", "Supply kit replenishment", "Quality assurance checks"],
+    "capacity_drivers": ["Staff availability", "Travel time between homes", "Cleaner efficiency"],
+    "tooling_stack_baseline": ["Booking software (Launch27/ZenMaid)", "SMS communication tool", "Payroll processor"]
+  },
+  "go_to_market": {
+    "primary_channels": ["Google Local Services Ads", "Referral program", "Thumbtack/TaskRabbit"],
+    "sales_cycle": "online_checkout",
+    "retention_levers": ["Same-cleaner guarantee", "Feedback loops", "Discounts for weekly frequency"],
+    "pricing_models": ["Hourly rate", "Flat rate per room/size"]
+  },
+  "risk_and_compliance": {
+    "regulatory_intensity": "low",
+    "required_licenses": ["Business License", "Bonding (Surety Bond)"],
+    "insurance_considerations": ["General Liability", "Bonding", "Workers Comp"],
+    "common_failure_modes": ["Cleaner theft/damage", "scheduling conflicts", "poor quality consistency"],
+    "top_risks": ["High staff turnover", "Reputation damage from one bad job", "Bypassing (client hires cleaner directly)"]
+  },
+  "starter_plan": {
+    "first_5_actions": ["Register business", "Purchase insurance and bonding", "Build simple booking website", "Recruit first 2 cleaners", "Buy eco-friendly supplies"],
+    "first_30_days": ["Run Google Local Service Ads", "Perform initial cleans personally for QA", "Establish cleaner checklist"],
+    "success_metrics": ["Recurring booking %", "Cleaner retention rate", "Net Promoter Score"]
+  },
+  "evidence": {
+    "assumptions": ["Market accepts hourly rates of $40+", "Cleaners have own transportation"],
+    "requires_local_validation": ["Prevailing wage for cleaners", "Competitor availability"]
+  }
+}

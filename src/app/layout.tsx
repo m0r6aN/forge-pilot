@@ -1,15 +1,23 @@
+import { MainLayout } from '@/components/layout/main-layout'
+import { ThemeProvider } from '@/providers/theme-provider'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/providers/theme-provider'
-import { AuthProvider } from '@/lib/auth/auth-context'
-import { MainLayout } from '@/components/layout/main-layout'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'BrandGenie AI - Autonomous Branding Platform',
-  description: 'Generate complete brand identities for entrepreneurs, side-hustlers, and small businesses in minutes - not months.',
+  title: 'ForgePilot — Your AI Co-Founder for Launching Real Businesses',
+  description:
+    'A focused co-founder session that sharpens your idea and delivers a practical 90-day launch blueprint. Powered by Keon governance.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    shortcut: ['/favicon.ico'],
+  },
 }
 
 export default function RootLayout({
@@ -18,15 +26,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider>
-          <AuthProvider>
-            <MainLayout>{children}</MainLayout>
-          </AuthProvider>
+        <ThemeProvider defaultTheme="dark" storageKey="forgepilot-theme">
+          <MainLayout>{children}</MainLayout>
         </ThemeProvider>
       </body>
     </html>
   )
 }
-

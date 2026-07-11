@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from uuid import uuid4
 from datetime import datetime
+from unittest.mock import patch
 
 from app.models import (
     CreateCampaignRequest,
@@ -14,6 +15,7 @@ from app.models import (
     ErrorResponse,
     CampaignStatus,
 )
+from app.clients import FederationClient
 
 
 class TestContractCompliance:
@@ -25,6 +27,7 @@ class TestContractCompliance:
         contracts_path = (
             Path(__file__).parent.parent.parent.parent
             / "docs"
+            / "internal"
             / "backend"
             / "API_CONTRACTS.json"
         )
@@ -227,3 +230,47 @@ class TestContractCompliance:
                 updated_at=datetime.utcnow(),
                 progress={"completion_percentage": 101},
             )
+
+
+class TestErrorTaxonomyContract:
+    """Contract tests for stable error taxonomy and status codes."""
+
+    @patch.object(FederationClient, "create_conversation")
+    async def test_idempotency_conflict_contract(
+        self, mock_create, test_client, sample_campaign_request
+    ):
+        mock_create.return_value = {
+            "conversation_id": "conv_123456",
+            "state": "active",
+            "created_at": datetime.utcnow().isoformat(),
+        }
+        headers = {"Idempotency-Key": "taxonomy-1"}
+        created = test_client.post("/api/v1/campaigns", json=sample_campaign_request, headers=headers)
+        assert created.status_code == 201
+
+        duplicate = test_client.post("/api/v1/campaigns", json=sample_campaign_request, headers=headers)
+        assert duplicate.status_code == 409
+        assert duplicate.json()["error"]["code"] == "IDEMPOTENCY_HIT"
+
+    @patch.object(FederationClient, "create_conversation")
+    async def test_tenant_mismatch_forbidden_contract(
+        self, mock_create, test_client, sample_campaign_request
+    ):
+        mock_create.return_value = {
+            "conversation_id": "conv_123456",
+            "state": "active",
+            "created_at": datetime.utcnow().isoformat(),
+        }
+        forbidden = test_client.post(
+            "/api/v1/campaigns",
+            json=sample_campaign_request,
+            headers={"X-Tenant-ID": str(uuid4())},
+        )
+        assert forbidden.status_code == 403
+        assert forbidden.json()["error"]["code"] == "TENANT_FORBIDDEN"
+
+    def test_validation_error_contract(self, test_client, sample_campaign_request):
+        bad_payload = sample_campaign_request.copy()
+        bad_payload["target_audience"] = "bad"
+        response = test_client.post("/api/v1/campaigns", json=bad_payload)
+        assert response.status_code == 422

@@ -1,0 +1,80 @@
+{
+  "traceId": "t:morgan-findings|c:019c5ee6-af4c-76d1-8b66-42c40e3f9766",
+  "sessionId": "03914f66-3162-4476-84b6-df074aad3c37",
+  "email": "smoke-runner@example.com",
+  "idea": "D-H audit run: AI compliance copilot for SMB HR",
+  "advancedOptions": {
+    "colorMode": "none",
+    "hexColors": [],
+    "colorVibe": null,
+    "tone": null,
+    "budget": null
+  },
+  "clarificationAnswers": {},
+  "workflowVersion": "1.0.0",
+  "artifactId": "forgepilot.teaser.v1",
+  "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+  "inputHash": "4781293f0354c997a66bbcb55d576de769daa53d97bc7b203b765be1900bb2fd",
+  "status": "unlocked",
+  "teaser": {
+    "oneLiner": "D-H audit run: AI compliance copilot for SMB HR: a focused, governed launch path for the first 90 days.",
+    "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+    "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+    "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+    "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+    "ctaHeadline": "Unlock the full launch blueprint",
+    "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+  },
+  "successReceiptRef": "2ef92dd7079862a6e8b4fceae6e72dc8cbfce0689b48c0fc333eb13f9c32558b",
+  "resumeRecords": {},
+  "receipts": [
+    {
+      "receiptRef": "2ef92dd7079862a6e8b4fceae6e72dc8cbfce0689b48c0fc333eb13f9c32558b",
+      "class": "success",
+      "source": "teaser",
+      "createdAt": "2026-02-15T01:25:03.472Z"
+    },
+    {
+      "receiptRef": "2b94bb2087e9d912a35cb27b4c001a307320e7dee00444d7911bb54ebbd34c85",
+      "class": "success",
+      "source": "webhook",
+      "createdAt": "2026-02-15T01:26:18.919Z"
+    }
+  ],
+  "payment": {
+    "completedAt": "2026-02-15T01:25:37.675Z",
+    "unlockedAt": "2026-02-15T01:25:37.675Z"
+  },
+  "exports": [],
+  "createdAt": "2026-02-15T01:25:03.472Z",
+  "updatedAt": "2026-02-15T01:26:18.919Z",
+  "blueprintRequestedAt": "2026-02-15T01:25:37.683Z",
+  "blueprintRequestEventId": "5dee85c9-fee7-43b0-922c-e6ff8d7c8272",
+  "blueprintRequestKey": "9e5aefd9237d8054b0d02ae271b08babbc056c9e64da720600cf230700aac152",
+  "blueprint": {
+    "title": "Startup 74770d4a Blueprint v1",
+    "executiveThesis": "Focus on one high-friction customer segment, deliver a narrow paid outcome quickly, then scale only after repeatable proof of value is established.",
+    "offerArchitecture": "Package the core service as a tiered offer: a paid diagnostic sprint, a guided implementation phase, and an ongoing optimization layer with clear ownership boundaries.",
+    "monetizationModel": "Use upfront implementation fees plus recurring subscriptions tied to execution cadence, with explicit upgrade paths as customers move from pilot to production usage.",
+    "distributionStrategy": "Begin with founder-led outbound to niche communities and partner channels, then formalize referral loops once early wins and testimonials are documented.",
+    "ninetyDayPlan": {
+      "weeks1to3": "Finalize positioning, tighten offer scope, and onboard 3 pilot customers with strict success criteria and weekly decision checkpoints.",
+      "weeks4to8": "Instrument delivery metrics, remove operational bottlenecks, and convert pilot learnings into reusable playbooks and onboarding assets.",
+      "weeks9to12": "Scale controlled acquisition, harden retention loops, and formalize expansion motions based on proven unit economics and customer outcomes."
+    },
+    "riskMitigation": "Mitigate execution risk by enforcing scope control, preserving weekly governance reviews, and failing closed whenever receipt, policy, or delivery quality checks are incomplete.",
+    "firstFiveActions": [
+      "Define one narrow ICP and reject adjacent segments for this quarter.",
+      "Ship a paid pilot offer with explicit success and failure criteria.",
+      "Set weekly governance checkpoints with decision logs and receipts.",
+      "Capture customer evidence and convert it into repeatable playbooks.",
+      "Lock expansion until retention and delivery consistency are stable."
+    ]
+  },
+  "blueprintGeneratedAt": "2026-02-15T01:26:18.919Z",
+  "blueprintReceiptRef": "2b94bb2087e9d912a35cb27b4c001a307320e7dee00444d7911bb54ebbd34c85",
+  "blueprintWorkflowVersion": "1.0.0",
+  "blueprintArtifactId": "forgepilot.blueprint.v1",
+  "blueprintArtifactHash": "a9939fdb7bc66cd47e8f2272ddf3c222e9dfb622f78b71a5f4cd26514838b195",
+  "blueprintInputHash": "e5fc8ddef8cdb590d995db272bf4ba254fd361cbecfc65b7f1f77270b4f69f7e"
+}

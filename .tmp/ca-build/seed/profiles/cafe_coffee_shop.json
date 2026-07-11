@@ -1,0 +1,47 @@
+{
+  "schema_id": "domain.schema.v1",
+  "domain_key": "cafe_coffee_shop",
+  "profile_version": "1.0.0",
+  "source": "curated_seed",
+  "archetype_id": "hospitality_fnb_001",
+  "display_name": "Specialty Coffee Shop",
+  "summary": "A physical retail space focused on high-margin beverage sales and light food options. Success relies on foot traffic, atmosphere, and workflow efficiency during peak hours.",
+  "business_model": {
+    "delivery_model": "physical_location",
+    "customer_type": "B2C",
+    "revenue_motion": "transactional"
+  },
+  "economics": {
+    "startup_cost_range": { "min_usd": 80000, "max_usd": 250000 },
+    "gross_margin_range_pct": { "min": 60, "max": 85 },
+    "typical_break_even_months": { "min": 12, "max": 24 }
+  },
+  "operations": {
+    "required_roles": ["Barista", "Store Manager", "Baker/Prep"],
+    "core_workflows": ["Opening/Closing procedures", "Inventory ordering & milk management", "POS transaction & drink fulfillment"],
+    "capacity_drivers": ["Espresso machine group heads", "Seating capacity", "Barista speed"],
+    "tooling_stack_baseline": ["Square/Toast POS", "Scheduling Software (7shifts)", "Inventory Tracker"]
+  },
+  "go_to_market": {
+    "primary_channels": ["Street foot traffic", "Social media (Instagram aesthetics)", "Google Maps Local SEO"],
+    "sales_cycle": "walk_in",
+    "retention_levers": ["Loyalty punch cards", "Seasonal menu rotation", "Community events"],
+    "pricing_models": ["Cost-plus markup", "Competitor based"]
+  },
+  "risk_and_compliance": {
+    "regulatory_intensity": "medium",
+    "required_licenses": ["Health Department Permit", "Business License", "Food Handler Cards"],
+    "insurance_considerations": ["General Liability", "Workers Comp", "Property Insurance"],
+    "common_failure_modes": ["Poor location selection", "Underestimation of waste/spoilage", "Inconsistent product quality"],
+    "top_risks": ["Rising rent costs", "Staff turnover", "Supply chain disruption (coffee beans/milk)"]
+  },
+  "starter_plan": {
+    "first_5_actions": ["Secure location with high foot traffic", "Design bar workflow", "Source local bean roaster", "Apply for health permits", "Hire lead barista"],
+    "first_30_days": ["Soft opening for friends/family", "Train staff on drink consistency", "Establish waste tracking logs"],
+    "success_metrics": ["Daily ticket count", "Average Order Value (AOV)", "Labor Cost Percentage"]
+  },
+  "evidence": {
+    "assumptions": ["Location has sufficient AM foot traffic", "Rent is below 10% of projected gross sales"],
+    "requires_local_validation": ["Competitor density", "Local health code specific requirements"]
+  }
+}

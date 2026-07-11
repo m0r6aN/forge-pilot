@@ -1,0 +1,40 @@
+%PDF-1.4
+1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj
+2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj
+3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >> endobj
+4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> endobj
+5 0 obj << /Length 1605 >> stream
+BT /F1 28 Tf 72 730 Td (AI compliance copilot for SMB) Tj ET
+BT /F1 14 Tf 72 700 Td (Unlock the full launch blueprint) Tj ET
+BT /F1 11 Tf 72 676 Td (traceId: t:morgan-findings|c:019c5ea1-ad6d-79e9-b5f1-de3fa33575ef) Tj ET
+BT /F1 11 Tf 72 660 Td (workflowVersion: 1.0.0) Tj ET
+BT /F1 14 Tf 72 620 Td (Problem) Tj ET
+BT /F1 10 Tf 72 602 Td (This launch positions the offer for teams that need fast execution with strict) Tj ET
+BT /F1 10 Tf 72 588 Td (governance and clear outcomes.) Tj ET
+BT /F1 14 Tf 72 562 Td (Solution) Tj ET
+BT /F1 10 Tf 72 544 Td (The wedge is deterministic execution plus auditable receipts, reducing risk while) Tj ET
+BT /F1 10 Tf 72 530 Td (keeping time-to-value short.) Tj ET
+BT /F1 14 Tf 72 504 Td (Target Market) Tj ET
+BT /F1 10 Tf 72 486 Td (Best initial customers are founder-led B2B teams with urgent workflow pain and) Tj ET
+BT /F1 10 Tf 72 472 Td (willingness to buy a measurable fix.) Tj ET
+BT /F1 14 Tf 72 446 Td (Pricing Strategy) Tj ET
+BT /F1 10 Tf 72 428 Td (Start with a clear paid pilot and convert to recurring subscriptions once onboarding and) Tj ET
+BT /F1 10 Tf 72 414 Td (first value are proven.) Tj ET
+BT /F1 14 Tf 72 388 Td (Go-To-Market Outline) Tj ET
+BT /F1 10 Tf 72 370 Td (Get the complete 90-day operating blueprint with execution sequencing, risks, and first) Tj ET
+BT /F1 10 Tf 72 356 Td (five actions.) Tj ET
+BT /F1 8 Tf 72 38 Td (Generated under OMEGA Governed Execution) Tj ET
+BT /F1 8 Tf 72 26 Td (traceId: t:morgan-findings|c:019c5ea1-ad6d-79e9-b5f1-de3fa33575ef | receiptRef: d8ab0d69aa5878466f2b811de4eb207df37571e52c138c6b74a8f958d84a0595) Tj ET
+endstream endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer << /Size 6 /Root 1 0 R >>
+startxref
+1968
+%%EOF

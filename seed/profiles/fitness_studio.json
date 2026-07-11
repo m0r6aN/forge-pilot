@@ -1,0 +1,47 @@
+{
+  "schema_id": "domain.schema.v1",
+  "domain_key": "fitness_studio",
+  "profile_version": "1.0.0",
+  "source": "curated_seed",
+  "archetype_id": "wellness_recurring_001",
+  "display_name": "Boutique Fitness Studio",
+  "summary": "A class-based fitness facility (Yoga, Pilates, HIIT). Revenue is driven by recurring memberships and community engagement, with high utilization of fixed space.",
+  "business_model": {
+    "delivery_model": "physical_location",
+    "customer_type": "B2C",
+    "revenue_motion": "recurring"
+  },
+  "economics": {
+    "startup_cost_range": { "min_usd": 100000, "max_usd": 350000 },
+    "gross_margin_range_pct": { "min": 20, "max": 40 },
+    "typical_break_even_months": { "min": 12, "max": 18 }
+  },
+  "operations": {
+    "required_roles": ["Studio Manager", "Instructors", "Front Desk Staff"],
+    "core_workflows": ["Class scheduling", "Member check-in", "Facility cleaning/maintenance"],
+    "capacity_drivers": ["Class size limits", "Instructor availability", "Peak hour slots"],
+    "tooling_stack_baseline": ["MindBody or Mariana Tek", "Waiver Management", "CRM"]
+  },
+  "go_to_market": {
+    "primary_channels": ["Intro offer ads (FB/IG)", "Referral incentives", "Google Maps Reviews"],
+    "sales_cycle": "online_checkout",
+    "retention_levers": ["Community challenges", "Milestone recognition", "Member socials"],
+    "pricing_models": ["Monthly unlimited membership", "Class packs", "Drop-in rate"]
+  },
+  "risk_and_compliance": {
+    "regulatory_intensity": "medium",
+    "required_licenses": ["Business License", "Music Licensing (ASCAP/BMI)", "Certificate of Occupancy"],
+    "insurance_considerations": ["Professional Liability", "General Liability", "Property Insurance"],
+    "common_failure_modes": ["High churn rate", "Instructor dependency", "High rent to revenue ratio"],
+    "top_risks": ["Member attrition", "Instructor poaching", "Public health closures"]
+  },
+  "starter_plan": {
+    "first_5_actions": ["Secure location", "Hire lead instructors", "Define class programming", "Pre-sell founding memberships", "Install sound/flooring"],
+    "first_30_days": ["Convert intro offers to members", "Collect video testimonials", "Optimize class schedule based on attendance"],
+    "success_metrics": ["Membership net growth", "Class utilization rate", "Churn rate"]
+  },
+  "evidence": {
+    "assumptions": ["Local demographic has disposable income for fitness", "Instructor talent pool is available"],
+    "requires_local_validation": ["Competitor pricing", "Parking availability during peak hours"]
+  }
+}

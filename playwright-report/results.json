@@ -1,0 +1,355 @@
+{
+  "config": {
+    "configFile": "D:\\Repos\\keon-omega\\forgepilot\\playwright.config.ts",
+    "rootDir": "D:/Repos/keon-omega/forgepilot/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "D:/Repos/keon-omega/forgepilot/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "forgepilot-e2e",
+        "name": "forgepilot-e2e",
+        "testDir": "D:/Repos/keon-omega/forgepilot/tests/e2e/forgepilot",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "D:/Repos/keon-omega/forgepilot/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "site-smoke",
+        "name": "site-smoke",
+        "testDir": "D:/Repos/keon-omega/forgepilot/tests/e2e/site",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "D:/Repos/keon-omega/forgepilot/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "component",
+        "name": "component",
+        "testDir": "D:/Repos/keon-omega/forgepilot/tests/component",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "playwright-report/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "runAgents": "none",
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.58.2",
+    "workers": 10,
+    "webServer": {
+      "command": "npm run dev",
+      "url": "http://localhost:3000",
+      "reuseExistingServer": true,
+      "timeout": 120000,
+      "env": {
+        "NODE_ENV": "test"
+      }
+    }
+  },
+  "suites": [
+    {
+      "title": "component\\launch-form-validation.spec.ts",
+      "file": "component/launch-form-validation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "submit button disabled when idea < 20 chars",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "018fb8de20843aadcc65-1a4b2aa75e99683512ce",
+          "file": "component/launch-form-validation.spec.ts",
+          "line": 25,
+          "column": 1
+        },
+        {
+          "title": "invalid email shows validation error on submit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "018fb8de20843aadcc65-6f441e65a1239ee5840e",
+          "file": "component/launch-form-validation.spec.ts",
+          "line": 44,
+          "column": 1
+        },
+        {
+          "title": "physical business without location shows error",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "018fb8de20843aadcc65-0052f43b095cd6ca33ab",
+          "file": "component/launch-form-validation.spec.ts",
+          "line": 62,
+          "column": 1
+        },
+        {
+          "title": "clarify submit blocked when answers empty",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "018fb8de20843aadcc65-328e1153a3467e124ab4",
+          "file": "component/launch-form-validation.spec.ts",
+          "line": 96,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "component\\obs-correlation.spec.ts",
+      "file": "component/obs-correlation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "request payload includes sessionId as UUID",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "deed183b3cb297ae79de-edeaa12a4f74a601b754",
+          "file": "component/obs-correlation.spec.ts",
+          "line": 20,
+          "column": 1
+        },
+        {
+          "title": "response payload includes traceId and receiptRef",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "deed183b3cb297ae79de-fcc6b1bd6f42350e0d2b",
+          "file": "component/obs-correlation.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "error response includes error code for debugging",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "deed183b3cb297ae79de-85cea9e5e4b5d0e00b67",
+          "file": "component/obs-correlation.spec.ts",
+          "line": 88,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "component\\ui-truthfulness.spec.ts",
+      "file": "component/ui-truthfulness.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "traceId and receiptRef not visible on idea step",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1abf21ad3f31fa9bcde5-1745c628a2e638bd5aaa",
+          "file": "component/ui-truthfulness.spec.ts",
+          "line": 17,
+          "column": 1
+        },
+        {
+          "title": "traceId shows \"pending\" then real value in brief",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1abf21ad3f31fa9bcde5-26041b12e6abda276ae2",
+          "file": "component/ui-truthfulness.spec.ts",
+          "line": 27,
+          "column": 1
+        },
+        {
+          "title": "no false \"Complete\" or \"Done\" text before brief step",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1abf21ad3f31fa9bcde5-481535d60e2e50651b0e",
+          "file": "component/ui-truthfulness.spec.ts",
+          "line": 55,
+          "column": 1
+        },
+        {
+          "title": "error message is specific, not generic",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "component",
+              "projectName": "component",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "1abf21ad3f31fa9bcde5-f022e4fdc1fe7913d6ee",
+          "file": "component/ui-truthfulness.spec.ts",
+          "line": 81,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-02-19T03:09:33.090Z",
+    "duration": 374.35300000000007,
+    "expected": 0,
+    "skipped": 11,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

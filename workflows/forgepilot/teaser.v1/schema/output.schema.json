@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.keon.systems/omega/workflows/forgepilot.teaser.v1/output.schema.json",
+  "title": "ForgePilot Teaser Workflow Output",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["kind", "version", "generatedAt", "sessionId"],
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": ["clarify", "teaser"]
+    },
+    "version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "sessionId": {
+      "type": "string",
+      "minLength": 12,
+      "maxLength": 128,
+      "description": "Stable ForgePilot launch-session identifier (not traceId)."
+    },
+    "inputEcho": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ideaHash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "hasAdvancedOptions": { "type": "boolean" }
+      }
+    },
+    "clarity": {
+      "$ref": "#/$defs/clarityResult"
+    },
+    "clarification": {
+      "$ref": "#/$defs/clarificationPayload"
+    },
+    "teaser": {
+      "$ref": "#/$defs/teaserPayload"
+    },
+    "memory": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "stored": { "type": "boolean" },
+        "key": { "type": "string", "minLength": 3, "maxLength": 256 }
+      }
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "model": { "type": "string" },
+        "tokens": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "prompt": { "type": "integer", "minimum": 0 },
+            "completion": { "type": "integer", "minimum": 0 },
+            "total": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "_meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "domainProfileUsed": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schemaId", "domainKey", "profileVersion", "profileId", "source"],
+          "properties": {
+            "schemaId": { "type": "string", "minLength": 3, "maxLength": 128 },
+            "domainKey": { "type": "string", "minLength": 2, "maxLength": 128 },
+            "profileVersion": { "type": "string", "minLength": 1, "maxLength": 64 },
+            "profileId": { "type": "integer", "minimum": 0 },
+            "source": { "type": "string", "minLength": 1, "maxLength": 64 }
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "clarify" } } },
+      "then": {
+        "required": ["clarity", "clarification"],
+        "not": { "required": ["teaser"] }
+      }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "teaser" } } },
+      "then": {
+        "required": ["clarity", "teaser"],
+        "not": { "required": ["clarification"] }
+      }
+    }
+  ],
+  "$defs": {
+    "clarityResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requiresQuestions", "reasoning", "confidence"],
+      "properties": {
+        "requiresQuestions": { "type": "boolean" },
+        "reasoning": { "type": "string", "minLength": 10, "maxLength": 2000 },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "riskFlags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "unclear_target_user",
+              "unclear_market",
+              "unclear_value_prop",
+              "unclear_distribution",
+              "unclear_pricing",
+              "conflicting_details"
+            ]
+          },
+          "uniqueItems": true,
+          "maxItems": 6
+        }
+      }
+    },
+    "clarificationPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questions"],
+      "properties": {
+        "questions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "type": "string",
+            "minLength": 8,
+            "maxLength": 220
+          }
+        }
+      }
+    },
+    "teaserPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sections", "oneLiner", "cta"],
+      "properties": {
+        "oneLiner": { "type": "string", "minLength": 10, "maxLength": 180 },
+        "sections": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["positioning", "icpSnapshot", "monetizationAngle", "strategicDifferentiator"],
+          "properties": {
+            "positioning": { "type": "string", "minLength": 30, "maxLength": 700 },
+            "icpSnapshot": { "type": "string", "minLength": 30, "maxLength": 700 },
+            "monetizationAngle": { "type": "string", "minLength": 30, "maxLength": 700 },
+            "strategicDifferentiator": { "type": "string", "minLength": 30, "maxLength": 700 }
+          }
+        },
+        "cta": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["unlockValue", "headline"],
+          "properties": {
+            "headline": { "type": "string", "minLength": 6, "maxLength": 120 },
+            "unlockValue": { "type": "string", "minLength": 10, "maxLength": 220 }
+          }
+        }
+      }
+    }
+  }
+}

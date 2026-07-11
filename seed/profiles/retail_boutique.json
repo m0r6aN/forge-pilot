@@ -1,0 +1,47 @@
+{
+  "schema_id": "domain.schema.v1",
+  "domain_key": "retail_boutique",
+  "profile_version": "1.0.0",
+  "source": "curated_seed",
+  "archetype_id": "retail_brick_001",
+  "display_name": "Curated Retail Boutique",
+  "summary": "A physical shop selling curated apparel, gifts, or home goods. Value proposition is discovery, curation, and in-person experience compared to online shopping.",
+  "business_model": {
+    "delivery_model": "physical_location",
+    "customer_type": "B2C",
+    "revenue_motion": "transactional"
+  },
+  "economics": {
+    "startup_cost_range": { "min_usd": 50000, "max_usd": 150000 },
+    "gross_margin_range_pct": { "min": 45, "max": 65 },
+    "typical_break_even_months": { "min": 12, "max": 24 }
+  },
+  "operations": {
+    "required_roles": ["Store Manager", "Sales Associate", "Buyer/Merchandiser"],
+    "core_workflows": ["Inventory purchasing/receiving", "Visual merchandising", "E-commerce fulfillment (hybrid)"],
+    "capacity_drivers": ["Floor space", "Fitting room availability", "Cash wrap speed"],
+    "tooling_stack_baseline": ["Shopify POS", "Inventory Management System", "Email Marketing (Klaviyo)"]
+  },
+  "go_to_market": {
+    "primary_channels": ["Window display/Foot traffic", "Instagram/TikTok content", "Email newsletter"],
+    "sales_cycle": "walk_in",
+    "retention_levers": ["VIP access to new drops", "Loyalty points", "Personal styling services"],
+    "pricing_models": ["Keystone pricing (2x wholesale)", "MSRP"]
+  },
+  "risk_and_compliance": {
+    "regulatory_intensity": "low",
+    "required_licenses": ["Business License", "Resale Certificate"],
+    "insurance_considerations": ["Property/Inventory Insurance", "General Liability", "Business Interruption"],
+    "common_failure_modes": ["Overbuying inventory", "Bad location", "Inability to clear dead stock"],
+    "top_risks": ["Inventory obsolescence", "Theft/Shrinkage", "Rent hikes"]
+  },
+  "starter_plan": {
+    "first_5_actions": ["Define customer avatar", "Attend trade show/source vendors", "Secure lease", "Set up POS system", "Plan opening inventory mix"],
+    "first_30_days": ["Grand opening event", "Build email list at checkout", "Analyze first week sell-through report"],
+    "success_metrics": ["Sales per square foot", "Inventory turnover rate", "Average transaction value"]
+  },
+  "evidence": {
+    "assumptions": ["Target demographic values curated physical shopping", "2.5x markup is sustainable"],
+    "requires_local_validation": ["Foot traffic counts", "Neighboring tenant mix"]
+  }
+}
