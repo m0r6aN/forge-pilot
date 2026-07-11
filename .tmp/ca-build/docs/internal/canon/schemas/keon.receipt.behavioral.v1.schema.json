@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "keon.receipt.behavioral.v1",
+  "title": "Keon Behavioral Compliance Receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "receiptId",
+    "issuedAt",
+    "policy",
+    "subject",
+    "evaluation",
+    "bindings",
+    "issuer",
+    "signature"
+  ],
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "keon.receipt.behavioral.v1"
+    },
+    "receiptId": {
+      "type": "string",
+      "description": "Unique receipt identifier",
+      "minLength": 8,
+      "maxLength": 128
+    },
+    "issuedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policyId",
+        "policyVersion",
+        "ruleSetHash",
+        "archetype"
+      ],
+      "properties": {
+        "policyId": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 128
+        },
+        "policyVersion": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "ruleSetHash": {
+          "type": "string",
+          "description": "sha256 hex of the active rules bundle or policy artifact",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "archetype": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        }
+      }
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tenantId",
+        "actorId",
+        "correlationId",
+        "workflowId",
+        "runId",
+        "expressionHash"
+      ],
+      "properties": {
+        "tenantId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "actorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "correlationId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "workflowId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "runId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "expressionHash": {
+          "type": "string",
+          "description": "sha256 hex of the final emitted user-facing expression",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "initialDisposition",
+        "finalDisposition",
+        "rewriteCount",
+        "score",
+        "violations"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "soft",
+            "strict"
+          ]
+        },
+        "initialDisposition": {
+          "type": "string",
+          "enum": [
+            "APPROVED",
+            "REWRITE_REQUIRED",
+            "REJECTED"
+          ]
+        },
+        "finalDisposition": {
+          "type": "string",
+          "enum": [
+            "APPROVED",
+            "REWRITE_REQUIRED",
+            "REJECTED"
+          ]
+        },
+        "rewriteCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "violations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "maxItems": 200
+        }
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policyHash",
+        "subjectHash",
+        "evaluationHash"
+      ],
+      "properties": {
+        "policyHash": {
+          "type": "string",
+          "description": "sha256 hex of canonical(policy)",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "subjectHash": {
+          "type": "string",
+          "description": "sha256 hex of canonical(subject)",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "evaluationHash": {
+          "type": "string",
+          "description": "sha256 hex of canonical(evaluation)",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "issuer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "service",
+        "keyId"
+      ],
+      "properties": {
+        "service": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "keyId": {
+          "type": "string",
+          "description": "Key identifier for signature verification",
+          "minLength": 3,
+          "maxLength": 256
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alg",
+        "sig"
+      ],
+      "properties": {
+        "alg": {
+          "type": "string",
+          "enum": [
+            "Ed25519"
+          ]
+        },
+        "sig": {
+          "type": "string",
+          "description": "Base64 signature over canonical receipt payload (see canonicalization rules)",
+          "minLength": 16,
+          "maxLength": 2048
+        }
+      }
+    }
+  }
+}

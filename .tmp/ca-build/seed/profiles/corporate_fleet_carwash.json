@@ -1,0 +1,47 @@
+{
+  "schema_id": "domain.schema.v1",
+  "domain_key": "corporate_fleet_carwash",
+  "profile_version": "1.0.0",
+  "source": "curated_seed",
+  "archetype_id": "service_b2b_001",
+  "display_name": "Mobile Fleet Wash Service",
+  "summary": "A mobile cleaning service targeting businesses with vehicle fleets (delivery vans, rental cars, municipal vehicles). Focuses on recurring contracts and volume efficiency.",
+  "business_model": {
+    "delivery_model": "mobile",
+    "customer_type": "B2B",
+    "revenue_motion": "recurring"
+  },
+  "economics": {
+    "startup_cost_range": { "min_usd": 15000, "max_usd": 45000 },
+    "gross_margin_range_pct": { "min": 40, "max": 60 },
+    "typical_break_even_months": { "min": 3, "max": 9 }
+  },
+  "operations": {
+    "required_roles": ["Lead Washer/Driver", "Sales/Account Manager"],
+    "core_workflows": ["Route optimization", "Water reclamation/disposal", "Invoicing and AR management"],
+    "capacity_drivers": ["Water tank size", "Number of crew members", "Time per vehicle"],
+    "tooling_stack_baseline": ["Route planning software", "Invoicing software (Quickbooks)", "CRM"]
+  },
+  "go_to_market": {
+    "primary_channels": ["Direct sales outreach", "LinkedIn cold outreach", "Local chamber of commerce"],
+    "sales_cycle": "contract",
+    "retention_levers": ["Volume discounts", "Reliability guarantees", "Net-30 payment terms"],
+    "pricing_models": ["Per vehicle flat rate", "Monthly retainer"]
+  },
+  "risk_and_compliance": {
+    "regulatory_intensity": "medium",
+    "required_licenses": ["Business License", "Water Discharge Permit", "EPA compliance certification"],
+    "insurance_considerations": ["Garage Keepers Liability", "Commercial Auto", "General Liability"],
+    "common_failure_modes": ["Underbidding contracts", "Equipment failure on site", "Water runoff fines"],
+    "top_risks": ["Client concentration risk", "Environmental regulation changes", "Fuel price volatility"]
+  },
+  "starter_plan": {
+    "first_5_actions": ["Outfit van with pressure washer/tank", "Define water reclamation process", "Build prospect list of local fleets", "Set pricing tiers", "Draft service agreement contract"],
+    "first_30_days": ["Cold call 50 local fleet managers", "Perform demo washes", "Refine time-per-car estimates"],
+    "success_metrics": ["Vehicles washed per hour", "Contract renewal rate", "Customer Acquisition Cost (CAC)"]
+  },
+  "evidence": {
+    "assumptions": ["Target market has fleets of 10+ vehicles", "Water disposal sites are accessible"],
+    "requires_local_validation": ["Storm drain runoff laws", "Competitor contract pricing"]
+  }
+}

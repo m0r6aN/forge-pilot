@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git branch:*)",
+      "Bash(gh repo list:*)"
+    ],
+    "additionalDirectories": [
+      "d:\\Repos\\keon-omega\\keon-sdk-csharp"
+    ]
+  }
+}

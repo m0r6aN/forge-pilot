@@ -1,0 +1,36 @@
+id: forgepilot.teaser.v1
+version: 1.0.0
+tenantBinding: required
+correlation: required
+memory:
+  store: true
+  scope: tenant
+
+steps:
+  - id: clarity_eval
+    type: llm
+    prompt: clarity_prompt
+    output: clarity_result
+
+  - id: micro_questions
+    type: conditional
+    when: clarity_result.requires_questions == true
+    branch:
+      type: llm
+      prompt: micro_questions_prompt
+      output: clarification_payload
+
+  - id: teaser_generate
+    type: llm
+    when: clarity_result.requires_questions == false
+    prompt: teaser_prompt
+    output: teaser_payload
+
+  - id: memory_store
+    type: memory.store
+    when: teaser_payload exists
+    key: forgepilot.launch.session
+
+  - id: receipt_emit
+    type: receipt
+    when: teaser_payload exists

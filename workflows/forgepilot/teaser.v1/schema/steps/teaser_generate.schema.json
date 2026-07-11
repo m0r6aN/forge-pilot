@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.keon.systems/omega/workflows/forgepilot.teaser.v1/steps/teaser_generate.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["oneLiner", "sections", "cta"],
+  "properties": {
+    "oneLiner": { "type": "string", "minLength": 10, "maxLength": 180 },
+    "sections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["positioning", "icpSnapshot", "monetizationAngle", "strategicDifferentiator"],
+      "properties": {
+        "positioning": { "type": "string", "minLength": 30, "maxLength": 700 },
+        "icpSnapshot": { "type": "string", "minLength": 30, "maxLength": 700 },
+        "monetizationAngle": { "type": "string", "minLength": 30, "maxLength": 700 },
+        "strategicDifferentiator": { "type": "string", "minLength": 30, "maxLength": 700 }
+      }
+    },
+    "cta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["headline", "unlockValue"],
+      "properties": {
+        "headline": { "type": "string", "minLength": 6, "maxLength": 120 },
+        "unlockValue": { "type": "string", "minLength": 10, "maxLength": 220 }
+      }
+    }
+  }
+}

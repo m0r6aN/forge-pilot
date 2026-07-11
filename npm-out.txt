@@ -1,0 +1,16 @@
+Starting npm install at Wed 02/18/2026 21:59:19.34 
+
+added 6 packages, removed 5 packages, changed 50 packages, and audited 681 packages in 58s
+
+175 packages are looking for funding
+  run `npm fund` for details
+
+17 vulnerabilities (1 moderate, 16 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.

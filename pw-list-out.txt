@@ -1,0 +1,14 @@
+Starting playwright list at Wed 02/18/2026 22:09:29.14 
+Listing tests:
+  [component] › component\launch-form-validation.spec.ts:25:1 › submit button disabled when idea < 20 chars
+  [component] › component\launch-form-validation.spec.ts:44:1 › invalid email shows validation error on submit
+  [component] › component\launch-form-validation.spec.ts:62:1 › physical business without location shows error
+  [component] › component\launch-form-validation.spec.ts:96:1 › clarify submit blocked when answers empty
+  [component] › component\obs-correlation.spec.ts:20:1 › request payload includes sessionId as UUID
+  [component] › component\obs-correlation.spec.ts:56:1 › response payload includes traceId and receiptRef
+  [component] › component\obs-correlation.spec.ts:88:1 › error response includes error code for debugging
+  [component] › component\ui-truthfulness.spec.ts:17:1 › traceId and receiptRef not visible on idea step
+  [component] › component\ui-truthfulness.spec.ts:27:1 › traceId shows "pending" then real value in brief
+  [component] › component\ui-truthfulness.spec.ts:55:1 › no false "Complete" or "Done" text before brief step
+  [component] › component\ui-truthfulness.spec.ts:81:1 › error message is specific, not generic
+Total: 11 tests in 3 files

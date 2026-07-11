@@ -6,6 +6,12 @@ from .campaign import (
     CampaignStatusResponse,
     ArtifactsResponse,
     CampaignStatus,
+    ProgressInfo,
+    ErrorInfo,
+    Artifacts,
+    DomainSuggestion,
+    BrandGuidelines,
+    LegalReview,
 )
 from .errors import ErrorResponse, ErrorDetail
 
@@ -15,6 +21,12 @@ __all__ = [
     "CampaignStatusResponse",
     "ArtifactsResponse",
     "CampaignStatus",
+    "ProgressInfo",
+    "ErrorInfo",
+    "Artifacts",
+    "DomainSuggestion",
+    "BrandGuidelines",
+    "LegalReview",
     "ErrorResponse",
     "ErrorDetail",
 ]

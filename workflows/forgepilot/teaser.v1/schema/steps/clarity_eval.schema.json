@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.keon.systems/omega/workflows/forgepilot.teaser.v1/steps/clarity_eval.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["requiresQuestions", "reasoning", "confidence"],
+  "properties": {
+    "requiresQuestions": { "type": "boolean" },
+    "reasoning": { "type": "string", "minLength": 10, "maxLength": 2000 },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "riskFlags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "maxItems": 10
+    }
+  }
+}

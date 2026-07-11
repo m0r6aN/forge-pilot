@@ -12,6 +12,8 @@
 
 # testing
 /coverage
+/.evidence
+forgepilot-api/.evidence
 
 # next.js
 /.next/
@@ -40,3 +42,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .vs/
+
+# Windows weirdness / accidental device-named file
+nul
+/nul

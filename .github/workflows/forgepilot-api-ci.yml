@@ -14,8 +14,45 @@ on:
       - ".github/workflows/forgepilot-api-ci.yml"
 
 jobs:
+  sentinels:
+    name: Architecture Sentinels
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        working-directory: ./forgepilot-api
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Verify sentinel count (meta-sentinel)
+        working-directory: ./forgepilot-api
+        run: |
+          COUNT=$(python -m pytest --co -q -m sentinel 2>&1 | grep -c "::" || true)
+          echo "Sentinel count: $COUNT"
+          if [ "$COUNT" -lt 24 ]; then
+            echo "SENTINEL SUITE TOO SMALL: found $COUNT, expected >= 24"
+            echo "Sentinels may have been deleted. No merge until count is restored."
+            exit 1
+          fi
+
+      - name: Run architecture sentinels
+        working-directory: ./forgepilot-api
+        run: |
+          python -m pytest -m sentinel -v --no-header --tb=short
+
   test:
     name: Test
+    needs: [sentinels]
     runs-on: ubuntu-latest
     strategy:
       matrix:

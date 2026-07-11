@@ -1,6 +1,6 @@
 """Campaign API endpoints."""
 
-from fastapi import APIRouter, Request, status
+from fastapi import APIRouter, Request, status, Header
 from fastapi.responses import JSONResponse
 from uuid import uuid4, UUID
 from datetime import datetime
@@ -59,6 +59,8 @@ def error_response(
 async def create_campaign(
     request: Request,
     campaign_request: CreateCampaignRequest,
+    idempotency_key: str | None = Header(default=None, alias="Idempotency-Key"),
+    x_tenant_id: str | None = Header(default=None, alias="X-Tenant-ID"),
 ):
     """
     Create a new brand campaign.
@@ -76,8 +78,30 @@ async def create_campaign(
         if campaign_request.correlation_id
         else get_correlation_id(request)
     )
+    if x_tenant_id and x_tenant_id != str(campaign_request.tenant_id):
+        return error_response(
+            code=ErrorCodes.TENANT_FORBIDDEN,
+            message="Tenant header does not match request tenant",
+            correlation_id=correlation_id,
+            status_code=status.HTTP_403_FORBIDDEN,
+        )
 
     try:
+        store = get_campaign_store()
+        if idempotency_key:
+            existing = await store.get_by_idempotency(
+                tenant_id=campaign_request.tenant_id,
+                actor_id=campaign_request.actor_id,
+                idempotency_key=idempotency_key,
+            )
+            if existing:
+                return error_response(
+                    code=ErrorCodes.IDEMPOTENCY_HIT,
+                    message="Request was already processed for this idempotency key",
+                    correlation_id=correlation_id,
+                    status_code=status.HTTP_409_CONFLICT,
+                )
+
         # Initialize Federation client
         client = FederationClient()
 
@@ -113,7 +137,6 @@ async def create_campaign(
         created_at = datetime.utcnow()
 
         # Store metadata
-        store = get_campaign_store()
         await store.save(
             CampaignMetadata(
                 campaign_id=campaign_id,
@@ -122,6 +145,7 @@ async def create_campaign(
                 actor_id=campaign_request.actor_id,
                 correlation_id=UUID(correlation_id),
                 created_at=created_at,
+                idempotency_key=idempotency_key,
             )
         )
 
@@ -186,6 +210,7 @@ async def create_campaign(
 async def get_campaign_status(
     request: Request,
     campaign_id: UUID,
+    x_tenant_id: str | None = Header(default=None, alias="X-Tenant-ID"),
 ):
     """
     Get campaign status.
@@ -209,6 +234,13 @@ async def get_campaign_status(
                 message=f"Campaign {campaign_id} not found",
                 correlation_id=correlation_id,
                 status_code=status.HTTP_404_NOT_FOUND,
+            )
+        if x_tenant_id and x_tenant_id != str(metadata.tenant_id):
+            return error_response(
+                code=ErrorCodes.TENANT_FORBIDDEN,
+                message="Tenant header does not match campaign tenant",
+                correlation_id=correlation_id,
+                status_code=status.HTTP_403_FORBIDDEN,
             )
 
         # Get conversation from Federation
@@ -296,6 +328,7 @@ async def get_campaign_status(
 async def get_campaign_artifacts(
     request: Request,
     campaign_id: UUID,
+    x_tenant_id: str | None = Header(default=None, alias="X-Tenant-ID"),
 ):
     """
     Get campaign artifacts.
@@ -319,6 +352,13 @@ async def get_campaign_artifacts(
                 message=f"Campaign {campaign_id} not found",
                 correlation_id=correlation_id,
                 status_code=status.HTTP_404_NOT_FOUND,
+            )
+        if x_tenant_id and x_tenant_id != str(metadata.tenant_id):
+            return error_response(
+                code=ErrorCodes.TENANT_FORBIDDEN,
+                message="Tenant header does not match campaign tenant",
+                correlation_id=correlation_id,
+                status_code=status.HTTP_403_FORBIDDEN,
             )
 
         # Get conversation status

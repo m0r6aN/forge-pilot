@@ -1,0 +1,22 @@
+id: forgepilot.blueprint.v1
+version: 1.0.0
+tenantBinding: required
+correlation: required
+memory:
+  store: true
+  scope: tenant
+
+steps:
+  - id: blueprint_generate
+    type: llm
+    prompt: blueprint_generate_prompt
+    output: blueprint_payload
+
+  - id: memory_store
+    type: memory.store
+    when: blueprint_payload exists
+    key: forgepilot.launch.blueprint
+
+  - id: receipt_emit
+    type: receipt
+    when: blueprint_payload exists

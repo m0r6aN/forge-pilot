@@ -1,5 +1,5 @@
 # Multi-stage build for smaller image
-FROM node:18-alpine AS base
+FROM node:20-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -8,7 +8,10 @@ WORKDIR /app
 
 # Copy package files
 COPY package.json package-lock.json* ./
-RUN npm ci --only=production
+COPY omega-sdk-ts/ /omega-sdk-ts/
+# Windows-only binary is checked in as a dependency for local dev; remove it for Linux container builds.
+RUN npm pkg delete dependencies.lightningcss-win32-x64-msvc
+RUN npm ci
 
 # Rebuild the source code only when needed
 FROM base AS builder

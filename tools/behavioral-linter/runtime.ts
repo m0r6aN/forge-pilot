@@ -1,0 +1,1 @@
+export { evaluateBehavior } from './evaluate'

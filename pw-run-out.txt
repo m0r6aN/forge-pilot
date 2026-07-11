@@ -1,0 +1,55 @@
+Starting dev server at Wed 02/18/2026 22:14:09.19 
+Waiting 45s for dev server to be ready... 
+Running component tests at Wed 02/18/2026 22:14:55.27 
+
+Running 11 tests using 10 workers
+
+  ✓   8 [component] › tests\component\launch-form-validation.spec.ts:25:1 › submit button disabled when idea < 20 chars (31.4s)
+  ✓   7 [component] › tests\component\launch-form-validation.spec.ts:62:1 › physical business without location shows error (31.5s)
+  ✓   6 [component] › tests\component\obs-correlation.spec.ts:20:1 › request payload includes sessionId as UUID (31.6s)
+  ✓   3 [component] › tests\component\ui-truthfulness.spec.ts:17:1 › traceId and receiptRef not visible on idea step (35.5s)
+  ✓  10 [component] › tests\component\launch-form-validation.spec.ts:44:1 › invalid email shows validation error on submit (31.8s)
+  ✓   9 [component] › tests\component\launch-form-validation.spec.ts:96:1 › clarify submit blocked when answers empty (33.1s)
+  ✓   4 [component] › tests\component\obs-correlation.spec.ts:88:1 › error response includes error code for debugging (34.0s)
+  ✓   5 [component] › tests\component\obs-correlation.spec.ts:56:1 › response payload includes traceId and receiptRef (33.4s)
+  ✓   1 [component] › tests\component\ui-truthfulness.spec.ts:27:1 › traceId shows "pending" then real value in brief (37.7s)
+  ✓  11 [component] › tests\component\ui-truthfulness.spec.ts:81:1 › error message is specific, not generic (15.5s)
+  ✘   2 [component] › tests\component\ui-truthfulness.spec.ts:55:1 › no false "Complete" or "Done" text before brief step (37.8s)
+
+
+  1) [component] › tests\component\ui-truthfulness.spec.ts:55:1 › no false "Complete" or "Done" text before brief step 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Reviewing your idea')
+    Expected: visible
+    Timeout: 3000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 3000ms[22m
+    [2m  - waiting for getByText('Reviewing your idea')[22m
+
+
+      73 |
+      74 |   // While loading: no misleading success text
+    > 75 |   await expect(page.getByText('Reviewing your idea')).toBeVisible({ timeout: 3_000 })
+         |                                                       ^
+      76 |   await expect(page.getByText(/\bComplete\b|\bDone\b|\bSuccess\b/)).not.toBeVisible()
+      77 |
+      78 |   emitter.addAssertion({ id: 'INV-TRUTHFULNESS', status: 'pass', message: 'no false success text during loading' })
+        at D:\Repos\keon-omega\forgepilot\tests\component\ui-truthfulness.spec.ts:75:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results\ui-truthfulness-no-false-C-8a1f5-Done-text-before-brief-step-component\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results\ui-truthfulness-no-false-C-8a1f5-Done-text-before-brief-step-component\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results\ui-truthfulness-no-false-C-8a1f5-Done-text-before-brief-step-component\error-context.md
+
+  1 failed
+    [component] › tests\component\ui-truthfulness.spec.ts:55:1 › no false "Complete" or "Done" text before brief step 
+  10 passed (1.4m)

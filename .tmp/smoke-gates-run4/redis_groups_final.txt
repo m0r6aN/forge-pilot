@@ -1,0 +1,12 @@
+name
+forgepilot-blueprint-workers
+consumers
+2
+pending
+0
+last-delivered-id
+1771118737711-0
+entries-read
+1
+lag
+0

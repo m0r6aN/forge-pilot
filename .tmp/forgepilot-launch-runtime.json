@@ -1,0 +1,490 @@
+{
+  "traces": {
+    "t:morgan-findings|c:019c5e9e-28fd-7ea7-b858-0c01d838efb2": {
+      "traceId": "t:morgan-findings|c:019c5e9e-28fd-7ea7-b858-0c01d838efb2",
+      "sessionId": "0697636d-b784-49b4-a5e3-aeb60769bdbd",
+      "email": "smoke-runner@example.com",
+      "idea": "AI compliance copilot for SMB HR teams",
+      "advancedOptions": {
+        "colorMode": "none",
+        "hexColors": [],
+        "colorVibe": null,
+        "tone": null,
+        "budget": null
+      },
+      "clarificationAnswers": {},
+      "workflowVersion": "1.0.0",
+      "artifactId": "forgepilot.teaser.v1",
+      "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+      "inputHash": "c897fdeef7ce6ae948a9506baa89347204557b1f730c2114272a8a9f2ea476a9",
+      "status": "teaser_ready",
+      "teaser": {
+        "oneLiner": "AI compliance copilot for SMB HR teams: a focused, governed launch path for the first 90 days.",
+        "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+        "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+        "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+        "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+        "ctaHeadline": "Unlock the full launch blueprint",
+        "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+      },
+      "successReceiptRef": "df34d622202593a67cadb9a8b637efac01441ce2510fb7d8907a742339be8b34",
+      "resumeRecords": {},
+      "receipts": [
+        {
+          "receiptRef": "df34d622202593a67cadb9a8b637efac01441ce2510fb7d8907a742339be8b34",
+          "class": "success",
+          "source": "teaser",
+          "createdAt": "2026-02-15T00:05:50.538Z"
+        }
+      ],
+      "payment": {},
+      "exports": [],
+      "createdAt": "2026-02-15T00:05:50.538Z",
+      "updatedAt": "2026-02-15T00:05:50.538Z"
+    },
+    "t:morgan-findings|c:019c5ea1-ad6d-79e9-b5f1-de3fa33575ef": {
+      "traceId": "t:morgan-findings|c:019c5ea1-ad6d-79e9-b5f1-de3fa33575ef",
+      "sessionId": "f3dd7883-c9fb-40b1-ba07-78be79621754",
+      "email": "smoke-runner@example.com",
+      "idea": "AI compliance copilot for SMB HR teams",
+      "advancedOptions": {
+        "colorMode": "none",
+        "hexColors": [],
+        "colorVibe": null,
+        "tone": null,
+        "budget": null
+      },
+      "clarificationAnswers": {},
+      "workflowVersion": "1.0.0",
+      "artifactId": "forgepilot.teaser.v1",
+      "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+      "inputHash": "aaf58d4444b73cf4acadb24f39aca5c2973731074c70e0ad49572a4588e8d908",
+      "status": "unlocked",
+      "teaser": {
+        "oneLiner": "AI compliance copilot for SMB HR teams: a focused, governed launch path for the first 90 days.",
+        "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+        "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+        "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+        "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+        "ctaHeadline": "Unlock the full launch blueprint",
+        "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+      },
+      "successReceiptRef": "d8ab0d69aa5878466f2b811de4eb207df37571e52c138c6b74a8f958d84a0595",
+      "resumeRecords": {},
+      "receipts": [
+        {
+          "receiptRef": "d8ab0d69aa5878466f2b811de4eb207df37571e52c138c6b74a8f958d84a0595",
+          "class": "success",
+          "source": "teaser",
+          "createdAt": "2026-02-15T00:09:41.053Z"
+        }
+      ],
+      "payment": {
+        "completedAt": "2026-02-15T00:13:37.054Z",
+        "unlockedAt": "2026-02-15T00:13:37.054Z"
+      },
+      "exports": [
+        {
+          "receiptRef": "d8ab0d69aa5878466f2b811de4eb207df37571e52c138c6b74a8f958d84a0595",
+          "pdfSha256": "e7f738ece062a45232aee1a80a55da10e3d71da31554d9aa190cce89ccd87883",
+          "format": "teaser",
+          "createdAt": "2026-02-15T00:13:02.282Z"
+        }
+      ],
+      "createdAt": "2026-02-15T00:09:41.053Z",
+      "updatedAt": "2026-02-15T00:13:37.072Z",
+      "blueprintRequestedAt": "2026-02-15T00:13:37.072Z",
+      "blueprintRequestEventId": "cf3e1c2b-b852-4a20-8562-11f8db3d7285",
+      "blueprintRequestKey": "40a7709ba705f07f6e7b3089a56574672b944be98840a736bb6a065ed332b0c8"
+    },
+    "t:morgan-findings|c:019c5eae-c6d5-7228-9c84-07ed2fc8f17f": {
+      "traceId": "t:morgan-findings|c:019c5eae-c6d5-7228-9c84-07ed2fc8f17f",
+      "sessionId": "060ee4cd-efef-4785-8bfb-e34e624befa1",
+      "email": "smoke-runner@example.com",
+      "idea": "Export gate regression check",
+      "advancedOptions": {
+        "colorMode": "none",
+        "hexColors": [],
+        "colorVibe": null,
+        "tone": null,
+        "budget": null
+      },
+      "clarificationAnswers": {},
+      "workflowVersion": "1.0.0",
+      "artifactId": "forgepilot.teaser.v1",
+      "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+      "inputHash": "e94b92c3a72510ad1240febd60162d8ed9f251a4d54e9049230d9f5559d600fa",
+      "status": "teaser_ready",
+      "teaser": {
+        "oneLiner": "Export gate regression check: a focused, governed launch path for the first 90 days.",
+        "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+        "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+        "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+        "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+        "ctaHeadline": "Unlock the full launch blueprint",
+        "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+      },
+      "successReceiptRef": "2d24145be6925065931a95b7a6d741d6ab78ba3753ff48390c61f4926c026b08",
+      "resumeRecords": {},
+      "receipts": [
+        {
+          "receiptRef": "2d24145be6925065931a95b7a6d741d6ab78ba3753ff48390c61f4926c026b08",
+          "class": "success",
+          "source": "teaser",
+          "createdAt": "2026-02-15T00:23:59.53Z"
+        }
+      ],
+      "payment": {},
+      "exports": [],
+      "createdAt": "2026-02-15T00:23:59.53Z",
+      "updatedAt": "2026-02-15T00:23:59.53Z"
+    },
+    "t:morgan-findings|c:019c5ece-691a-7c0f-a060-fa61608f95d2": {
+      "traceId": "t:morgan-findings|c:019c5ece-691a-7c0f-a060-fa61608f95d2",
+      "sessionId": "5d28ae84-bffc-4f9e-85fd-d417f269a046",
+      "email": "smoke-runner@example.com",
+      "idea": "Hostile rerun D-H: HR compliance copilot",
+      "advancedOptions": {
+        "colorMode": "none",
+        "hexColors": [],
+        "colorVibe": null,
+        "tone": null,
+        "budget": null
+      },
+      "clarificationAnswers": {},
+      "workflowVersion": "1.0.0",
+      "artifactId": "forgepilot.teaser.v1",
+      "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+      "inputHash": "5b6772dce253b918d0f709f30ca1cd1e3e8a46c065276f7f138869961cd55d82",
+      "status": "unlocked",
+      "teaser": {
+        "oneLiner": "Hostile rerun D-H: HR compliance copilot: a focused, governed launch path for the first 90 days.",
+        "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+        "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+        "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+        "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+        "ctaHeadline": "Unlock the full launch blueprint",
+        "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+      },
+      "successReceiptRef": "b4dab3537892955142b31512485e93bf32984dff69a5d4ecc7b2937a0159a8a4",
+      "resumeRecords": {},
+      "receipts": [
+        {
+          "receiptRef": "b4dab3537892955142b31512485e93bf32984dff69a5d4ecc7b2937a0159a8a4",
+          "class": "success",
+          "source": "teaser",
+          "createdAt": "2026-02-15T00:58:32.687Z"
+        }
+      ],
+      "payment": {
+        "completedAt": "2026-02-15T00:58:33.59Z",
+        "unlockedAt": "2026-02-15T00:58:33.59Z"
+      },
+      "exports": [],
+      "createdAt": "2026-02-15T00:58:32.687Z",
+      "updatedAt": "2026-02-15T00:58:33.6Z",
+      "blueprintRequestedAt": "2026-02-15T00:58:33.6Z",
+      "blueprintRequestEventId": "b7548bc0-52f5-42ff-9d8c-7fa4cbc609ab",
+      "blueprintRequestKey": "642c65f979219ede92ef9d4d8029711b6cf33a3dd14aa14ef57be4d3c01343e4"
+    },
+    "t:morgan-findings|c:019c5ee4-71e4-7d70-ba0e-f98522b7e7b2": {
+      "traceId": "t:morgan-findings|c:019c5ee4-71e4-7d70-ba0e-f98522b7e7b2",
+      "sessionId": "43746046-dd7f-4040-a495-eb7b0b1338b8",
+      "email": "morganclint76@gmail.com",
+      "idea": "AI-powered compliance workflow for SMBs",
+      "advancedOptions": {
+        "colorMode": "none",
+        "hexColors": [],
+        "colorVibe": null,
+        "tone": null,
+        "budget": null
+      },
+      "clarificationAnswers": {},
+      "workflowVersion": "1.0.0",
+      "artifactId": "forgepilot.teaser.v1",
+      "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+      "inputHash": "c83bb21811ee8462c9b1621099e6ff38a7a45a7de5812fb44b9cd962757f32f5",
+      "status": "teaser_ready",
+      "teaser": {
+        "oneLiner": "AI-powered compliance workflow for SMBs: a focused, governed launch path for the first 90 days.",
+        "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+        "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+        "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+        "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+        "ctaHeadline": "Unlock the full launch blueprint",
+        "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+      },
+      "successReceiptRef": "3d75a17ad2e73c500abe28aed73eae4c1d7535b9030241879c2d2cea05053748",
+      "resumeRecords": {},
+      "receipts": [
+        {
+          "receiptRef": "3d75a17ad2e73c500abe28aed73eae4c1d7535b9030241879c2d2cea05053748",
+          "class": "success",
+          "source": "teaser",
+          "createdAt": "2026-02-15T01:22:36.708Z"
+        }
+      ],
+      "payment": {},
+      "exports": [],
+      "createdAt": "2026-02-15T01:22:36.708Z",
+      "updatedAt": "2026-02-15T01:22:36.708Z"
+    },
+    "t:morgan-findings|c:019c5ee4-7661-7aa3-9bd2-c44167f52be1": {
+      "traceId": "t:morgan-findings|c:019c5ee4-7661-7aa3-9bd2-c44167f52be1",
+      "sessionId": "a73f82ef-9791-4f85-a473-2945b6f58d3e",
+      "email": "morganclint76@gmail.com",
+      "idea": "Something with AI for marketing",
+      "advancedOptions": {
+        "colorMode": "none",
+        "hexColors": [],
+        "colorVibe": null,
+        "tone": null,
+        "budget": null
+      },
+      "clarificationAnswers": {},
+      "workflowVersion": "1.0.0",
+      "artifactId": "forgepilot.teaser.v1",
+      "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+      "inputHash": "17c9b58a7f1eef985ef40dcfda13504017f64f7248d702284f3662f0cbf56e2b",
+      "status": "unlocked",
+      "teaser": {
+        "oneLiner": "Something with AI for marketing: a focused, governed launch path for the first 90 days.",
+        "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+        "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+        "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+        "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+        "ctaHeadline": "Unlock the full launch blueprint",
+        "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+      },
+      "successReceiptRef": "1134256c50d9587c6f2b6d4d90bc6fa78d4a09eddf89cadedbe26a432ec64eb1",
+      "resumeRecords": {},
+      "receipts": [
+        {
+          "receiptRef": "1134256c50d9587c6f2b6d4d90bc6fa78d4a09eddf89cadedbe26a432ec64eb1",
+          "class": "success",
+          "source": "teaser",
+          "createdAt": "2026-02-15T01:22:37.81Z"
+        }
+      ],
+      "payment": {},
+      "exports": [],
+      "createdAt": "2026-02-15T01:22:37.81Z",
+      "updatedAt": "2026-02-15T01:22:37.81Z"
+    },
+    "t:morgan-findings|c:019c5ee6-af4c-76d1-8b66-42c40e3f9766": {
+      "traceId": "t:morgan-findings|c:019c5ee6-af4c-76d1-8b66-42c40e3f9766",
+      "sessionId": "03914f66-3162-4476-84b6-df074aad3c37",
+      "email": "smoke-runner@example.com",
+      "idea": "D-H audit run: AI compliance copilot for SMB HR",
+      "advancedOptions": {
+        "colorMode": "none",
+        "hexColors": [],
+        "colorVibe": null,
+        "tone": null,
+        "budget": null
+      },
+      "clarificationAnswers": {},
+      "workflowVersion": "1.0.0",
+      "artifactId": "forgepilot.teaser.v1",
+      "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+      "inputHash": "4781293f0354c997a66bbcb55d576de769daa53d97bc7b203b765be1900bb2fd",
+      "status": "unlocked",
+      "teaser": {
+        "oneLiner": "D-H audit run: AI compliance copilot for SMB HR: a focused, governed launch path for the first 90 days.",
+        "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+        "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+        "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+        "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+        "ctaHeadline": "Unlock the full launch blueprint",
+        "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+      },
+      "successReceiptRef": "2ef92dd7079862a6e8b4fceae6e72dc8cbfce0689b48c0fc333eb13f9c32558b",
+      "resumeRecords": {},
+      "receipts": [
+        {
+          "receiptRef": "2ef92dd7079862a6e8b4fceae6e72dc8cbfce0689b48c0fc333eb13f9c32558b",
+          "class": "success",
+          "source": "teaser",
+          "createdAt": "2026-02-15T01:25:03.472Z"
+        },
+        {
+          "receiptRef": "2b94bb2087e9d912a35cb27b4c001a307320e7dee00444d7911bb54ebbd34c85",
+          "class": "success",
+          "source": "webhook",
+          "createdAt": "2026-02-15T01:26:18.919Z"
+        }
+      ],
+      "payment": {
+        "completedAt": "2026-02-15T01:25:37.675Z",
+        "unlockedAt": "2026-02-15T01:25:37.675Z"
+      },
+      "exports": [
+        {
+          "receiptRef": "2b94bb2087e9d912a35cb27b4c001a307320e7dee00444d7911bb54ebbd34c85",
+          "pdfSha256": "470a9dc641a7870eb01b5b6229513ff48f1a58fc4cf0b8f8ab47223cd5697fbb",
+          "format": "blueprint",
+          "createdAt": "2026-02-15T01:27:21.808Z"
+        }
+      ],
+      "createdAt": "2026-02-15T01:25:03.472Z",
+      "updatedAt": "2026-02-15T01:27:21.808Z",
+      "blueprintRequestedAt": "2026-02-15T01:25:37.683Z",
+      "blueprintRequestEventId": "5dee85c9-fee7-43b0-922c-e6ff8d7c8272",
+      "blueprintRequestKey": "9e5aefd9237d8054b0d02ae271b08babbc056c9e64da720600cf230700aac152",
+      "blueprint": {
+        "title": "Startup 74770d4a Blueprint v1",
+        "executiveThesis": "Focus on one high-friction customer segment, deliver a narrow paid outcome quickly, then scale only after repeatable proof of value is established.",
+        "offerArchitecture": "Package the core service as a tiered offer: a paid diagnostic sprint, a guided implementation phase, and an ongoing optimization layer with clear ownership boundaries.",
+        "monetizationModel": "Use upfront implementation fees plus recurring subscriptions tied to execution cadence, with explicit upgrade paths as customers move from pilot to production usage.",
+        "distributionStrategy": "Begin with founder-led outbound to niche communities and partner channels, then formalize referral loops once early wins and testimonials are documented.",
+        "ninetyDayPlan": {
+          "weeks1to3": "Finalize positioning, tighten offer scope, and onboard 3 pilot customers with strict success criteria and weekly decision checkpoints.",
+          "weeks4to8": "Instrument delivery metrics, remove operational bottlenecks, and convert pilot learnings into reusable playbooks and onboarding assets.",
+          "weeks9to12": "Scale controlled acquisition, harden retention loops, and formalize expansion motions based on proven unit economics and customer outcomes."
+        },
+        "riskMitigation": "Mitigate execution risk by enforcing scope control, preserving weekly governance reviews, and failing closed whenever receipt, policy, or delivery quality checks are incomplete.",
+        "firstFiveActions": [
+          "Define one narrow ICP and reject adjacent segments for this quarter.",
+          "Ship a paid pilot offer with explicit success and failure criteria.",
+          "Set weekly governance checkpoints with decision logs and receipts.",
+          "Capture customer evidence and convert it into repeatable playbooks.",
+          "Lock expansion until retention and delivery consistency are stable."
+        ]
+      },
+      "blueprintGeneratedAt": "2026-02-15T01:26:18.919Z",
+      "blueprintReceiptRef": "2b94bb2087e9d912a35cb27b4c001a307320e7dee00444d7911bb54ebbd34c85",
+      "blueprintWorkflowVersion": "1.0.0",
+      "blueprintArtifactId": "forgepilot.blueprint.v1",
+      "blueprintArtifactHash": "a9939fdb7bc66cd47e8f2272ddf3c222e9dfb622f78b71a5f4cd26514838b195",
+      "blueprintInputHash": "e5fc8ddef8cdb590d995db272bf4ba254fd361cbecfc65b7f1f77270b4f69f7e"
+    },
+    "t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b": {
+      "traceId": "t:morgan-findings|c:019c5f04-ccb9-7069-99db-51acd80b518b",
+      "sessionId": "85214539-fec5-414a-bb1f-cb95c6e4cc14",
+      "email": "smoke-runner@example.com",
+      "idea": "RUN5 full seal trace: AI compliance copilot for SMB HR teams",
+      "advancedOptions": {
+        "colorMode": "none",
+        "hexColors": [],
+        "colorVibe": null,
+        "tone": null,
+        "budget": null
+      },
+      "clarificationAnswers": {},
+      "workflowVersion": "1.0.0",
+      "artifactId": "forgepilot.teaser.v1",
+      "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+      "inputHash": "c8138bd067e30497d35887f9ef918a01b50c9ebb8154995e58009985b778c65c",
+      "status": "unlocked",
+      "teaser": {
+        "oneLiner": "RUN5 full seal trace: AI compliance copilot for SMB HR teams: a focused, governed launch path for the first 90 days.",
+        "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+        "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+        "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+        "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+        "ctaHeadline": "Unlock the full launch blueprint",
+        "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+      },
+      "successReceiptRef": "dd87eb4650d14fd0bf8188ecacdb8bed82e79825abf8fa6bf53e686edb6d5f68",
+      "resumeRecords": {},
+      "receipts": [
+        {
+          "receiptRef": "dd87eb4650d14fd0bf8188ecacdb8bed82e79825abf8fa6bf53e686edb6d5f68",
+          "class": "success",
+          "source": "teaser",
+          "createdAt": "2026-02-15T01:57:57.098Z"
+        },
+        {
+          "receiptRef": "0fa628f9875badc74f22fc7bb8c54a1e474c64c05580189f1bc49d5411a1f4f6",
+          "class": "success",
+          "source": "webhook",
+          "createdAt": "2026-02-15T01:58:26.598Z"
+        }
+      ],
+      "payment": {
+        "completedAt": "2026-02-15T01:58:25.355Z",
+        "unlockedAt": "2026-02-15T01:58:25.355Z"
+      },
+      "exports": [
+        {
+          "receiptRef": "0fa628f9875badc74f22fc7bb8c54a1e474c64c05580189f1bc49d5411a1f4f6",
+          "pdfSha256": "04728f987068d584db3112bfe69df45c7f120410bbb77b068c71448ca05a1014",
+          "format": "blueprint",
+          "createdAt": "2026-02-15T01:59:31.294Z"
+        }
+      ],
+      "createdAt": "2026-02-15T01:57:57.098Z",
+      "updatedAt": "2026-02-15T01:59:31.295Z",
+      "blueprintRequestedAt": "2026-02-15T01:58:25.361Z",
+      "blueprintRequestEventId": "802e1269-e277-46b7-b8d6-fcc33be05634",
+      "blueprintRequestKey": "72506a906784ce90bdcd29893d26147cbd5cd23918126eb73b3dea9cb180d3ff",
+      "blueprint": {
+        "title": "Startup 2caeff14 Blueprint v1",
+        "executiveThesis": "Focus on one high-friction customer segment, deliver a narrow paid outcome quickly, then scale only after repeatable proof of value is established.",
+        "offerArchitecture": "Package the core service as a tiered offer: a paid diagnostic sprint, a guided implementation phase, and an ongoing optimization layer with clear ownership boundaries.",
+        "monetizationModel": "Use upfront implementation fees plus recurring subscriptions tied to execution cadence, with explicit upgrade paths as customers move from pilot to production usage.",
+        "distributionStrategy": "Begin with founder-led outbound to niche communities and partner channels, then formalize referral loops once early wins and testimonials are documented.",
+        "ninetyDayPlan": {
+          "weeks1to3": "Finalize positioning, tighten offer scope, and onboard 3 pilot customers with strict success criteria and weekly decision checkpoints.",
+          "weeks4to8": "Instrument delivery metrics, remove operational bottlenecks, and convert pilot learnings into reusable playbooks and onboarding assets.",
+          "weeks9to12": "Scale controlled acquisition, harden retention loops, and formalize expansion motions based on proven unit economics and customer outcomes."
+        },
+        "riskMitigation": "Mitigate execution risk by enforcing scope control, preserving weekly governance reviews, and failing closed whenever receipt, policy, or delivery quality checks are incomplete.",
+        "firstFiveActions": [
+          "Define one narrow ICP and reject adjacent segments for this quarter.",
+          "Ship a paid pilot offer with explicit success and failure criteria.",
+          "Set weekly governance checkpoints with decision logs and receipts.",
+          "Capture customer evidence and convert it into repeatable playbooks.",
+          "Lock expansion until retention and delivery consistency are stable."
+        ]
+      },
+      "blueprintGeneratedAt": "2026-02-15T01:58:26.598Z",
+      "blueprintReceiptRef": "0fa628f9875badc74f22fc7bb8c54a1e474c64c05580189f1bc49d5411a1f4f6",
+      "blueprintWorkflowVersion": "1.0.0",
+      "blueprintArtifactId": "forgepilot.blueprint.v1",
+      "blueprintArtifactHash": "a9939fdb7bc66cd47e8f2272ddf3c222e9dfb622f78b71a5f4cd26514838b195",
+      "blueprintInputHash": "810bab4e77e9a5996a67337d7989b607b5135813063f20b06c28a5778cc9af1b"
+    },
+    "t:morgan-findings|c:019c632c-26bd-7008-b253-1f0cc70059d3": {
+      "traceId": "t:morgan-findings|c:019c632c-26bd-7008-b253-1f0cc70059d3",
+      "sessionId": "e2e3cf59-2bc4-4a3f-b937-0bd72b7f71cb",
+      "idea": "I want to create a not-for-profit business called \"The Orchard\".  It will be a large piece of land with various fruits and vegetables. Customers can purchase $5 and $10 buckets and/or $20 wagons. They walk around the orchard (or rent a cart to ride) and dill their containers with as much produce as they can fit in them. When they are ready to leave, we bag them nicely.",
+      "advancedOptions": {
+        "colorMode": "none",
+        "hexColors": [],
+        "colorVibe": null,
+        "tone": null,
+        "budget": null
+      },
+      "clarificationAnswers": {},
+      "workflowVersion": "1.0.0",
+      "artifactId": "forgepilot.teaser.v1",
+      "artifactHash": "3751b67f2e5047c81aa346149a852ba94ce156839e5b5b36579f947041d93341",
+      "inputHash": "0ab3d7e3805c639cca478fc400742dfca2efdbef10febbc0ec67866bdf7682e5",
+      "status": "teaser_ready",
+      "teaser": {
+        "oneLiner": "I want to create a not-for-profit business called \"The Orchard\".  It will be a large piece of land with various fruits and vegetables. Customers can purchase $5 and $10 buckets and",
+        "positioning": "This launch positions the offer for teams that need fast execution with strict governance and clear outcomes.",
+        "icpSnapshot": "Best initial customers are founder-led B2B teams with urgent workflow pain and willingness to buy a measurable fix.",
+        "monetizationAngle": "Start with a clear paid pilot and convert to recurring subscriptions once onboarding and first value are proven.",
+        "strategicDifferentiator": "The wedge is deterministic execution plus auditable receipts, reducing risk while keeping time-to-value short.",
+        "ctaHeadline": "Unlock the full launch blueprint",
+        "ctaUnlockValue": "Get the complete 90-day operating blueprint with execution sequencing, risks, and first five actions."
+      },
+      "successReceiptRef": "b1288c5c38ff0b7cd2e05eb17765b624da2bf8d47fbce1abac11b3bee6430952",
+      "resumeRecords": {},
+      "receipts": [
+        {
+          "receiptRef": "b1288c5c38ff0b7cd2e05eb17765b624da2bf8d47fbce1abac11b3bee6430952",
+          "class": "success",
+          "source": "teaser",
+          "createdAt": "2026-02-15T21:19:24.946Z"
+        }
+      ],
+      "payment": {},
+      "exports": [],
+      "createdAt": "2026-02-15T21:19:24.946Z",
+      "updatedAt": "2026-02-15T21:19:24.946Z"
+    }
+  }
+}
